@@ -1,4 +1,4 @@
-const sql = require("./db");
+const sql = require("../db");
 class khach_hang {
     constructor(user) {
         this.email_khach_hang = user.email_khach_hang;
@@ -7,6 +7,8 @@ class khach_hang {
         this.mat_khau_khach_hang = user.mat_khau_khach_hang;
     }
 }
+
+
 khach_hang.create = (newUser, result) => {
     sql.query("INSERT INTO khach_hang SET ?", newUser, (err, res) => {
         if (err) {

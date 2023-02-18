@@ -1,8 +1,7 @@
-const khach_hang = require('../../models/user.model');
+const khach_hang = require('../../models/auth/user.model');
 const bcrypt = require('bcrypt');
 require('dotenv/config');
 const mailer = require('../../utils/mailer');
-
 exports.create = (req, res) => {
     res.render('auth/register');
 }
@@ -13,9 +12,9 @@ exports.register = (req, res) => {
     if (email_khach_hang && mat_khau_khach_hang) {
         khach_hang.findByEmail(email_khach_hang, (err, user) => {
             if (err || user) {
-                return res.status(404).json({
+                return res.status(400).json({
                     success: 0,
-                    data: 'Dia chi email hoac mat khau khong dung',
+                    message: 'Dia chi email da ton tai',
                 });
             }
         })
@@ -65,21 +64,4 @@ exports.verify = (req, res) => {
             res.redirect('/404');
         }
     })
-}
-
-
-exports.getAlluser = (req, res) => {
-    khach_hang.getAllemail((err, result) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        return res.json({
-            success: 1,
-            message: 'get product successfully',
-            data: result,
-        });
-    }
-
-    )
 }

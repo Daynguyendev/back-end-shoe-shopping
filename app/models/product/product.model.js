@@ -1,0 +1,52 @@
+const sql = require("../db");
+class product {
+    constructor(item) {
+        this.ten_sp = item.ten_sp;
+        this.gia_sp = item.gia_sp;
+        this.thong_tin_sp = item.thong_tin_sp;
+        this.id_hinh_anh = item.id_hinh_anh;
+        this.id_thuong_hieu = item.id_thuong_hieu;
+        this.id_giam_gia = item.id_giam_gia;
+        this.id_loai_sp = item.id_loai_sp;
+        this.hinh_anh_chinh = item.hinh_anh_chinh;
+
+    }
+}
+
+product.create = (data, callBack) => {
+    sql.query(`INSERT INTO san_pham SET ? `, data, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+product.remove = (data, callBack) => {
+    sql.query("DELETE FROM san_pham WHERE id_sp = ?", [data.id_sp], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+product.get = (data, callBack) => {
+    sql.query("SELECT * FROM san_pham WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
+
+
+module.exports = product;

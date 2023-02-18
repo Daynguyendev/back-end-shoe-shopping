@@ -1,4 +1,4 @@
-const khach_hang = require('../../models/user.model');
+const khach_hang = require('../../models/auth/user.model');
 const bcrypt = require('bcrypt');
 
 exports.showLoginForm = (req, res) => {
@@ -11,7 +11,7 @@ exports.login = (req, res) => {
     if (email_khach_hang && mat_khau_khach_hang) {
         khach_hang.findByEmail(email_khach_hang, (err, user) => {
             if (!user) {
-                return res.status(402).json({
+                return res.status(400).json({
                     success: 0,
                     data: 'Khong tim thay email',
                 });
@@ -25,7 +25,7 @@ exports.login = (req, res) => {
                         });
                     } else {
                         // A user with that email address does not exists
-                        return res.status(401).json({
+                        return res.status(400).json({
                             success: 0,
                             data: 'mat khau khong chinh xac',
                         });

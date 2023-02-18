@@ -1,4 +1,4 @@
-const User = require('../../models/user.model');
+const User = require('../../models/auth/user.model');
 const bcrypt = require('bcrypt');
 const mailer = require('../../utils/mailer');
 
@@ -28,14 +28,14 @@ exports.showResetForm = (req, res) => {
     if (!req.params.email || !req.query.token) {
         res.redirect('/password/reset')
     } else {
-        res.render('auth/passwords/reset', { email: req.params.email, token: req.query.token})
+        res.render('auth/passwords/reset', { email: req.params.email, token: req.query.token })
     }
 }
 
 exports.reset = (req, res) => {
     const { email, token, password } = req.body;
     console.log(email, token, password);
-    if (!email || !token || !password) { 
+    if (!email || !token || !password) {
         res.redirect('/password/reset');
     } else {
         bcrypt.compare(email, token, (err, result) => {
