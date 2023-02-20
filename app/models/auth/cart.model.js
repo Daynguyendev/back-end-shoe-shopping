@@ -2,6 +2,7 @@ const sql = require("../db");
 class cart {
     constructor(item) {
         this.id_sp = item.id_sp;
+        this.id_khach_hang = item.id_khach_hang;
         this.ten_mau_sac = item.ten_mau_sac;
         this.ten_kich_thuoc = item.ten_kich_thuoc;
         this.so_luong = item.so_luong;
@@ -40,6 +41,18 @@ cart.get = (data, callBack) => {
         callBack(null, res);
     });
 };
+
+cart.getByIdKhachHang = (data, callBack) => {
+    sql.query("SELECT * FROM gio_hang WHERE id_khach_hang", data, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 
 
 

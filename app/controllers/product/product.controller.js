@@ -106,3 +106,24 @@ exports.getAllItemProduct = (req, res) => {
     });
 
 };
+
+exports.getItemByIDImage = (req, res) => {
+
+    const id_hinh_anh = req.params.id;
+
+    product.getByIDImage(id_hinh_anh, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+

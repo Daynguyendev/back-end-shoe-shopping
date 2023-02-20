@@ -27,6 +27,18 @@ color.remove = (data, callBack) => {
     });
 };
 
+color.get = (data, callBack) => {
+    sql.query("SELECT * FROM mau_sac WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 module.exports = color;

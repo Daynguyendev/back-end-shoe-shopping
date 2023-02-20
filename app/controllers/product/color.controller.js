@@ -78,3 +78,23 @@ exports.removeColor = (req, res) => {
     }
 
 };
+
+exports.getAllColor = (req, res) => {
+
+    const data = {};
+
+    color.get(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};

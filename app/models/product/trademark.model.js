@@ -28,6 +28,19 @@ trademark.remove = (data, callBack) => {
     });
 };
 
+trademark.get = (data, callBack) => {
+    sql.query("SELECT * FROM thuong_hieu WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
 
 
 module.exports = trademark;

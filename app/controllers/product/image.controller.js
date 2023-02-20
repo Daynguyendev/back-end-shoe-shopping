@@ -3,7 +3,7 @@ const image = require('../../models/product/image.model')
 exports.addImage = (req, res) => {
     const { link_hinh_anh_ct, id_hinh_anh_ct } = req.body;
 
-    if (link_hinh_anh) {
+    if (link_hinh_anh_ct) {
         const newImage = new image({
             link_hinh_anh_ct: link_hinh_anh_ct,
             id_hinh_anh_ct: id_hinh_anh_ct,

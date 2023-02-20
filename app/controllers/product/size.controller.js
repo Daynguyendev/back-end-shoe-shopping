@@ -78,3 +78,22 @@ exports.removeSize = (req, res) => {
     }
 
 };
+exports.getAllSize = (req, res) => {
+
+    const data = {};
+
+    size.get(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};

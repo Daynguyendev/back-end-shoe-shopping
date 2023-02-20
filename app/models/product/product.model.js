@@ -45,6 +45,28 @@ product.get = (data, callBack) => {
     });
 };
 
+product.getByIDImage = (id_hinh_anh, callBack) => {
+    sql.query(" SELECT * FROM san_pham WHERE id_hinh_anh =?", [id_hinh_anh], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+product.getIdSpByIDImage = (id_hinh_anh, callBack) => {
+    sql.query(" SELECT id_sp FROM san_pham WHERE id_hinh_anh =?", [id_hinh_anh], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 

@@ -77,3 +77,23 @@ exports.removeTrademark = (req, res) => {
     }
 
 };
+
+exports.getAlltrademark = (req, res) => {
+
+    const data = {};
+
+    trademark.get(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};

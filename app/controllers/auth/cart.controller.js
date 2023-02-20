@@ -1,10 +1,11 @@
 const cart = require('../../models/auth/cart.model')
 
 exports.addCart = (req, res) => {
-    const { id_sp, ten_mau_sac, ten_kich_thuoc, so_luong } = req.body;
-    if (id_sp, ten_mau_sac, ten_kich_thuoc, so_luong) {
+    const { id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang } = req.body;
+    if (id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang) {
         const newCart = new cart({
             id_sp: id_sp,
+            id_khach_hang: id_khach_hang,
             ten_mau_sac: ten_mau_sac,
             ten_kich_thuoc: ten_kich_thuoc,
             so_luong: so_luong,
@@ -18,7 +19,7 @@ exports.addCart = (req, res) => {
 
 
             }
-            return res.json({
+            return res.status(200).json({
                 success: 1,
                 message: 'Them gio hang thanh cong',
                 cart: newCart,
@@ -55,12 +56,33 @@ exports.getAllItemCart = (req, res) => {
 
 
         }
-        return res.json({
+        return res.status(200).json({
             data,
         });
     });
 
 };
+
+exports.getAllItemCartById = (req, res) => {
+
+    const id_khach_hang = req.params.id;
+
+    cart.getByIdKhachHang(id_khach_hang, (err, results) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.json({
+            data: results,
+        });
+    });
+
+};
+
 
 
 exports.removeCart = (req, res) => {

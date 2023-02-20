@@ -32,4 +32,17 @@ size.remove = (newSize, result) => {
 
 
 
+size.get = (data, callBack) => {
+    sql.query("SELECT * FROM kich_thuoc WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
 module.exports = size;

@@ -30,4 +30,19 @@ discount.remove = (data, callBack) => {
 
 
 
+discount.get = (data, callBack) => {
+    console.log('hehe');
+    sql.query("SELECT * FROM giam_gia WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
+
 module.exports = discount;

@@ -28,6 +28,18 @@ category.remove = (data, callBack) => {
     });
 };
 
+category.get = (data, callBack) => {
+    sql.query("SELECT * FROM loai_sp WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 module.exports = category;

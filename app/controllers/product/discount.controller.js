@@ -79,3 +79,25 @@ exports.removeDiscount = (req, res) => {
     }
 
 };
+
+exports.getAllDiscount = (req, res) => {
+    console.log('hehe')
+    const data = {};
+
+
+    discount.get(data, (err, data) => {
+
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};

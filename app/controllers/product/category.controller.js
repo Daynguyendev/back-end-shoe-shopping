@@ -77,3 +77,23 @@ exports.removeCategory = (req, res) => {
     }
 
 };
+
+exports.getAllCategory = (req, res) => {
+
+    const data = {};
+
+    category.get(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
