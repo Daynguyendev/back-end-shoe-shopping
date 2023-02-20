@@ -33,6 +33,10 @@ const removeRate = require('../controllers/bill/rate.controller')
 const addCart = require('../controllers/auth/cart.controller')
 const removeCart = require('../controllers/auth/cart.controller')
 const getAllItemCart = require('../controllers/auth/cart.controller')
+const addProvider = require('../controllers/product/provider.controller')
+const removeProvider = require('../controllers/product/provider.controller')
+const getAllProvider = require('../controllers/product/provider.controller')
+
 
 
 module.exports = app => {
@@ -66,7 +70,9 @@ module.exports = app => {
         .post('/product/discount', addDiscount.addDiscount)
         .delete('/product/discount', removeDiscount.removeDiscount)
 
-
+        .get('/product/provider', getAllProvider.getAllProvider)
+        .post('/product/provider', addProvider.addProvider)
+        .delete('/product/provider', removeProvider.removeProvider)
 
 
 
