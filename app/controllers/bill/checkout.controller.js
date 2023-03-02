@@ -1,26 +1,25 @@
-const trademark = require('../../models/product/trademark.model')
+const checkout = require('../../models/bill/checkout.model')
 
-exports.addTrademark = (req, res) => {
-    const { ten_thuong_hieu } = req.body;
-
-    if (ten_thuong_hieu) {
-        const newTrademark = new trademark({
-            ten_thuong_hieu: ten_thuong_hieu,
-
+exports.addCheckout = (req, res) => {
+    const { ten_phuong_thuc_tt } = req.body;
+    console.log(ten_phuong_thuc_tt)
+    if (ten_phuong_thuc_tt) {
+        const newCheckout = new checkout({
+            ten_phuong_thuc_tt: ten_phuong_thuc_tt,
         });
-        trademark.create(newTrademark, (err, newTrademark) => {
+        checkout.create(newCheckout, (err, newCheckout) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Thuong hieu khong hop le',
+                    data: 'Phuong thuc thanh toan khong hop le',
                 });
 
 
             }
             return res.json({
                 success: 1,
-                message: 'Them thuong hieu thanh cong',
-                trademark: newTrademark,
+                message: 'Them Phuong thuc thanh toan thanh cong',
+                checkout: newCheckout,
             });
         });
 
@@ -41,12 +40,12 @@ exports.addTrademark = (req, res) => {
 };
 
 
-exports.removeTrademark = (req, res) => {
-    const ten_thuong_hieu = req.body;
+exports.removeCheckout = (req, res) => {
+    const id_phuong_thuc_tt = req.body;
 
-    if (ten_thuong_hieu) {
+    if (id_phuong_thuc_tt) {
 
-        trademark.remove(ten_thuong_hieu, (err, ten_thuong_hieu) => {
+        checkout.remove(id_phuong_thuc_tt, (err, id_phuong_thuc_tt) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -58,7 +57,7 @@ exports.removeTrademark = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                trademark: ten_thuong_hieu,
+                checkout: id_phuong_thuc_tt,
             });
         });
 
@@ -66,7 +65,7 @@ exports.removeTrademark = (req, res) => {
     }
     else {
 
-        return res.status(400).json({
+        return res.status(500).json({
             success: 0,
             data: 'Xoa that bai',
         });
@@ -78,11 +77,12 @@ exports.removeTrademark = (req, res) => {
 
 };
 
-exports.getAlltrademark = (req, res) => {
-
+exports.getAllCheckout = (req, res) => {
     const data = {};
 
-    trademark.get(data, (err, data) => {
+
+    checkout.getAll(data, (err, data) => {
+
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -98,14 +98,13 @@ exports.getAlltrademark = (req, res) => {
 
 };
 
-
-exports.UpdateTrademark = (req, res) => {
+exports.UpdateCheckout = (req, res) => {
     const data = {
-        id_thuong_hieu: req.body.id_thuong_hieu,
-        ten_thuong_hieu: req.body.ten_thuong_hieu,
+        id_phuong_thuc_tt: req.body.id_phuong_thuc_tt,
+        ten_phuong_thuc_tt: req.body.ten_phuong_thuc_tt,
     };
 
-    trademark.update(data, (err, results) => {
+    checkout.update(data, (err, results) => {
         if (err) {
             console.log(err);
             return;

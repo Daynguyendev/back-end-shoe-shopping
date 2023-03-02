@@ -1,27 +1,28 @@
-const color = require('../../models/product/color.model')
+const invoiceinput = require('../../models/Invoiceinput/invoiceinput.model')
 
 
-exports.addColor = (req, res) => {
-    const { ten_mau_sac } = req.body;
+exports.addInvoiceInput = (req, res) => {
+    const { ten_hoa_don_nhap, tong_tien } = req.body;
 
-    if (ten_mau_sac) {
-        const newColor = new color({
-            ten_mau_sac: ten_mau_sac,
+    if (ten_hoa_don_nhap, tong_tien) {
+        const newInvoice = new invoiceinput({
+            ten_hoa_don_nhap: ten_hoa_don_nhap,
+            tong_tien: tong_tien,
 
         });
-        color.create(newColor, (err, newColor) => {
+        invoiceinput.create(newInvoice, (err, newInvoice) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Mau khong hop le',
+                    data: 'Hoa don nhap khong hop le',
                 });
 
 
             }
             return res.json({
                 success: 1,
-                message: 'Them mau thanh cong',
-                color: newColor,
+                message: 'Them hoa don nhap thanh cong',
+                invoice: newInvoice,
             });
         });
 
@@ -42,12 +43,12 @@ exports.addColor = (req, res) => {
 };
 
 
-exports.removeColor = (req, res) => {
-    const id_mau_sac = req.body;
+exports.removeInvoiceInput = (req, res) => {
+    const id_hd_nhap_hang = req.body;
 
-    if (id_mau_sac) {
+    if (id_hd_nhap_hang) {
 
-        color.remove(id_mau_sac, (err, id_mau_sac) => {
+        invoiceinput.remove(id_hd_nhap_hang, (err, id_hd_nhap_hang) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -59,7 +60,7 @@ exports.removeColor = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                color: id_mau_sac,
+                invoice: id_hd_nhap_hang,
             });
         });
 
@@ -79,11 +80,12 @@ exports.removeColor = (req, res) => {
 
 };
 
-exports.getAllColor = (req, res) => {
-
+exports.getAllInvoiceInput = (req, res) => {
     const data = {};
 
-    color.get(data, (err, data) => {
+
+    invoiceinput.get(data, (err, data) => {
+
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -99,11 +101,11 @@ exports.getAllColor = (req, res) => {
 
 };
 
-exports.getNameColorbyID = (req, res) => {
+exports.getInvoiceByID = (req, res) => {
+    const ten_hoa_don_nhap = req.params.name;
+    console.log(ten_hoa_don_nhap)
+    invoiceinput.getByName(ten_hoa_don_nhap, (err, result) => {
 
-    const { id_mau_sac } = req.body;
-
-    color.getNameByID(id_mau_sac, (err, result) => {
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -118,3 +120,4 @@ exports.getNameColorbyID = (req, res) => {
     });
 
 };
+

@@ -6,7 +6,6 @@ class product {
         this.thong_tin_sp = item.thong_tin_sp;
         this.id_hinh_anh = item.id_hinh_anh;
         this.id_thuong_hieu = item.id_thuong_hieu;
-        this.id_giam_gia = item.id_giam_gia;
         this.id_loai_sp = item.id_loai_sp;
         this.hinh_anh_chinh = item.hinh_anh_chinh;
 
@@ -64,6 +63,31 @@ product.getIdSpByIDImage = (id_hinh_anh, callBack) => {
         }
         callBack(null, res);
     });
+};
+
+
+product.update = (data, callBack) => {
+    sql.query(
+        `UPDATE san_pham SET ten_sp = ?, gia_sp = ?, thong_tin_sp=? , id_hinh_anh=?, id_thuong_hieu = ?, id_loai_sp = ?, hinh_anh_chinh=? WHERE id_sp = ?;`,
+        [
+            data.ten_sp,
+            data.gia_sp,
+            data.thong_tin_sp,
+            data.id_hinh_anh,
+            data.id_thuong_hieu,
+            data.id_loai_sp,
+            data.hinh_anh_chinh,
+            data.id_sp,
+
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
 };
 
 

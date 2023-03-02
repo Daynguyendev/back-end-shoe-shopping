@@ -97,3 +97,50 @@ exports.getAllSize = (req, res) => {
     });
 
 };
+
+exports.UpdateTrademark = (req, res) => {
+    const data = {
+        id_thuong_hieu: req.body.id_thuong_hieu,
+        ten_thuong_hieu: req.body.ten_thuong_hieu,
+    };
+
+    size.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
+};
+
+
+exports.getNameSizebyID = (req, res) => {
+
+    const { id_kich_thuoc } = req.body;
+
+    size.getNameByID(id_kich_thuoc, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};

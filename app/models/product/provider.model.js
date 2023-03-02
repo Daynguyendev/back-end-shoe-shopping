@@ -42,6 +42,24 @@ provider.get = (data, callBack) => {
     });
 };
 
+provider.update = (data, callBack) => {
+    sql.query(
+        `UPDATE nha_cung_cap SET ten_nha_cc = ?,  dia_chi_cc = ? WHERE id_nha_cc = ?;`,
+        [
+            data.ten_nha_cc,
+            data.dia_chi_cc,
+            data.id_nha_cc,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
 
 
 

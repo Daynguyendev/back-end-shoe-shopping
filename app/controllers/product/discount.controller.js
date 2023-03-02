@@ -81,11 +81,10 @@ exports.removeDiscount = (req, res) => {
 };
 
 exports.getAllDiscount = (req, res) => {
-    console.log('hehe')
     const data = {};
 
 
-    discount.get(data, (err, data) => {
+    discount.getAll(data, (err, data) => {
 
         if (err) {
             return res.status(400).json({
@@ -100,4 +99,34 @@ exports.getAllDiscount = (req, res) => {
         });
     });
 
+};
+
+
+
+exports.UpdateDisCount = (req, res) => {
+    const data = {
+        id_giam_gia: req.body.id_giam_gia,
+        ten_giam_gia: req.body.ten_giam_gia,
+        gia_giam: req.body.gia_giam,
+    };
+    console.log('hehae', data);
+
+    discount.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

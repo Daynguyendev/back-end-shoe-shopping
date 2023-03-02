@@ -38,6 +38,35 @@ color.get = (data, callBack) => {
     });
 };
 
+color.update = (data, callBack) => {
+    sql.query(
+        `UPDATE mau_sac SET ten_mau_sac = ? WHERE id_mau_sac = ?;`,
+        [
+            data.ten_mau_sac,
+            data.id_mau_sac,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+color.getNameByID = (id_mau_sac, callBack) => {
+    sql.query(" SELECT * FROM mau_sac WHERE id_mau_sac =?", [id_mau_sac], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 

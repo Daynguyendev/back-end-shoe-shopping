@@ -5,6 +5,8 @@ class khach_hang {
         this.ngay_sinh_khach_hang = user.ngay_sinh_khach_hang;
         this.ngay_tao_tai_khoan = new Date();
         this.mat_khau_khach_hang = user.mat_khau_khach_hang;
+        this.chuc_vu = user.chuc_vu;
+
     }
 }
 
@@ -82,6 +84,35 @@ khach_hang.resetPassword = (email_khach_hang, mat_khau_khach_hang, result) => {
             result(null, { email_khach_hang: email_khach_hang });
         }
     );
+};
+
+
+khach_hang.updateToken = (token, email_khach_hang, callBack) => {
+    sql.query(
+        `UPDATE khach_hang SET token= ? WHERE email_khach_hang = ?;`,
+        [
+            token,
+            email_khach_hang,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+khach_hang.getIdbyEmail = (data, callBack) => {
+    sql.query("SELECT id_khach_hang FROM khach_hang WHERE email_khach_hang = ? ", [data.email_khach_hang], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
 };
 
 module.exports = khach_hang;

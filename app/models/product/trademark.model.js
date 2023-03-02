@@ -40,6 +40,24 @@ trademark.get = (data, callBack) => {
 };
 
 
+trademark.update = (data, callBack) => {
+    sql.query(
+        `UPDATE thuong_hieu SET ten_thuong_hieu = ? WHERE id_thuong_hieu = ?;`,
+        [
+            data.ten_thuong_hieu,
+            data.id_thuong_hieu,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
 
 
 

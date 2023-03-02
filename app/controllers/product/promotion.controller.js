@@ -1,26 +1,29 @@
-const trademark = require('../../models/product/trademark.model')
+const promotion = require('../../models/product/promotion.model')
 
-exports.addTrademark = (req, res) => {
-    const { ten_thuong_hieu } = req.body;
+exports.addPromotion = (req, res) => {
+    const { ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam } = req.body;
 
-    if (ten_thuong_hieu) {
-        const newTrademark = new trademark({
-            ten_thuong_hieu: ten_thuong_hieu,
+    if (ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam) {
+        const newPromotion = new promotion({
+            ten_khuyen_mai: ten_khuyen_mai,
+            ngay_bat_dau: ngay_bat_dau,
+            ngay_ket_thuc: ngay_ket_thuc,
+            phan_tram_giam: phan_tram_giam,
 
         });
-        trademark.create(newTrademark, (err, newTrademark) => {
+        promotion.create(newPromotion, (err, newPromotion) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Thuong hieu khong hop le',
+                    data: 'Ma khuyen mai khong hop le',
                 });
 
 
             }
             return res.json({
                 success: 1,
-                message: 'Them thuong hieu thanh cong',
-                trademark: newTrademark,
+                message: 'Them khuyen mai thanh cong',
+                promotion: newPromotion,
             });
         });
 
@@ -41,12 +44,12 @@ exports.addTrademark = (req, res) => {
 };
 
 
-exports.removeTrademark = (req, res) => {
-    const ten_thuong_hieu = req.body;
+exports.removePromotion = (req, res) => {
+    const id_khuyen_mai = req.body;
 
-    if (ten_thuong_hieu) {
+    if (id_khuyen_mai) {
 
-        trademark.remove(ten_thuong_hieu, (err, ten_thuong_hieu) => {
+        promotion.remove(id_khuyen_mai, (err, id_khuyen_mai) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -58,7 +61,7 @@ exports.removeTrademark = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                trademark: ten_thuong_hieu,
+                promotion: id_khuyen_mai,
             });
         });
 
@@ -66,7 +69,7 @@ exports.removeTrademark = (req, res) => {
     }
     else {
 
-        return res.status(400).json({
+        return res.status(500).json({
             success: 0,
             data: 'Xoa that bai',
         });
@@ -78,11 +81,12 @@ exports.removeTrademark = (req, res) => {
 
 };
 
-exports.getAlltrademark = (req, res) => {
-
+exports.getAllPromotion = (req, res) => {
     const data = {};
 
-    trademark.get(data, (err, data) => {
+
+    promotion.getAll(data, (err, data) => {
+
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -98,14 +102,17 @@ exports.getAlltrademark = (req, res) => {
 
 };
 
-
-exports.UpdateTrademark = (req, res) => {
+exports.UpdatePromotion = (req, res) => {
     const data = {
-        id_thuong_hieu: req.body.id_thuong_hieu,
-        ten_thuong_hieu: req.body.ten_thuong_hieu,
+        id_khuyen_mai: req.body.id_khuyen_mai,
+        ten_khuyen_mai: req.body.ten_khuyen_mai,
+        ngay_bat_dau: req.body.ngay_bat_dau,
+        ngay_ket_thuc: req.body.ngay_ket_thuc,
+        phan_tram_giam: req.body.phan_tram_giam,
+
     };
 
-    trademark.update(data, (err, results) => {
+    promotion.update(data, (err, results) => {
         if (err) {
             console.log(err);
             return;

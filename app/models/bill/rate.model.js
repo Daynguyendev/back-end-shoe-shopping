@@ -1,7 +1,6 @@
 const sql = require("../db");
 class rate {
     constructor(bill) {
-        this.id_hd_dat = bill.id_hd_dat;
         this.noi_dung = bill.noi_dung;
         this.id_mau_sac = bill.id_mau_sac;
         this.id_kich_thuoc = bill.id_kich_thuoc;
@@ -31,6 +30,33 @@ rate.remove = (data, callBack) => {
         }
         callBack(null, res);
     });
+};
+
+
+rate.update = (data, callBack) => {
+    console.log(data)
+    sql.query(
+        `UPDATE danh_gia_sp SET noi_dung = ?, id_mau_sac = ? , id_kich_thuoc = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
+         so_sao_danh_gia= ? WHERE id_danh_gia = ?;`,
+        [
+            data.noi_dung,
+            data.id_mau_sac,
+            data.id_kich_thuoc,
+            data.id_sp,
+            data.hinh_anh_danh_gia,
+            data.so_sao_danh_gia,
+            data.id_danh_gia,
+
+
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
 };
 
 

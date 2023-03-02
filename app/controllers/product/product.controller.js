@@ -1,16 +1,15 @@
 const product = require('../../models/product/product.model')
 
 exports.addProduct = (req, res) => {
-    const { ten_sp, gia_sp, thong_tin_sp, id_hinh_anh, id_thuong_hieu, id_giam_gia, id_loai_sp, hinh_anh_chinh } = req.body;
+    const { ten_sp, gia_sp, thong_tin_sp, id_hinh_anh, id_thuong_hieu, id_loai_sp, hinh_anh_chinh } = req.body;
 
-    if (ten_sp, gia_sp, thong_tin_sp, id_hinh_anh, id_thuong_hieu, id_giam_gia, id_loai_sp, hinh_anh_chinh) {
+    if (ten_sp, gia_sp, thong_tin_sp, id_hinh_anh, id_thuong_hieu, id_loai_sp, hinh_anh_chinh) {
         const newProduct = new product({
             ten_sp: ten_sp,
             gia_sp: gia_sp,
             thong_tin_sp: thong_tin_sp,
             id_hinh_anh: id_hinh_anh,
             id_thuong_hieu: id_thuong_hieu,
-            id_giam_gia: id_giam_gia,
             id_loai_sp: id_loai_sp,
             hinh_anh_chinh: hinh_anh_chinh,
 
@@ -126,4 +125,39 @@ exports.getItemByIDImage = (req, res) => {
     });
 
 };
+
+exports.UpdatePromotion = (req, res) => {
+    const data = {
+        id_sp: req.body.id_sp,
+        ten_sp: req.body.ten_sp,
+        gia_sp: req.body.gia_sp,
+        thong_tin_sp: req.body.thong_tin_sp,
+        id_hinh_anh: req.body.id_hinh_anh,
+        id_thuong_hieu: req.body.id_thuong_hieu,
+        id_loai_sp: req.body.id_loai_sp,
+        hinh_anh_chinh: req.body.hinh_anh_chinh,
+
+
+    };
+
+    promotion.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
+};
+
 

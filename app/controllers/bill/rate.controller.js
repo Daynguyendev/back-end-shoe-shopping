@@ -1,11 +1,10 @@
 const rate = require('../../models/bill/rate.model')
 
 exports.addRate = (req, res) => {
-    const { id_hd_dat, noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
+    const { noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
 
-    if (id_hd_dat, noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
+    if (noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
         const newRate = new rate({
-            id_hd_dat: id_hd_dat,
             noi_dung: noi_dung,
             id_mau_sac: id_mau_sac,
             id_kich_thuoc: id_kich_thuoc,
@@ -81,4 +80,36 @@ exports.removeRate = (req, res) => {
 
     }
 
+};
+
+exports.UpdateRate = (req, res) => {
+    const data = {
+        id_danh_gia: req.body.id_danh_gia,
+        noi_dung: req.body.noi_dung,
+        id_mau_sac: req.body.id_mau_sac,
+        id_kich_thuoc: req.body.id_kich_thuoc,
+        id_sp: req.body.id_sp,
+        so_sao_danh_gia: req.body.so_sao_danh_gia,
+        hinh_anh_danh_gia: req.body.hinh_anh_danh_gia,
+
+    };
+
+    rate.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

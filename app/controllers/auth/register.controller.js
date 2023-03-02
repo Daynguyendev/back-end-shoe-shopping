@@ -7,7 +7,7 @@ exports.create = (req, res) => {
 }
 
 exports.register = (req, res) => {
-    const { email_khach_hang, mat_khau_khach_hang, ngay_sinh_khach_hang } = req.body;
+    const { email_khach_hang, mat_khau_khach_hang, ngay_sinh_khach_hang, chuc_vu } = req.body;
 
     if (email_khach_hang && mat_khau_khach_hang) {
         khach_hang.findByEmail(email_khach_hang, (err, user) => {
@@ -24,7 +24,9 @@ exports.register = (req, res) => {
             const user = new khach_hang({
                 email_khach_hang: email_khach_hang,
                 ngay_sinh_khach_hang: ngay_sinh_khach_hang,
+                chuc_vu: chuc_vu,
                 mat_khau_khach_hang: hashed
+
 
             });
             khach_hang.create(user, (err, user) => {

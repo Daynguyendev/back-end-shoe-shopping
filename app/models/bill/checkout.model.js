@@ -1,13 +1,14 @@
 const sql = require("../db");
-class discount {
+class checkout {
     constructor(item) {
-        this.ten_giam_gia = item.ten_giam_gia;
-        this.gia_giam = item.gia_giam;
+        this.ten_phuong_thuc_tt = item.ten_phuong_thuc_tt;
+
+
     }
 }
 
-discount.create = (data, callBack) => {
-    sql.query(`INSERT INTO giam_gia SET ? `, data, (err, res) => {
+checkout.create = (data, callBack) => {
+    sql.query(`INSERT INTO thanh_toan SET ? `, data, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -17,21 +18,8 @@ discount.create = (data, callBack) => {
     });
 };
 
-discount.remove = (data, callBack) => {
-    sql.query("DELETE FROM giam_gia WHERE id_giam_gia = ?", [data.id_giam_gia], (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            callBack(err, null);
-            return;
-        }
-        callBack(null, res);
-    });
-};
-
-
-
-discount.getAll = (data, callBack) => {
-    sql.query("SELECT * FROM giam_gia WHERE 1", (err, res) => {
+checkout.remove = (data, callBack) => {
+    sql.query("DELETE FROM thanh_toan WHERE id_phuong_thuc_tt = ?", [data.id_phuong_thuc_tt], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -42,13 +30,27 @@ discount.getAll = (data, callBack) => {
 };
 
 
-discount.update = (data, callBack) => {
+
+checkout.getAll = (data, callBack) => {
+    sql.query("SELECT * FROM thanh_toan WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+checkout.update = (data, callBack) => {
     sql.query(
-        `UPDATE giam_gia SET ten_giam_gia = ?, gia_giam = ? WHERE id_giam_gia = ?;`,
+        `UPDATE thanh_toan SET ten_phuong_thuc_tt = ? WHERE id_phuong_thuc_tt = ?;`,
         [
-            data.ten_giam_gia,
-            data.gia_giam,
-            data.id_giam_gia,
+            data.ten_phuong_thuc_tt,
+
+            data.id_phuong_thuc_tt,
+
+
         ],
         (error, results, fields) => {
             if (error) {
@@ -62,4 +64,4 @@ discount.update = (data, callBack) => {
 
 
 
-module.exports = discount;
+module.exports = checkout;

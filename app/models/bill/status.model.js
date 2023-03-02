@@ -27,6 +27,23 @@ status.remove = (data, callBack) => {
     });
 };
 
+status.update = (data, callBack) => {
+    sql.query(
+        `UPDATE trang_thai SET ten_trang_thai = ? WHERE id_trang_thai = ?;`,
+        [
+            data.ten_trang_thai,
+            data.id_trang_thai,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
 
 
 module.exports = status;

@@ -39,6 +39,23 @@ category.get = (data, callBack) => {
     });
 };
 
+category.update = (data, callBack) => {
+    sql.query(
+        `UPDATE loai_sp SET ten_loai_sp = ? WHERE id_loai_sp = ?;`,
+        [
+            data.ten_loai_sp,
+            data.id_loai_sp,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
 
 
 

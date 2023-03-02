@@ -21,7 +21,14 @@ cart.create = (data, callBack) => {
 };
 
 cart.remove = (data, callBack) => {
-    sql.query("DELETE FROM gio_hang WHERE id_gio_hang = ?", [data.id_gio_hang], (err, res) => {
+    console.log("remove: ", data)
+    sql.query("DELETE FROM gio_hang WHERE id_sp = ? and id_khach_hang = ? and ten_mau_sac=? and ten_kich_thuoc=?", [
+        data.id_sp,
+        data.id_khach_hang,
+        data.ten_mau_sac,
+        data.ten_kich_thuoc,
+
+    ], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -43,7 +50,7 @@ cart.get = (data, callBack) => {
 };
 
 cart.getByIdKhachHang = (data, callBack) => {
-    sql.query("SELECT * FROM gio_hang WHERE id_khach_hang", data, (err, res) => {
+    sql.query("SELECT * FROM gio_hang WHERE id_khach_hang = ?", data, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -52,6 +59,79 @@ cart.getByIdKhachHang = (data, callBack) => {
         callBack(null, res);
     });
 };
+
+
+cart.update = (data, callBack) => {
+    sql.query(
+        `UPDATE gio_hang SET id_sp = ?, id_khach_hang = ?, ten_mau_sac=? , ten_kich_thuoc=?, so_luong =? WHERE id_gio_hang = ?;`,
+        [
+            data.id_sp,
+            data.id_khach_hang,
+            data.ten_mau_sac,
+            data.ten_kich_thuoc,
+            data.so_luong,
+            data.id_gio_hang,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
+cart.findByIdSpIdKhColorSize = (data, result) => {
+    sql.query(`SELECT * from gio_hang WHERE id_sp = ? and id_khach_hang = ? and ten_mau_sac=? and ten_kich_thuoc=?`,
+        [data.id_sp,
+        data.id_khach_hang,
+        data.ten_mau_sac,
+        data.ten_kich_thuoc],
+        (err, res) => {
+            if (err) {
+                result(err, null);
+                return;
+            }
+            if (res.length) {
+                result(null, res[0])
+                return;
+            }
+            result(null, null);
+        });
+}
+
+cart.updateQuantity = (data, callBack) => {
+    sql.query(
+        `UPDATE gio_hang SET so_luong =? WHERE id_sp = ? and id_khach_hang = ? and ten_mau_sac=? and ten_kich_thuoc=?;`,
+        [
+            data.so_luong,
+            data.id_sp,
+            data.id_khach_hang,
+            data.ten_mau_sac,
+            data.ten_kich_thuoc,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
+cart.getById = (data, callBack) => {
+    sql.query("SELECT * FROM gio_hang INNER JOIN san_pham ON san_pham.id_sp = gio_hang.id_sp WHERE id_khach_hang = ?", data, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 
 
 
