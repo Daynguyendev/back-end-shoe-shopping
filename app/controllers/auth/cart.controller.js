@@ -82,6 +82,24 @@ exports.getAllItemCartById = (req, res) => {
     });
 };
 
+exports.getAllItemCartSPById = (req, res) => {
+
+    const id_khach_hang = req.params.id;
+
+    cart.getByIdKhachHang(id_khach_hang, (err, results) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+                massage: 'Loi',
+            });
+        }
+        return res.json({
+            data: results,
+        });
+    });
+};
+
+
 
 exports.removeCart = (req, res) => {
     const data = {

@@ -31,7 +31,7 @@ exports.login = (req, res) => {
                             success: 1,
                             message: 'Dang nhap thanh cong',
                             user: result,
-                            token: token // Trả về JWT token trong response
+                            token: token, // Trả về JWT token trong response
                         });
 
 

@@ -13,7 +13,7 @@ exports.addDetailInvoiceOutput = (req, res) => {
             ten_kich_thuoc: ten_kich_thuoc,
 
         });
-        detailinvoiceoutput.create(newInvoice, (err, newInvoice) => {
+        detailinvoiceoutput.create(newInvoice, (err, result) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -25,8 +25,10 @@ exports.addDetailInvoiceOutput = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Them chi tiet hoa don xuat thanh cong',
-                invoice: newInvoice,
+                invoice: result,
+
             });
+
         });
 
 

@@ -1,19 +1,18 @@
 const invoiceoutput = require('../../models/invoiceoutput/invoiceoutput.model')
-
-
 exports.addInvoiceOutput = (req, res) => {
-    const { id_phuong_thuc_tt, ten_dc, ten_khach_hang, sdt_khach_hang, tong_tien } = req.body;
+    const { id_khach_hang, id_phuong_thuc_tt, id_dia_chi, id_trang_thai, ngay_lap_hd_dat, tong_tien } = req.body;
 
-    if (id_phuong_thuc_tt, ten_dc, ten_khach_hang, sdt_khach_hang, tong_tien) {
+    if (id_khach_hang, id_phuong_thuc_tt, id_dia_chi, id_trang_thai, ngay_lap_hd_dat, tong_tien) {
         const newInvoice = new invoiceoutput({
+            id_khach_hang: id_khach_hang,
+            id_dia_chi: id_dia_chi,
             id_phuong_thuc_tt: id_phuong_thuc_tt,
-            ten_dc: ten_dc,
-            ten_khach_hang: ten_khach_hang,
-            sdt_khach_hang: sdt_khach_hang,
+            id_trang_thai: id_trang_thai,
+            ngay_lap_hd_dat: new Date(),
             tong_tien: tong_tien,
 
         });
-        invoiceoutput.create(newInvoice, (err, newInvoice) => {
+        invoiceoutput.create(newInvoice, (err, result) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -25,7 +24,7 @@ exports.addInvoiceOutput = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Them hoa don xuat thanh cong',
-                invoice: newInvoice,
+                data: result.insertId,
             });
         });
 
@@ -123,15 +122,13 @@ exports.getAllInvoiceOutput = (req, res) => {
 
 // };
 
-
 exports.UpdateInvoiceOutput = (req, res) => {
     const data = {
+        id_khach_hang: req.body.id_khach_hang,
+        id_dia_chi: req.body.id_dia_chi,
         id_phuong_thuc_tt: req.body.id_phuong_thuc_tt,
-        ten_dc: req.body.ten_dc,
-        ten_khach_hang: req.body.ten_khach_hang,
-        sdt_khach_hang: req.body.sdt_khach_hang,
+        id_trang_thai: req.body.id_trang_thai,
         tong_tien: req.body.tong_tien,
-        id_hd_dat: req.body.id_hd_dat,
 
 
     };

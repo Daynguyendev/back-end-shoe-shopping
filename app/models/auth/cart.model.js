@@ -60,6 +60,17 @@ cart.getByIdKhachHang = (data, callBack) => {
     });
 };
 
+cart.getFullByIdKH = (id_khach_hang, callBack) => {
+    sql.query("SELECT *FROM gio_hang INNER JOIN san_pham ON gio_hang.id_sp=san_pham.id_sp Where id_khach_hang = ?;", id_khach_hang, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 
 cart.update = (data, callBack) => {
     sql.query(

@@ -15,6 +15,7 @@ const getAllSize = require('../controllers/product/size.controller')
 const addSize = require('../controllers/product/size.controller')
 const removeSize = require('../controllers/product/size.controller')
 
+const GetAddressById = require('../controllers/auth/address.controller')
 const removeDiachi = require('../controllers/auth/address.controller')
 const getAlltrademark = require('../controllers/product/trademark.controller')
 const addTrademark = require('../controllers/product/trademark.controller')
@@ -54,6 +55,8 @@ const removeCart = require('../controllers/auth/cart.controller')
 const getAllItemCart = require('../controllers/auth/cart.controller')
 const UpdateCart = require('../controllers/auth/cart.controller')
 const getAllItemCartById = require('../controllers/auth/cart.controller')
+const getAllItemCartSPById = require('../controllers/auth/cart.controller')
+
 
 const addProvider = require('../controllers/product/provider.controller')
 const removeProvider = require('../controllers/product/provider.controller')
@@ -103,6 +106,7 @@ module.exports = app => {
         .post('/register', register.register)
 
         .post('/account/id', getIDByNameUser.getIDByNameUser)
+        .post('/account/address', GetAddressById.GetAddressById)
         .post('/account', addDiachi.addDiachi)
         .delete('/account', removeDiachi.removeDiachi)
 
@@ -196,6 +200,7 @@ module.exports = app => {
         .post('/cart', addCart.addCart)
         .delete('/cart/:id_sp/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc', removeCart.removeCart)
         .patch('/cart', UpdateCart.UpdateCart)
+        .get('/cart/join/:id', getAllItemCartSPById.getAllItemCartSPById)
         .patch('/cart/quantity', updateQuantityCart.UpdateQuantityCart)
         .patch('/cart/quantitybutton', UpdateQuantityButton.UpdateQuantityButton)
 

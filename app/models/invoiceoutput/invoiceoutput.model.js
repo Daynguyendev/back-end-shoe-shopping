@@ -1,10 +1,10 @@
 const sql = require("../db");
 class invoiceoutput {
     constructor(bill) {
+        this.id_khach_hang = bill.id_khach_hang;
+        this.id_dia_chi = bill.id_dia_chi;
         this.id_phuong_thuc_tt = bill.id_phuong_thuc_tt;
-        this.ten_dc = bill.ten_dc;
-        this.ten_khach_hang = bill.ten_khach_hang;
-        this.sdt_khach_hang = bill.sdt_khach_hang;
+        this.id_trang_thai = bill.id_trang_thai;
         this.ngay_lap_hd_dat = new Date();
         this.tong_tien = bill.tong_tien;
     }
@@ -32,8 +32,6 @@ invoiceoutput.remove = (data, callBack) => {
     });
 };
 
-
-
 invoiceoutput.get = (data, callBack) => {
     sql.query("SELECT * FROM hd_dat_hang WHERE 1", (err, res) => {
         if (err) {
@@ -44,18 +42,15 @@ invoiceoutput.get = (data, callBack) => {
         callBack(null, res);
     });
 };
-
-
-
 invoiceoutput.update = (data, callBack) => {
     sql.query(
-        `UPDATE hd_dat_hang SET id_phuong_thuc_tt = ?, ten_dc = ?, ten_khach_hang=? , sdt_khach_hang=? ,
+        `UPDATE hd_dat_hang SET id_khach_hang = ?, id_dia_chi = ?, id_phuong_thuc_tt=? , id_trang_thai=? ,
     tong_tien=? WHERE id_hd_dat = ?;`,
         [
+            data.id_khach_hang,
+            data.id_dia_chi,
             data.id_phuong_thuc_tt,
-            data.ten_dc,
-            data.ten_khach_hang,
-            data.sdt_khach_hang,
+            data.id_trang_thai,
             data.tong_tien,
             data.id_hd_dat,
         ],
@@ -67,12 +62,4 @@ invoiceoutput.update = (data, callBack) => {
         }
     );
 };
-
-
-
-
-
-
-
-
 module.exports = invoiceoutput;
