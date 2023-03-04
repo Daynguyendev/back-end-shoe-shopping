@@ -38,6 +38,20 @@ cart.remove = (data, callBack) => {
     });
 };
 
+cart.removeAll = (data, callBack) => {
+    sql.query("DELETE FROM gio_hang WHERE id_khach_hang = ?", [
+        data.id_khach_hang,
+    ], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 cart.get = (data, callBack) => {
     sql.query("SELECT * FROM gio_hang WHERE 1", (err, res) => {
         if (err) {

@@ -77,3 +77,116 @@ exports.removeStatus = (req, res) => {
     }
 
 };
+
+exports.getStatus = (req, res) => {
+
+    const id_khach_hang = req.params.id_khach_hang;
+
+    status.getStatusByBillOut(id_khach_hang, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+
+exports.getBillByStatus = (req, res) => {
+
+    const { id_trang_thai } = req.body;
+    console.log(id_trang_thai);
+
+    status.getBillByStatus(id_trang_thai, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+
+
+
+exports.getStatusNew = (req, res) => {
+
+    const id_hd_dat = req.params.id_hd_dat;
+
+    status.getStatusNewBill(id_hd_dat, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+
+exports.getAllStatus = (req, res) => {
+
+    // const id_khach_hang = req.params.id_khach_hang;
+    const data = {};
+
+    status.getAll(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+
+exports.UpdateStatusByIdKhIdHd = (req, res) => {
+    const data = {
+        id_trang_thai: req.body.id_trang_thai,
+        id_khach_hang: req.body.id_khach_hang,
+        id_hd_dat: req.body.id_hd_dat,
+    };
+
+    status.updateByIdKhIdHd(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
+};
+
+

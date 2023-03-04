@@ -144,6 +144,46 @@ exports.removeCart = (req, res) => {
 
 };
 
+
+exports.removeAllCart = (req, res) => {
+    const data = {
+        id_khach_hang: req.params.id_khach_hang,
+    };
+    if (data) {
+
+        cart.removeAll(data, (err, results) => {
+            if (err) {
+                return res.status(400).json({
+                    massage: 'Loi',
+                    success: 0,
+
+                });
+
+
+            }
+            return res.json({
+                success: 1,
+                message: 'Xoa thanh cong',
+                cart: results,
+            });
+        });
+
+
+    }
+    else {
+
+        return res.status(400).json({
+            success: 0,
+            data: 'Xoa that bai',
+        });
+
+
+
+
+    }
+
+};
+
 exports.UpdateCart = (req, res) => {
     const data = {
         id_gio_hang: req.body.id_gio_hang,

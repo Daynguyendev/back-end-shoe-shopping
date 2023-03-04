@@ -8,17 +8,17 @@ exports.addDiachi = (req, res) => {
             ten_khach_hang: ten_khach_hang,
             sdt_khach_hang: sdt_khach_hang
         });
-        dia_chi.create(newDiachi, (err, newDiachi) => {
+        dia_chi.create(newDiachi, (err, results) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
                     data: 'Dia chi khong dung',
                 });
             }
-            return res.json({
+            return res.status(200).json({
                 success: 1,
                 message: 'Nhap thong tin thanh cong',
-                dia_chi: newDiachi,
+                data: results.insertId,
             });
         });
     }

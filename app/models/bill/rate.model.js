@@ -1,9 +1,8 @@
 const sql = require("../db");
 class rate {
     constructor(bill) {
+        this.ten_nguoi_danh_gia = bill.ten_nguoi_danh_gia;
         this.noi_dung = bill.noi_dung;
-        this.id_mau_sac = bill.id_mau_sac;
-        this.id_kich_thuoc = bill.id_kich_thuoc;
         this.id_sp = bill.id_sp;
         this.hinh_anh_danh_gia = bill.hinh_anh_danh_gia;
         this.so_sao_danh_gia = bill.so_sao_danh_gia;
@@ -36,12 +35,11 @@ rate.remove = (data, callBack) => {
 rate.update = (data, callBack) => {
     console.log(data)
     sql.query(
-        `UPDATE danh_gia_sp SET noi_dung = ?, id_mau_sac = ? , id_kich_thuoc = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
+        `UPDATE danh_gia_sp SET ten_nguoi_danh_gia=? , noi_dung = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
          so_sao_danh_gia= ? WHERE id_danh_gia = ?;`,
         [
+            data.ten_nguoi_danh_gia,
             data.noi_dung,
-            data.id_mau_sac,
-            data.id_kich_thuoc,
             data.id_sp,
             data.hinh_anh_danh_gia,
             data.so_sao_danh_gia,
@@ -58,6 +56,20 @@ rate.update = (data, callBack) => {
         }
     );
 };
+
+rate.getAll = (data, callBack) => {
+
+    sql.query("SELECT * FROM danh_gia_sp Where id_sp =?;", data, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 

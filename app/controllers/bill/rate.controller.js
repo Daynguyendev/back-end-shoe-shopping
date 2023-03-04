@@ -1,18 +1,17 @@
 const rate = require('../../models/bill/rate.model')
 
 exports.addRate = (req, res) => {
-    const { noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
+    const { noi_dung, ten_nguoi_danh_gia, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
 
-    if (noi_dung, id_mau_sac, id_kich_thuoc, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
+    if (noi_dung, ten_nguoi_danh_gia, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
         const newRate = new rate({
+            ten_nguoi_danh_gia: ten_nguoi_danh_gia,
             noi_dung: noi_dung,
-            id_mau_sac: id_mau_sac,
-            id_kich_thuoc: id_kich_thuoc,
             id_sp: id_sp,
             so_sao_danh_gia: so_sao_danh_gia,
             hinh_anh_danh_gia: hinh_anh_danh_gia,
         });
-        rate.create(newRate, (err, newRate) => {
+        rate.create(newRate, (err, results) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -24,7 +23,7 @@ exports.addRate = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Them danh gia thanh cong',
-                rate: newRate,
+                data: results.insertId,
             });
         });
 
@@ -85,9 +84,8 @@ exports.removeRate = (req, res) => {
 exports.UpdateRate = (req, res) => {
     const data = {
         id_danh_gia: req.body.id_danh_gia,
+        ten_nguoi_danh_gia: req.body.ten_nguoi_danh_gia,
         noi_dung: req.body.noi_dung,
-        id_mau_sac: req.body.id_mau_sac,
-        id_kich_thuoc: req.body.id_kich_thuoc,
         id_sp: req.body.id_sp,
         so_sao_danh_gia: req.body.so_sao_danh_gia,
         hinh_anh_danh_gia: req.body.hinh_anh_danh_gia,
@@ -113,3 +111,25 @@ exports.UpdateRate = (req, res) => {
         }
     });
 };
+
+exports.getAllRate = (req, res) => {
+
+    const id_sp = req.params.id_sp;
+    console.log('id sp control', id_sp);
+
+    rate.getAll(id_sp, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+

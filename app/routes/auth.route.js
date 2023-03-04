@@ -40,13 +40,20 @@ const getAllImage = require('../controllers/product/image.controller')
 const getItemByIDImage = require('../controllers/product/product.controller')
 const removeProduct = require('../controllers/product/product.controller')
 
+const UpdateStatusByIdKhIdHd = require('../controllers/bill/status.controller')
+const getStatusNew = require('../controllers/bill/status.controller')
+const getAllStatus = require('../controllers/bill/status.controller')
+const getStatus = require('../controllers/bill/status.controller')
 const addStatus = require('../controllers/bill/status.controller')
 const removeStatus = require('../controllers/bill/status.controller')
+const getBillByStatus = require('../controllers/bill/status.controller')
 
+const getAllRate = require('../controllers/bill/rate.controller')
 const UpdateRate = require('../controllers/bill/rate.controller')
 const addRate = require('../controllers/bill/rate.controller')
 const removeRate = require('../controllers/bill/rate.controller')
 
+const removeAllCart = require('../controllers/auth/cart.controller')
 const UpdateQuantityButton = require('../controllers/auth/cart.controller')
 const getDetailByID = require('../controllers/auth/cart.controller')
 const updateQuantityCart = require('../controllers/auth/cart.controller')
@@ -79,6 +86,7 @@ const removeCheckout = require('../controllers/bill/checkout.controller')
 const UpdateCheckout = require('../controllers/bill/checkout.controller')
 const getAllCheckout = require('../controllers/bill/checkout.controller')
 
+const getDetailInvoiceByID = require('../controllers/invoiceoutput/detailinvoiceoutput.controller')
 const addInvoiceOutput = require('../controllers/invoiceoutput/invoiceoutput.controller')
 const removeInvoiceOutput = require('../controllers/invoiceoutput/invoiceoutput.controller')
 const UpdateInvoiceOutput = require('../controllers/invoiceoutput/invoiceoutput.controller')
@@ -166,13 +174,15 @@ module.exports = app => {
         .post('/invoiceoutput', addInvoiceOutput.addInvoiceOutput)
         .delete('/invoiceoutput', removeInvoiceOutput.removeInvoiceOutput)
 
+        .post('/invoiceoutput/detail', getDetailInvoiceByID.getDetailInvoiceByID)
         .get('/detailinvoiceoutput', getAllDetailInvoiceOutput.getAllDetailInvoiceOutput)
         .post('/detailinvoiceoutput', addDetailInvoiceOutput.addDetailInvoiceOutput)
         .delete('/detailinvoiceoutput', removeDetailInvoiceOutput.removeDetailInvoiceOutput)
 
-        .patch('/bill/rate', UpdateRate.UpdateRate)
-        .post('/bill/rate', addRate.addRate)
-        .delete('/bill/rate', removeRate.removeRate)
+        .get('/product/rate/:id_sp', getAllRate.getAllRate)
+        .patch('/product/rate', UpdateRate.UpdateRate)
+        .post('/product/rate', addRate.addRate)
+        .delete('/product/rate', removeRate.removeRate)
 
 
 
@@ -191,13 +201,21 @@ module.exports = app => {
         .post('/detailinvoice', addDetailInvoice.addDetailInvoice)
         .delete('/detailinvoice', removeDetailInvoice.removeDetailInvoice)
 
+
+        .get('/bill/status/:id_khach_hang/:id_hd_dat', getStatusNew.getStatusNew)
+        .get('/bill/status', getAllStatus.getAllStatus)
+        .get('/bill/status/:id_khach_hang', getStatus.getStatus)
         .post('/bill/status', addStatus.addStatus)
+        .post('/bill/status/fillter', getBillByStatus.getBillByStatus)
         .delete('/bill/status', removeStatus.removeStatus)
+        .patch('/bill/status', UpdateStatusByIdKhIdHd.UpdateStatusByIdKhIdHd)
 
 
         .post('/cart/:id', getDetailByID.getDetailByID)
         .get('/cart/:id', getAllItemCart.getAllItemCart)
         .post('/cart', addCart.addCart)
+        .delete('/cart/all/:id_khach_hang', removeAllCart.removeAllCart)
+
         .delete('/cart/:id_sp/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc', removeCart.removeCart)
         .patch('/cart', UpdateCart.UpdateCart)
         .get('/cart/join/:id', getAllItemCartSPById.getAllItemCartSPById)

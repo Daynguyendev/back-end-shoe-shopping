@@ -44,6 +44,19 @@ detailinvoiceoutput.get = (data, callBack) => {
     });
 };
 
+detailinvoiceoutput.getbyId = (data, callBack) => {
+    console.log('dô tới k', [data.id_hd_dat])
+    sql.query("SELECT * FROM chi_tiet_hd_dat INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp WHERE id_hd_dat = ? ", [data.id_hd_dat], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 
 
 // detailinvoiceoutput.update = (data, callBack) => {

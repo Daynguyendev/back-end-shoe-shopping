@@ -33,7 +33,18 @@ invoiceoutput.remove = (data, callBack) => {
 };
 
 invoiceoutput.get = (data, callBack) => {
-    sql.query("SELECT * FROM hd_dat_hang WHERE 1", (err, res) => {
+    sql.query("SELECT * FROM hd_dat_hang INNER JOIN dia_chi ON hd_dat_hang.id_dia_chi = dia_chi.id_dia_chi WHERE 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+invoiceoutput.getByStatus = (data, callBack) => {
+    sql.query("SELECT * FROM hd_dat_hang INNER JOIN dia_chi ON hd_dat_hang.id_dia_chi = dia_chi.id_dia_chi WHERE 1", (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

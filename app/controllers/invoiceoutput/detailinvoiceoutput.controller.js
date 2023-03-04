@@ -25,7 +25,7 @@ exports.addDetailInvoiceOutput = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Them chi tiet hoa don xuat thanh cong',
-                invoice: result,
+                data: result.inserId,
 
             });
 
@@ -106,24 +106,25 @@ exports.getAllDetailInvoiceOutput = (req, res) => {
 
 };
 
-// exports.getInvoiceByID = (req, res) => {
-//     const ten_hoa_don_nhap = req.params.name;
-//     invoiceoutput.getByName(ten_hoa_don_nhap, (err, result) => {
+exports.getDetailInvoiceByID = (req, res) => {
+    const data = req.body;
+    console.log('vai data', data);
+    detailinvoiceoutput.getbyId(data, (err, result) => {
 
-//         if (err) {
-//             return res.status(400).json({
-//                 success: 0,
+        if (err) {
+            return res.status(400).json({
+                success: 0,
 
-//             });
+            });
 
 
-//         }
-//         return res.status(200).json({
-//             data: result,
-//         });
-//     });
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
 
-// };
+};
 
 
 // exports.UpdateInvoiceOutput = (req, res) => {

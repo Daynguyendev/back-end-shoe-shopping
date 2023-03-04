@@ -103,6 +103,9 @@ exports.getAllInvoiceOutput = (req, res) => {
 
 };
 
+
+
+
 // exports.getInvoiceByID = (req, res) => {
 //     const ten_hoa_don_nhap = req.params.name;
 //     invoiceoutput.getByName(ten_hoa_don_nhap, (err, result) => {
