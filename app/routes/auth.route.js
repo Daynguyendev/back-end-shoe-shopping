@@ -33,6 +33,8 @@ const UpdateDisCount = require('../controllers/product/discount.controller')
 const addDiscount = require('../controllers/product/discount.controller')
 const removeDiscount = require('../controllers/product/discount.controller')
 
+const getItemByIDItem = require('../controllers/product/product.controller')
+const getItemByName = require('../controllers/product/product.controller')
 const getItemByID = require('../controllers/product/image.controller')
 const addProduct = require('../controllers/product/product.controller')
 const getAllItemProduct = require('../controllers/product/product.controller')
@@ -99,6 +101,8 @@ const getAllDetailInvoiceOutput = require('../controllers/invoiceoutput/detailin
 // const getProductByIdSpSizeColor = require('../controllers/product/productdetail.controller')
 // const getProductByIdSpSize = require('../controllers/product/productdetail.controller')
 // const getProductByIdSpColor = require('../controllers/product/productdetail.controller')
+const UpdateQuantityProduct = require('../controllers/product/productdetail.controller')
+const getAllProduct = require('../controllers/product/productdetail.controller')
 const addDetailProduct = require('../controllers/product/productdetail.controller')
 const removeDetailProduct = require('../controllers/product/productdetail.controller')
 const UpdateDetailProduct = require('../controllers/product/productdetail.controller')
@@ -116,7 +120,7 @@ module.exports = app => {
         .post('/account/id', getIDByNameUser.getIDByNameUser)
         .post('/account/address', GetAddressById.GetAddressById)
         .post('/account', addDiachi.addDiachi)
-        .delete('/account', removeDiachi.removeDiachi)
+        .post('/account/delete/:id', removeDiachi.removeDiachi)
 
         .get('/product/color/kkk', getNameColorbyID.getNameColorbyID)
         .get('/product/color', getAllColor.getAllColor)
@@ -132,6 +136,9 @@ module.exports = app => {
         .post('/product/size', addSize.addSize)
         .delete('/product/size', removeSize.removeSize)
 
+
+        .get('/product/image', getAllImage.getAllImage)
+
         .get('/product/category', getAllCategory.getAllCategory)
         .post('/product/category', addCategory.addCategory)
         .delete('/product/category', removeCategory.removeCategory)
@@ -146,8 +153,11 @@ module.exports = app => {
         // .get('/product/all/:id/size/:id_kich_thuoc/color/:id_mau_sac', getProductByIdSpSizeColor.getProductByIdSpSizeColor)
         .patch('/product/all', UpdateDetailProduct.UpdateDetailProduct)
         .get('/product/all/:id', getAllDetailProduct.getAllDetailProduct)
+        .get('/product/all', getAllProduct.getAllProduct)
+        .post('/product/all/quantity', UpdateQuantityProduct.UpdateQuantityProduct)
         .post('/product/all', addDetailProduct.addDetailProduct)
         .delete('/product/all', removeDetailProduct.removeDetailProduct)
+        .post('/product/getid/id', getItemByIDItem.getItemByIDItem)
 
 
 
@@ -156,7 +166,7 @@ module.exports = app => {
         .delete('/product/provider', removeProvider.removeProvider)
 
 
-
+        .get('/product/:ten_thuong_hieu', getItemByName.getItemByName)
         .get('/product', getAllItemProduct.getAllItemProduct)
         .post('/product', addProduct.addProduct)
         .delete('/product', removeProduct.removeProduct)
@@ -228,7 +238,6 @@ module.exports = app => {
         .get('/product/detail/:id', getItemByIDImage.getItemByIDImage)
         .get('/product/image/:id', getItemByID.getItemByID)
 
-        .get('/product/image', getAllImage.getAllImage)
         .post('/product/image', addImage.addImage)
         .delete('/product/image/:id', removeImage.removeImage)
 

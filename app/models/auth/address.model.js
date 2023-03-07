@@ -22,6 +22,7 @@ dia_chi.create = (data, callBack) => {
 };
 
 dia_chi.remove = (data, callBack) => {
+    console.log("remove user: ", data)
     sql.query(`DELETE FROM dia_chi WHERE id_dia_chi = ?`, [data.id_dia_chi], (err, res) => {
         if (err) {
             console.log("error: ", err);

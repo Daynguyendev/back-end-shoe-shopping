@@ -45,7 +45,7 @@ product.get = (data, callBack) => {
 };
 
 product.getByIDImage = (id_hinh_anh, callBack) => {
-    sql.query(" SELECT * FROM san_pham WHERE id_hinh_anh =?", [id_hinh_anh], (err, res) => {
+    sql.query(" SELECT * FROM san_pham INNER JOIN thuong_hieu ON san_pham.id_thuong_hieu = thuong_hieu.id_thuong_hieu WHERE id_hinh_anh =?", [id_hinh_anh], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -54,6 +54,19 @@ product.getByIDImage = (id_hinh_anh, callBack) => {
         callBack(null, res);
     });
 };
+
+product.getByNameTradeMark = (ten_thuong_hieu, callBack) => {
+    console.log(ten_thuong_hieu)
+    sql.query(" SELECT * FROM san_pham INNER JOIN thuong_hieu On san_pham.id_thuong_hieu = thuong_hieu.id_thuong_hieu WHERE thuong_hieu.ten_thuong_hieu = ?", [ten_thuong_hieu], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 product.getIdSpByIDImage = (id_hinh_anh, callBack) => {
     sql.query(" SELECT id_sp FROM san_pham WHERE id_hinh_anh =?", [id_hinh_anh], (err, res) => {
         if (err) {
@@ -64,6 +77,20 @@ product.getIdSpByIDImage = (id_hinh_anh, callBack) => {
         callBack(null, res);
     });
 };
+
+
+product.getSpByID = (id_sp, callBack) => {
+    console.log('id_spp', id_sp)
+    sql.query(" SELECT * FROM san_pham WHERE id_sp =?", [id_sp.id_sp], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 
 
 product.update = (data, callBack) => {

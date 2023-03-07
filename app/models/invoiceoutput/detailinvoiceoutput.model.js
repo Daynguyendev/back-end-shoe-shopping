@@ -46,7 +46,7 @@ detailinvoiceoutput.get = (data, callBack) => {
 
 detailinvoiceoutput.getbyId = (data, callBack) => {
     console.log('dô tới k', [data.id_hd_dat])
-    sql.query("SELECT * FROM chi_tiet_hd_dat INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp WHERE id_hd_dat = ? ", [data.id_hd_dat], (err, res) => {
+    sql.query("SELECT chi_tiet_hd_dat.so_luong, chi_tiet_hd_dat.ten_mau_sac, chi_tiet_hd_dat.ten_kich_thuoc, chi_tiet_sp.ten_sp, chi_tiet_sp.hinh_anh_chinh FROM chi_tiet_hd_dat INNER JOIN chi_tiet_sp ON chi_tiet_hd_dat.id_sp = chi_tiet_sp.id_sp and chi_tiet_hd_dat.ten_mau_sac = chi_tiet_sp.ten_mau_sac and chi_tiet_hd_dat.ten_kich_thuoc = chi_tiet_sp.ten_kich_thuoc WHERE chi_tiet_hd_dat.id_hd_dat= ?;  ", [data.id_hd_dat], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

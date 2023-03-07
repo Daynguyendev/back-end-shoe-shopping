@@ -2,9 +2,16 @@ const sql = require("../db");
 class productdetail {
     constructor(bill) {
         this.id_sp = bill.id_sp;
+        this.ten_sp = bill.ten_sp;
+        this.gia_sp = bill.gia_sp;
+        this.thong_tin_sp = bill.thong_tin_sp;
+        this.id_hinh_anh = bill.id_hinh_anh;
+        this.id_thuong_hieu = bill.id_thuong_hieu;
+        this.id_loai_sp = bill.id_loai_sp;
+        this.hinh_anh_chinh = bill.hinh_anh_chinh;
         this.ten_mau_sac = bill.ten_mau_sac;
         this.ten_kich_thuoc = bill.ten_kich_thuoc;
-        this.so_luong = bill.so_luong;
+        this.so_luong_kho = bill.so_luong_kho;
     }
 }
 
@@ -32,8 +39,19 @@ productdetail.remove = (data, callBack) => {
 
 
 
-productdetail.getById = (id_sp, callBack) => {
-    sql.query("SELECT * FROM chi_tiet_sp WHERE id_sp = ? ", [id_sp], (err, res) => {
+productdetail.getById = (id_hinh_anh, callBack) => {
+    sql.query("SELECT * FROM chi_tiet_sp WHERE id_hinh_anh = ? ", [id_hinh_anh], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+
+    });
+};
+productdetail.get = (data, callBack) => {
+    sql.query("SELECT * FROM chi_tiet_sp WHERE 1 ", (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -44,56 +62,43 @@ productdetail.getById = (id_sp, callBack) => {
     });
 };
 
-// productdetail.getByIdSpColor = (id_sp, id_mau_sac, callBack) => {
-//     sql.query("SELECT * FROM chi_tiet_sp WHERE id_sp = ? and id_mau_sac = ?", [id_sp, id_mau_sac], (err, res) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             callBack(err, null);
-//             return;
-//         }
-//         callBack(null, res);
 
-//     });
-// };
-
-// productdetail.getByIdSpSize = (id_sp, id_kich_thuoc, callBack) => {
-//     sql.query("SELECT * FROM chi_tiet_sp WHERE id_sp = ? and id_kich_thuoc = ?", [id_sp, id_kich_thuoc], (err, res) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             callBack(err, null);
-//             return;
-//         }
-//         callBack(null, res);
-
-//     });
-// };
-
-// productdetail.getByIdSpColorSize = (id_sp, id_kich_thuoc, id_mau_sac, callBack) => {
-//     sql.query("SELECT * FROM chi_tiet_sp WHERE id_sp = ? and id_mau_sac=? and id_kich_thuoc = ? ", [id_sp, id_mau_sac, id_kich_thuoc], (err, res) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             callBack(err, null);
-//             return;
-//         }
-//         callBack(null, res);
-
-//     });
-// };
-
-productdetail.update = (data, callBack) => {
+productdetail.findproductdetail = (id_sp, ten_mau_sac, ten_kich_thuoc, callBack) => {
+    console.log('data cua findproduct', id_sp, ten_mau_sac, ten_kich_thuoc)
     sql.query(
-        `UPDATE chi_tiet_sp SET id_mau_sac = ?, id_kich_thuoc=? , so_luong=? WHERE id_sp = ?;`,
+        `SELECT * FROM  chi_tiet_sp WHERE id_sp = ? and ten_mau_sac = ? and ten_kich_thuoc=?;`,
         [
-            data.ten_mau_sac,
-            data.ten_kich_thuoc,
-            data.so_luong,
-            data.id_sp,
+            id_sp,
+            ten_mau_sac,
+            ten_kich_thuoc,
 
         ],
         (error, results, fields) => {
             if (error) {
                 callBack(error);
             }
+            console.log('resuafin', results);
+            return callBack(null, results[0]);
+        }
+    );
+};
+
+productdetail.update = (so_luong_kho, id_sp, ten_mau_sac, ten_kich_thuoc, callBack) => {
+
+    sql.query(
+        `UPDATE chi_tiet_sp SET so_luong_kho=? WHERE id_sp = ? and ten_mau_sac = ? and ten_kich_thuoc=?;`,
+        [
+            so_luong_kho,
+            id_sp,
+            ten_mau_sac,
+            ten_kich_thuoc,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            console.log('data results update ', results)
             return callBack(null, results);
         }
     );

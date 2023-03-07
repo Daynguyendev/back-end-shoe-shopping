@@ -1,12 +1,12 @@
 const image = require('../../models/product/image.model')
 
 exports.addImage = (req, res) => {
-    const { link_hinh_anh_ct, id_hinh_anh_ct } = req.body;
+    const { link_hinh_anh_ct, id_hinh_anh } = req.body;
 
     if (link_hinh_anh_ct) {
         const newImage = new image({
             link_hinh_anh_ct: link_hinh_anh_ct,
-            id_hinh_anh_ct: id_hinh_anh_ct,
+            id_hinh_anh: id_hinh_anh,
 
         });
         image.create(newImage, (err, newImage) => {
@@ -43,11 +43,11 @@ exports.addImage = (req, res) => {
 
 
 exports.removeImage = (req, res) => {
-    const id_hinh_anh_ct = req.body;
+    const id_hinh_anh = req.body;
 
-    if (id_hinh_anh_ct) {
+    if (id_hinh_anh) {
 
-        image.remove(id_hinh_anh_ct, (err, id_hinh_anh_ct) => {
+        image.remove(id_hinh_anh, (err, id_hinh_anh) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -81,9 +81,9 @@ exports.removeImage = (req, res) => {
 
 exports.getItemByID = (req, res) => {
 
-    const id_hinh_anh_ct = req.params.id;
+    const id_hinh_anh = req.params.id;
 
-    image.getByID(id_hinh_anh_ct, (err, result) => {
+    image.getByID(id_hinh_anh, (err, result) => {
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -101,7 +101,6 @@ exports.getItemByID = (req, res) => {
 
 exports.getAllImage = (req, res) => {
     const data = {};
-
 
     image.get(data, (err, data) => {
 

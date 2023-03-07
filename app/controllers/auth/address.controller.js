@@ -31,7 +31,8 @@ exports.addDiachi = (req, res) => {
 };
 
 exports.removeDiachi = (req, res) => {
-    const id_dia_chi = req.body;
+    const id_dia_chi = req.params.id;
+    console.log('diachicontrol', id_dia_chi)
     if (id_dia_chi) {
         dia_chi.remove(id_dia_chi, (err, id_dia_chi) => {
             if (err) {

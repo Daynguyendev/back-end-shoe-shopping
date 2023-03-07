@@ -2,43 +2,53 @@ const cart = require('../../models/auth/cart.model')
 
 exports.addCart = (req, res) => {
     const { id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang } = req.body;
-    if (id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang) {
-        const newCart = new cart({
-            id_sp: id_sp,
-            id_khach_hang: id_khach_hang,
-            ten_mau_sac: ten_mau_sac,
-            ten_kich_thuoc: ten_kich_thuoc,
-            so_luong: so_luong,
-        });
-        cart.create(newCart, (err, newCart) => {
-            if (err) {
-                return res.status(400).json({
-                    success: 0,
-                    data: 'Gio hang khong hop le',
-                });
+    console.log('testdatacontroladd', id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang)
 
+    cart.findcartInDB(id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+        console.log('testdatafincontrol', id_sp, ten_mau_sac, ten_kich_thuoc)
 
-            }
-            return res.status(200).json({
-                success: 1,
-                message: 'Them gio hang thanh cong',
-                cart: newCart,
+        if (results) {
+            console.log('test rè su', results)
+            cart.updateQuantityIncart(parseInt(so_luong) + parseInt(results.so_luong), id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+                console.log('testdataupdatecontrol', id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong)
+
+                if (err) {
+                    massage: 'loi'
+                    return;
+                }
+                return res.json({
+                    massage: 'update thanh cong',
+                    data: results
+                })
+            })
+        }
+        else {
+            const newCart = new cart({
+                id_sp: id_sp,
+                id_khach_hang: id_khach_hang,
+                ten_mau_sac: ten_mau_sac,
+                ten_kich_thuoc: ten_kich_thuoc,
+                so_luong: so_luong,
             });
-        });
+            cart.create(newCart, (err, newCart) => {
+                if (err) {
+                    return res.status(400).json({
+                        success: 0,
+                        data: 'Gio hang khong hop le',
+                    });
 
 
-    }
-    else {
+                }
+                return res.status(200).json({
+                    success: 1,
+                    message: 'Them gio hang thanh cong',
+                    cart: newCart,
+                });
+            });
 
-        return res.status(400).json({
-            success: 0,
-            data: 'Vui long nhap day du thong tin ',
-        });
+        }
 
-
-
-
-    }
+    })
 
 };
 

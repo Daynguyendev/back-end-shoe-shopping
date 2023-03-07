@@ -126,6 +126,47 @@ exports.getItemByIDImage = (req, res) => {
 
 };
 
+exports.getItemByIDItem = (req, res) => {
+
+    const id_sp = req.body;
+    console.log('id_sp', id_sp);
+    product.getSpByID(id_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+
+
+exports.getItemByName = (req, res) => {
+
+    const ten_thuong_hieu = req.params.ten_thuong_hieu;
+    console.log(ten_thuong_hieu)
+    product.getByNameTradeMark(ten_thuong_hieu, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+
 exports.UpdatePromotion = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,

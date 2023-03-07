@@ -20,6 +20,48 @@ cart.create = (data, callBack) => {
     });
 };
 
+cart.findcartInDB = (id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, callBack) => {
+    console.log('testdatamodelfin', id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc)
+
+    sql.query(`SELECT * FROM gio_hang WHERE id_sp = ? and id_khach_hang =? and ten_mau_sac= ? and ten_kich_thuoc= ?`, [
+
+        id_sp,
+        id_khach_hang,
+        ten_mau_sac,
+        ten_kich_thuoc,
+    ], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+cart.updateQuantityIncart = (so_luong, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, callBack) => {
+    console.log('testdataquantity mode', id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong)
+
+    sql.query(
+        `UPDATE gio_hang SET so_luong =?  WHERE id_sp = ? and id_khach_hang=? and ten_mau_sac=? and ten_kich_thuoc=?;`,
+        [
+            so_luong,
+            id_sp,
+            id_khach_hang,
+            ten_mau_sac,
+            ten_kich_thuoc,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
+
+
 cart.remove = (data, callBack) => {
     console.log("remove: ", data)
     sql.query("DELETE FROM gio_hang WHERE id_sp = ? and id_khach_hang = ? and ten_mau_sac=? and ten_kich_thuoc=?", [
