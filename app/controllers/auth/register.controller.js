@@ -7,7 +7,7 @@ exports.create = (req, res) => {
 }
 
 exports.register = (req, res) => {
-    const { email_khach_hang, mat_khau_khach_hang, ngay_sinh_khach_hang, chuc_vu } = req.body;
+    const { ten_khach_hang, email_khach_hang, mat_khau_khach_hang, ngay_sinh_khach_hang, chuc_vu } = req.body;
 
     if (email_khach_hang && mat_khau_khach_hang) {
         khach_hang.findByEmail(email_khach_hang, (err, user) => {
@@ -22,7 +22,9 @@ exports.register = (req, res) => {
         bcrypt.hash(mat_khau_khach_hang, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashed) => {
             // Create a User
             const user = new khach_hang({
+                ten_khach_hang: ten_khach_hang,
                 email_khach_hang: email_khach_hang,
+
                 ngay_sinh_khach_hang: ngay_sinh_khach_hang,
                 chuc_vu: chuc_vu,
                 mat_khau_khach_hang: hashed

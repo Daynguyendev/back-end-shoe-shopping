@@ -1,6 +1,7 @@
 const sql = require("../db");
 class khach_hang {
     constructor(user) {
+        this.ten_khach_hang = user.ten_khach_hang;
         this.email_khach_hang = user.email_khach_hang;
         this.ngay_sinh_khach_hang = user.ngay_sinh_khach_hang;
         this.ngay_tao_tai_khoan = new Date();

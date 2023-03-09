@@ -98,6 +98,29 @@ exports.UpdateQuantityProduct = (req, res) => {
 };
 
 
+exports.getQuantityInCart = (req, res) => {
+    const { id_sp, ten_mau_sac, ten_kich_thuoc } = req.body;
+    productdetail.findproductdetail(id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+
+
+        if (results) {
+
+            return res.status(200).json({
+                data: results
+
+            })
+        }
+        else return res.status(404).json({
+            success: 0,
+            message: 'Lay so_luong_kho that bai',
+        });
+
+
+
+    })
+}
+
+
 
 exports.removeDetailProduct = (req, res) => {
     const id_sp = req.body;

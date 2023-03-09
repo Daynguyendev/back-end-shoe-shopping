@@ -35,6 +35,7 @@ const removeDiscount = require('../controllers/product/discount.controller')
 
 const getItemByIDItem = require('../controllers/product/product.controller')
 const getItemByName = require('../controllers/product/product.controller')
+const getItemByCategory = require('../controllers/product/product.controller')
 const getItemByID = require('../controllers/product/image.controller')
 const addProduct = require('../controllers/product/product.controller')
 const getAllItemProduct = require('../controllers/product/product.controller')
@@ -78,6 +79,9 @@ const addDetailInvoice = require('../controllers/invoiceinput/detailinvoice.cont
 const getAllDetailInvoice = require('../controllers/invoiceinput/detailinvoice.controller')
 const removeDetailInvoice = require('../controllers/invoiceinput/detailinvoice.controller')
 
+const addPromotionByCategory = require('../controllers/product/promotion.controller')
+const addPromotionByTradeMark = require('../controllers/product/promotion.controller')
+const addPromotionByIdProduct = require('../controllers/product/promotion.controller')
 const addPromotion = require('../controllers/product/promotion.controller')
 const removePromotion = require('../controllers/product/promotion.controller')
 const UpdatePromotion = require('../controllers/product/promotion.controller')
@@ -101,6 +105,8 @@ const getAllDetailInvoiceOutput = require('../controllers/invoiceoutput/detailin
 // const getProductByIdSpSizeColor = require('../controllers/product/productdetail.controller')
 // const getProductByIdSpSize = require('../controllers/product/productdetail.controller')
 // const getProductByIdSpColor = require('../controllers/product/productdetail.controller')
+const getQuantityInCart = require('../controllers/product/productdetail.controller')
+
 const UpdateQuantityProduct = require('../controllers/product/productdetail.controller')
 const getAllProduct = require('../controllers/product/productdetail.controller')
 const addDetailProduct = require('../controllers/product/productdetail.controller')
@@ -167,16 +173,20 @@ module.exports = app => {
 
 
         .get('/product/:ten_thuong_hieu', getItemByName.getItemByName)
+        .get('/product/category/:id_loai_sp', getItemByCategory.getItemByCategory)
         .get('/product', getAllItemProduct.getAllItemProduct)
         .post('/product', addProduct.addProduct)
         .delete('/product', removeProduct.removeProduct)
 
 
+        .post('/product/promotion/category', addPromotionByCategory.addPromotionByCategory)
+        .post('/product/promotion/id', addPromotionByIdProduct.addPromotionByIdProduct)
+        .post('/product/promotion/trademark', addPromotionByTradeMark.addPromotionByTradeMark)
 
-        .patch('/product/promotion', UpdatePromotion.UpdatePromotion)
-        .get('/product/promotion', getAllPromotion.getAllPromotion)
-        .post('/product/promotion', addPromotion.addPromotion)
-        .delete('/product/promotion', removePromotion.removePromotion)
+        .patch('/product/promotion/update', UpdatePromotion.UpdatePromotion)
+        .get('/product/promotion/all', getAllPromotion.getAllPromotion)
+        .post('/product/promotion/add', addPromotion.addPromotion)
+        .delete('/product/promotion/delete', removePromotion.removePromotion)
 
 
         .patch('/invoiceoutput', UpdateInvoiceOutput.UpdateInvoiceOutput)
@@ -224,6 +234,7 @@ module.exports = app => {
         .post('/cart/:id', getDetailByID.getDetailByID)
         .get('/cart/:id', getAllItemCart.getAllItemCart)
         .post('/cart', addCart.addCart)
+        .post('/product/quantitycart/all', getQuantityInCart.getQuantityInCart)
         .delete('/cart/all/:id_khach_hang', removeAllCart.removeAllCart)
 
         .delete('/cart/:id_sp/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc', removeCart.removeCart)

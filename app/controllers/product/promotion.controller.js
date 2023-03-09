@@ -81,6 +81,128 @@ exports.removePromotion = (req, res) => {
 
 };
 
+exports.addPromotionByCategory = (req, res) => {
+    const data = {
+        id_loai_sp: req.body.id_loai_sp,
+        id_khuyen_mai: req.body.id_khuyen_mai,
+    };
+    console.log(data);
+
+    if (data.id_loai_sp, data.id_khuyen_mai) {
+
+        promotion.addCategory(data, (err, results) => {
+            if (err) {
+                return res.status(400).json({
+                    success: 0,
+
+                });
+
+
+            }
+            return res.json({
+                success: 1,
+                message: 'Them promotion in category',
+                data: results,
+            });
+        });
+
+
+    }
+    else {
+
+        return res.status(404).json({
+            success: 0,
+            data: 'Xoa that bai',
+        });
+
+
+
+
+    }
+
+};
+
+exports.addPromotionByTradeMark = (req, res) => {
+    const data = {
+        id_thuong_hieu: req.body.id_thuong_hieu,
+        id_khuyen_mai: req.body.id_khuyen_mai,
+    };
+
+    if (data.id_thuong_hieu, data.id_khuyen_mai) {
+
+        promotion.addTrademark(data, (err, results) => {
+            if (err) {
+                return res.status(400).json({
+                    success: 0,
+
+                });
+
+
+            }
+            return res.json({
+                success: 1,
+                message: 'Them promotion in trademark',
+                data: results,
+            });
+        });
+
+
+    }
+    else {
+
+        return res.status(404).json({
+            success: 0,
+            data: 'Xoa that bai',
+        });
+
+
+
+
+    }
+
+};
+
+exports.addPromotionByIdProduct = (req, res) => {
+    const data = {
+        id_sp: req.body.id_sp,
+        id_khuyen_mai: req.body.id_khuyen_mai,
+    };
+
+    if (data.id_sp, data.id_khuyen_mai) {
+
+        promotion.addIdProduct(data, (err, results) => {
+            if (err) {
+                return res.status(400).json({
+                    success: 0,
+
+                });
+
+
+            }
+            return res.json({
+                success: 1,
+                message: 'Them promotion in idproduct',
+                data: results,
+            });
+        });
+
+
+    }
+    else {
+
+        return res.status(404).json({
+            success: 0,
+            data: 'Xoa that bai',
+        });
+
+
+
+
+    }
+
+};
+
+
 exports.getAllPromotion = (req, res) => {
     const data = {};
 

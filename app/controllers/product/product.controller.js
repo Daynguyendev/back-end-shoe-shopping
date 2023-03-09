@@ -167,6 +167,26 @@ exports.getItemByName = (req, res) => {
 
 };
 
+exports.getItemByCategory = (req, res) => {
+
+    const id_loai_sp = req.params.id_loai_sp;
+    console.log(id_loai_sp)
+    product.getByIdCategory(id_loai_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+
 exports.UpdatePromotion = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,

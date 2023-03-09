@@ -20,6 +20,41 @@ promotion.create = (data, callBack) => {
     });
 };
 
+promotion.addTrademark = (data, callBack) => {
+    sql.query(`SELECT * FROM san_pham CROSS JOIN khuyen_mai WHERE san_pham.id_thuong_hieu = ? and khuyen_mai.id_khuyen_mai = ? `,
+        [data.id_thuong_hieu, data.id_khuyen_mai], (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callBack(err, null);
+                return;
+            }
+            callBack(null, res);
+        });
+};
+promotion.addCategory = (data, callBack) => {
+    sql.query(`SELECT * FROM san_pham CROSS JOIN khuyen_mai WHERE san_pham.id_loai_sp = ? and khuyen_mai.id_khuyen_mai = ? `,
+        [data.id_loai_sp, data.id_khuyen_mai], (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callBack(err, null);
+                return;
+            }
+            callBack(null, res);
+        });
+};
+
+promotion.addIdProduct = (data, callBack) => {
+    sql.query(`SELECT * FROM san_pham CROSS JOIN khuyen_mai WHERE san_pham.id_sp = ? and khuyen_mai.id_khuyen_mai = ? `,
+        [data.id_sp, data.id_khuyen_mai], (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callBack(err, null);
+                return;
+            }
+            callBack(null, res);
+        });
+};
+
 promotion.remove = (data, callBack) => {
     sql.query("DELETE FROM khuyen_mai WHERE id_khuyen_mai = ?", [data.id_khuyen_mai], (err, res) => {
         if (err) {
