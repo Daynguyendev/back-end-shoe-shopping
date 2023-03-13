@@ -5,10 +5,10 @@ class productdetail {
         this.ten_sp = bill.ten_sp;
         this.gia_sp = bill.gia_sp;
         this.thong_tin_sp = bill.thong_tin_sp;
-        this.id_hinh_anh = bill.id_hinh_anh;
         this.id_thuong_hieu = bill.id_thuong_hieu;
         this.id_loai_sp = bill.id_loai_sp;
         this.hinh_anh_chinh = bill.hinh_anh_chinh;
+        this.id_khuyen_mai = bill.id_khuyen_mai;
         this.ten_mau_sac = bill.ten_mau_sac;
         this.ten_kich_thuoc = bill.ten_kich_thuoc;
         this.so_luong_kho = bill.so_luong_kho;
@@ -16,6 +16,7 @@ class productdetail {
 }
 
 productdetail.create = (data, callBack) => {
+    console.log('testdata add', data);
     sql.query(`INSERT INTO chi_tiet_sp  SET ? `, data, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -39,8 +40,8 @@ productdetail.remove = (data, callBack) => {
 
 
 
-productdetail.getById = (id_hinh_anh, callBack) => {
-    sql.query("SELECT * FROM chi_tiet_sp WHERE id_hinh_anh = ? ", [id_hinh_anh], (err, res) => {
+productdetail.getById = (id_sp, callBack) => {
+    sql.query("SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai  WHERE id_sp = ? ", [id_sp], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

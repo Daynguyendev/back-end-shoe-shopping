@@ -43,7 +43,7 @@ exports.addColor = (req, res) => {
 
 
 exports.removeColor = (req, res) => {
-    const id_mau_sac = req.body;
+    const id_mau_sac = req.params.id_mau_sac;
 
     if (id_mau_sac) {
 
@@ -108,6 +108,25 @@ exports.getNameColorbyID = (req, res) => {
             return res.status(400).json({
                 success: 0,
 
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+
+exports.getNameColorbyIDProduct = (req, res) => {
+
+    const id_sp = req.params.id_sp;
+
+    color.getColorByIdSpDetailProduct(id_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
             });
 
 

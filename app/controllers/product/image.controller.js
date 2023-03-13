@@ -1,12 +1,13 @@
 const image = require('../../models/product/image.model')
 
 exports.addImage = (req, res) => {
-    const { link_hinh_anh_ct, id_hinh_anh } = req.body;
+    const { link_hinh_anh_ct, id_sp, id_mau_sac } = req.body;
 
-    if (link_hinh_anh_ct) {
+    if (link_hinh_anh_ct, id_sp, id_mau_sac) {
         const newImage = new image({
+            id_mau_sac: id_mau_sac,
             link_hinh_anh_ct: link_hinh_anh_ct,
-            id_hinh_anh: id_hinh_anh,
+            id_sp: id_sp,
 
         });
         image.create(newImage, (err, newImage) => {
@@ -59,7 +60,7 @@ exports.removeImage = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                image: id_hinh_anh_ct,
+                image: id_hinh_anh,
             });
         });
 
@@ -81,9 +82,11 @@ exports.removeImage = (req, res) => {
 
 exports.getItemByID = (req, res) => {
 
-    const id_hinh_anh = req.params.id;
+    const id_sp = req.params.id;
+    const id_mau_sac = req.params.id;
 
-    image.getByID(id_hinh_anh, (err, result) => {
+
+    image.getByIDSPIdColor(id_sp, id_mau_sac, (err, result) => {
         if (err) {
             return res.status(400).json({
                 success: 0,
@@ -98,6 +101,43 @@ exports.getItemByID = (req, res) => {
     });
 
 };
+
+
+exports.getImageByIdProduct = (req, res) => {
+    const id_sp = req.params.id_sp;
+    console.log('getImageByIdProduct', id_sp);
+    image.getImageById(id_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+        }
+        return res.json({
+            data: result,
+        });
+    });
+
+};
+
+exports.getColorByIdProduct = (req, res) => {
+    const id_sp = req.params.id_sp;
+    console.log('getColorByIdProduct', id_sp);
+    image.getColorById(id_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+        }
+        return res.json({
+            data: result,
+        });
+    });
+
+};
+
+
 
 exports.getAllImage = (req, res) => {
     const data = {};

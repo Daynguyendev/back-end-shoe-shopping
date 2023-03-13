@@ -67,6 +67,21 @@ color.getNameByID = (id_mau_sac, callBack) => {
 };
 
 
+color.getColorByIdSpDetailProduct = (id_sp, callBack) => {
+    sql.query(" SELECT DISTINCT ten_mau_sac FROM chi_tiet_sp WHERE id_sp = ?", [id_sp], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
+
+
 
 
 

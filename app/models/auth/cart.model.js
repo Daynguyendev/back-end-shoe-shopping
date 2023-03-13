@@ -189,7 +189,7 @@ cart.updateQuantity = (data, callBack) => {
 
 
 cart.getById = (data, callBack) => {
-    sql.query("SELECT * FROM gio_hang INNER JOIN san_pham ON san_pham.id_sp = gio_hang.id_sp WHERE id_khach_hang = ?", data, (err, res) => {
+    sql.query("SELECT * FROM gio_hang INNER JOIN san_pham ON san_pham.id_sp = gio_hang.id_sp INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE id_khach_hang = ?", data, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

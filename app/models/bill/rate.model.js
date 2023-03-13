@@ -1,6 +1,8 @@
 const sql = require("../db");
 class rate {
     constructor(bill) {
+        this.id_khach_hang = bill.id_khach_hang;
+        this.id_hd_dat = bill.id_hd_dat;
         this.ten_nguoi_danh_gia = bill.ten_nguoi_danh_gia;
         this.noi_dung = bill.noi_dung;
         this.id_sp = bill.id_sp;
@@ -38,6 +40,7 @@ rate.update = (data, callBack) => {
         `UPDATE danh_gia_sp SET ten_nguoi_danh_gia=? , noi_dung = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
          so_sao_danh_gia= ? WHERE id_danh_gia = ?;`,
         [
+            data.id_khach_hang,
             data.ten_nguoi_danh_gia,
             data.noi_dung,
             data.id_sp,

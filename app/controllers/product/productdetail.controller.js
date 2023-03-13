@@ -1,8 +1,8 @@
 const { json } = require('body-parser');
 const productdetail = require('../../models/product/productdetail.model')
 exports.addDetailProduct = (req, res) => {
-    const { id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_hinh_anh, thong_tin_sp, gia_sp } = req.body;
-    console.log('data', id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_hinh_anh, thong_tin_sp, gia_sp)
+    const { id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_khuyen_mai, thong_tin_sp, gia_sp } = req.body;
+    console.log('data', id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_khuyen_mai, id_thuong_hieu, thong_tin_sp, gia_sp)
     productdetail.findproductdetail(id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
         if (results) {
             productdetail.update(parseInt(so_luong_kho) + parseInt(results.so_luong_kho), id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
@@ -29,10 +29,10 @@ exports.addDetailProduct = (req, res) => {
                 ten_sp: ten_sp,
                 gia_sp: gia_sp,
                 thong_tin_sp: thong_tin_sp,
-                id_hinh_anh: id_hinh_anh,
                 id_thuong_hieu: id_thuong_hieu,
                 id_loai_sp: id_loai_sp,
                 hinh_anh_chinh: hinh_anh_chinh,
+                id_khuyen_mai: id_khuyen_mai,
                 ten_mau_sac: ten_mau_sac,
                 ten_kich_thuoc: ten_kich_thuoc,
                 so_luong_kho: so_luong_kho,
@@ -160,9 +160,10 @@ exports.removeDetailProduct = (req, res) => {
 };
 
 exports.getAllDetailProduct = (req, res) => {
-    const id_hinh_anh = req.params.id;
-    if (id_hinh_anh) {
-        productdetail.getById(id_hinh_anh, (err, result) => {
+    const id_sp = req.params.id_sp;
+    console.log('test id', id_sp);
+    if (id_sp) {
+        productdetail.getById(id_sp, (err, result) => {
 
             if (err) {
                 return res.status(400).json({

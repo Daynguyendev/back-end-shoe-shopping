@@ -7,6 +7,7 @@ class size {
 
 
 size.create = (newSize, result) => {
+    console.log('ceate')
     sql.query("INSERT INTO kich_thuoc SET ?", newSize, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -18,21 +19,21 @@ size.create = (newSize, result) => {
     });
 };
 
-size.remove = (newSize, result) => {
-    sql.query("DELETE FROM kich_thuoc WHERE id_kich_thuoc = ?", newSize, (err, res) => {
+size.remove = (id_kich_thuoc, result) => {
+    sql.query("DELETE FROM kich_thuoc WHERE id_kich_thuoc = ?", id_kich_thuoc, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
-        console.log("remove size: ", { id_kich_thuoc: res.insertId, ...newSize });
-        result(null, { id_kich_thuoc: res.insertId, ...newSize });
+        result(null, res);
     });
 };
 
 
 
 size.get = (data, callBack) => {
+    console.log('haha')
     sql.query("SELECT * FROM kich_thuoc WHERE 1", (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -61,8 +62,8 @@ size.update = (data, callBack) => {
 };
 
 
-size.getNameByID = (id_kich_thuoc, callBack) => {
-    sql.query(" SELECT ten_kich_thuoc FROM kich_thuoc WHERE id_kich_thuoc =?", [id_kich_thuoc], (err, res) => {
+size.getNameByID = (id_sp, callBack) => {
+    sql.query(" SELECT DISTINCT kich_thuoc.ten_kich_thuoc FROM chi_tiet_sp INNER JOIN kich_thuoc  ON kich_thuoc.ten_kich_thuoc=chi_tiet_sp.ten_kich_thuoc WHERE id_sp = ?", id_sp, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

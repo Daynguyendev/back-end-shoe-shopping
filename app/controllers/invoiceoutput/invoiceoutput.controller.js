@@ -82,6 +82,59 @@ exports.removeInvoiceOutput = (req, res) => {
 
 };
 
+exports.getStatusByIdBill = (req, res) => {
+    const id_hd_dat = req.body;
+    console.log(id_hd_dat)
+
+    if (id_hd_dat) {
+
+        invoiceoutput.getByIdBill(id_hd_dat, (err, result) => {
+            if (err) {
+                return res.status(400).json({
+                    success: 0,
+
+                });
+
+
+            }
+            return res.json({
+                success: 1,
+                message: 'Get thanh cong',
+                data: result[0],
+            });
+        });
+
+
+    }
+
+};
+
+exports.checkUserRate = (req, res) => {
+    const data = {
+        id_khach_hang: req.params.id_khach_hang,
+        id_sp: req.body.id_sp,
+        id_hd_dat: req.body.id_hd_dat,
+    }
+    invoiceoutput.findUserRate(data, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        console.log('resao', result);
+        return res.json({
+            success: 1,
+            message: 'Get thanh cong',
+            data: result,
+        });
+    });
+
+};
+
+
 exports.getAllInvoiceOutput = (req, res) => {
     const data = {};
 

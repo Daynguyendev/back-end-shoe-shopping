@@ -118,5 +118,4 @@ status.getAll = (data, callBack) => {
 };
 
 
-
 module.exports = status;
