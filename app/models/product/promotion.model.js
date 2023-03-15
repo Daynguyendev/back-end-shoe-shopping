@@ -55,8 +55,8 @@ promotion.addIdProduct = (data, callBack) => {
         });
 };
 
-promotion.remove = (data, callBack) => {
-    sql.query("DELETE FROM khuyen_mai WHERE id_khuyen_mai = ?", [data.id_khuyen_mai], (err, res) => {
+promotion.remove = (id_khuyen_mai, callBack) => {
+    sql.query("DELETE FROM khuyen_mai WHERE id_khuyen_mai = ?", id_khuyen_mai, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

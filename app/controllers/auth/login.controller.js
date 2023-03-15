@@ -18,7 +18,13 @@ exports.login = (req, res) => {
             } else {
                 bcrypt.compare(mat_khau_khach_hang, user.mat_khau_khach_hang, (err, result) => {
                     if (result) {
-                        const token = jwt.sign({ email: user.email }, 'mysecretkey', { expiresIn: '1h' }); // Tạo JWT token
+
+                        const token = jwt.sign({ chuc_vu: user.chuc_vu }, 'mysecretkey', { expiresIn: '1h' });
+                        // const jsontoken = jwt.sign({ result: results.customer_id }, process.env.JWT_KEY, {
+                        //     expiresIn: '30m',
+                        // });
+                        // Tạo JWT token
+                        console.log('test token create', token)
                         khach_hang.updateToken(token, email_khach_hang, (err, result) => {
                             if (err) {
                                 return res.status(400).json({
@@ -31,7 +37,7 @@ exports.login = (req, res) => {
                             success: 1,
                             message: 'Dang nhap thanh cong',
                             user: result,
-                            token: token, // Trả về JWT token trong response
+                            token, // Trả về JWT token trong response
                         });
 
 

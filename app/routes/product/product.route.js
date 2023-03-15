@@ -8,6 +8,7 @@ const getAllItemProduct = require('../../controllers/product/product.controller'
 const getItemByIDProduct = require('../../controllers/product/product.controller')
 const removeProduct = require('../../controllers/product/product.controller')
 const getAllItemProductHasPromotion = require('../../controllers/product/product.controller')
+const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
     var router = require('express').Router();
@@ -17,7 +18,7 @@ module.exports = app => {
         .get('/product/category/:id_loai_sp', getItemByCategory.getItemByCategory)
         .get('/product', getAllItemProduct.getAllItemProduct)
         .post('/product', addProduct.addProduct)
-        .delete('/product', removeProduct.removeProduct)
+        .delete('/product', isAdmin.isAdmin, removeProduct.removeProduct)
         .post('/product/getid/id', getItemByIDItem.getItemByIDItem)
         .get('/product/detail/:id_sp', getItemByIDProduct.getItemByIDProduct)
     app.use(router);

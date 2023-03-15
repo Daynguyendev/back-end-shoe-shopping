@@ -8,6 +8,7 @@ const getAllItemCart = require('../../controllers/auth/cart.controller')
 const UpdateCart = require('../../controllers/auth/cart.controller')
 const getAllItemCartById = require('../../controllers/auth/cart.controller')
 const getAllItemCartSPById = require('../../controllers/auth/cart.controller')
+const getQuantityInCart = require('../../controllers/product/productdetail.controller')
 
 module.exports = app => {
     const router = require('express').Router();
@@ -15,7 +16,7 @@ module.exports = app => {
     router.get('/cart/:id', getAllItemCart.getAllItemCart)
         .post('/cart/:id', getDetailByID.getDetailByID)
         .post('/cart', addCart.addCart)
-        // .post('/product/quantitycart/all', getQuantityInCart.getQuantityInCart)
+        .post('/quantitycart/all', getQuantityInCart.getQuantityInCart)
         .delete('/cart/all/:id_khach_hang', removeAllCart.removeAllCart)
         .delete('/cart/:id_sp/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc', removeCart.removeCart)
         .patch('/cart', UpdateCart.UpdateCart)

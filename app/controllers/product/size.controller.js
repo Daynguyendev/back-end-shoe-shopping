@@ -98,10 +98,10 @@ exports.getAllSize = (req, res) => {
 
 };
 
-exports.UpdateTrademark = (req, res) => {
+exports.UpdateSize = (req, res) => {
     const data = {
-        id_thuong_hieu: req.body.id_thuong_hieu,
-        ten_thuong_hieu: req.body.ten_thuong_hieu,
+        id_kich_thuoc: req.body.id_kich_thuoc,
+        ten_kich_thuoc: req.body.ten_kich_thuoc,
     };
 
     size.update(data, (err, results) => {

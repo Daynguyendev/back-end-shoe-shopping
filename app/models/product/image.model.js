@@ -18,8 +18,8 @@ image.create = (data, callBack) => {
     });
 };
 
-image.remove = (data, callBack) => {
-    sql.query("DELETE FROM hinh_anh_chi_tiet WHERE id_anh = ?", [data.id_anh], (err, res) => {
+image.remove = (id_anh, callBack) => {
+    sql.query("DELETE FROM hinh_anh_chi_tiet WHERE id_anh = ?", id_anh, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -56,7 +56,7 @@ image.get = (data, callBack) => {
 
 image.getColorById = (id_sp, callBack) => {
     console.log('datacolor toi ko ', id_sp)
-    sql.query("SELECT ten_mau_sac FROM chi_tiet_sp WHERE id_sp = ? ", [id_sp], (err, res) => {
+    sql.query("SELECT mau_sac.id_mau_sac FROM chi_tiet_sp INNER JOIN mau_sac ON chi_tiet_sp.id_mau_sac = mau_sac.id_mau_sac WHERE id_sp = ? ", [id_sp], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -68,7 +68,7 @@ image.getColorById = (id_sp, callBack) => {
 
 image.getImageById = (id_sp, callBack) => {
     console.log('datacolor toi ko ', id_sp)
-    sql.query("SELECT DISTINCT  mau_sac.ten_mau_sac, hinh_anh_chi_tiet.link_hinh_anh_ct, hinh_anh_chi_tiet.id_mau_sac  FROM chi_tiet_sp INNER JOIN mau_sac ON chi_tiet_sp.ten_mau_sac = mau_sac.ten_mau_sac INNER JOIN hinh_anh_chi_tiet ON chi_tiet_sp.id_sp = hinh_anh_chi_tiet.id_sp AND mau_sac.id_mau_sac = hinh_anh_chi_tiet.id_mau_sac WHERE chi_tiet_sp.id_sp =? ", [id_sp], (err, res) => {
+    sql.query("SELECT DISTINCT mau_sac.id_mau_sac, hinh_anh_chi_tiet.link_hinh_anh_ct, hinh_anh_chi_tiet.id_mau_sac  FROM chi_tiet_sp INNER JOIN mau_sac ON chi_tiet_sp.id_mau_sac = mau_sac.id_mau_sac INNER JOIN hinh_anh_chi_tiet ON chi_tiet_sp.id_sp = hinh_anh_chi_tiet.id_sp AND mau_sac.id_mau_sac = hinh_anh_chi_tiet.id_mau_sac WHERE chi_tiet_sp.id_sp =? ", [id_sp], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

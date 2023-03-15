@@ -3,6 +3,8 @@ const register = require('../controllers/auth/register.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const forgotPassword = require('../controllers/auth/forgotPassword.controller');
 const loggedin = require('../middlewares/auth.middleware')
+const getIDByNameUser = require('../controllers/auth/user.controller')
+
 // const addDiachi = require('../controllers/auth/address.controller')
 // const getNameColorbyIDProduct = require('../controllers/product/color.controller')
 // const getNameColorbyID = require('../controllers/product/color.controller')
@@ -119,8 +121,6 @@ const loggedin = require('../middlewares/auth.middleware')
 // const removeDetailProduct = require('../controllers/product/productdetail.controller')
 // const UpdateDetailProduct = require('../controllers/product/productdetail.controller')
 // const getAllDetailProduct = require('../controllers/product/productdetail.controller')
-const getIDByNameUser = require('../controllers/auth/user.controller')
-
 module.exports = app => {
     var router = require('express').Router();
 
@@ -149,7 +149,6 @@ module.exports = app => {
     // .post('/product/size', addSize.addSize)
     // .delete('/product/size/:id_kich_thuoc', removeSize.removeSize)
 
-
     // .get('/product/image', getAllImage.getAllImage)
 
     // .get('/product/category', getAllCategory.getAllCategory)
@@ -169,8 +168,6 @@ module.exports = app => {
     // .delete('/product/all', removeDetailProduct.removeDetailProduct)
     // .post('/product/getid/id', getItemByIDItem.getItemByIDItem)
 
-
-
     // .get('/product/provider', getAllProvider.getAllProvider)
     // .post('/product/provider', addProvider.addProvider)
     // .delete('/product/provider', removeProvider.removeProvider)
@@ -181,7 +178,6 @@ module.exports = app => {
     // .get('/product', getAllItemProduct.getAllItemProduct)
     // .post('/product', addProduct.addProduct)
     // .delete('/product', removeProduct.removeProduct)
-
 
     // .post('/product/promotion/category', addPromotionByCategory.addPromotionByCategory)
     // .post('/product/promotion/id', addPromotionByIdProduct.addPromotionByIdProduct)
@@ -208,8 +204,6 @@ module.exports = app => {
     // .post('/product/rate', addRate.addRate)
     // .delete('/product/rate', removeRate.removeRate)
 
-
-
     // .patch('/bill/checkout', UpdateCheckout.UpdateCheckout)
     // .get('/bill/checkout', getAllCheckout.getAllCheckout)
     // .post('/bill/checkout', addCheckout.addCheckout)
@@ -225,7 +219,6 @@ module.exports = app => {
     // .post('/detailinvoice', addDetailInvoice.addDetailInvoice)
     // .delete('/detailinvoice', removeDetailInvoice.removeDetailInvoice)
 
-
     // .get('/bill/status/:id_khach_hang/:id_hd_dat', getStatusNew.getStatusNew)
     // .get('/bill/status', getAllStatus.getAllStatus)
     // .get('/bill/status/:id_khach_hang', getStatus.getStatus)
@@ -233,7 +226,6 @@ module.exports = app => {
     // .post('/bill/status/fillter', getBillByStatus.getBillByStatus)
     // .delete('/bill/status', removeStatus.removeStatus)
     // .patch('/bill/status', UpdateStatusByIdKhIdHd.UpdateStatusByIdKhIdHd)
-
 
     // .post('/cart/:id', getDetailByID.getDetailByID)
     // .get('/cart/:id', getAllItemCart.getAllItemCart)
@@ -247,13 +239,11 @@ module.exports = app => {
     // .patch('/cart/quantity', updateQuantityCart.UpdateQuantityCart)
     // .patch('/cart/quantitybutton', UpdateQuantityButton.UpdateQuantityButton)
 
-
     // .get('/product/detail/:id_sp', getItemByIDProduct.getItemByIDProduct)
     // .post('/product/image/detail/:id_sp', getImageByIdProduct.getImageByIdProduct)
 
     // .post('/product/image', addImage.addImage)
     // .delete('/product/image/:id', removeImage.removeImage)
-
 
     // .get('/logout', authMiddleware.loggedin, login.logout)
 

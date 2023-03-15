@@ -9,8 +9,8 @@ class productdetail {
         this.id_loai_sp = bill.id_loai_sp;
         this.hinh_anh_chinh = bill.hinh_anh_chinh;
         this.id_khuyen_mai = bill.id_khuyen_mai;
-        this.ten_mau_sac = bill.ten_mau_sac;
-        this.ten_kich_thuoc = bill.ten_kich_thuoc;
+        this.id_mau_sac = bill.id_mau_sac;
+        this.id_kich_thuoc = bill.id_kich_thuoc;
         this.so_luong_kho = bill.so_luong_kho;
     }
 }
@@ -64,14 +64,14 @@ productdetail.get = (data, callBack) => {
 };
 
 
-productdetail.findproductdetail = (id_sp, ten_mau_sac, ten_kich_thuoc, callBack) => {
-    console.log('data cua findproduct', id_sp, ten_mau_sac, ten_kich_thuoc)
+productdetail.findproductdetail = (id_sp, id_mau_sac, id_kich_thuoc, callBack) => {
+    console.log('data cua findproduct', id_sp, id_mau_sac, id_kich_thuoc)
     sql.query(
-        `SELECT * FROM  chi_tiet_sp WHERE id_sp = ? and ten_mau_sac = ? and ten_kich_thuoc=?;`,
+        `SELECT * FROM  chi_tiet_sp WHERE id_sp = ? and id_mau_sac = ? and id_kich_thuoc=?;`,
         [
             id_sp,
-            ten_mau_sac,
-            ten_kich_thuoc,
+            id_mau_sac,
+            id_kich_thuoc,
 
         ],
         (error, results, fields) => {
@@ -84,15 +84,15 @@ productdetail.findproductdetail = (id_sp, ten_mau_sac, ten_kich_thuoc, callBack)
     );
 };
 
-productdetail.update = (so_luong_kho, id_sp, ten_mau_sac, ten_kich_thuoc, callBack) => {
+productdetail.update = (so_luong_kho, id_sp, id_mau_sac, id_kich_thuoc, callBack) => {
 
     sql.query(
-        `UPDATE chi_tiet_sp SET so_luong_kho=? WHERE id_sp = ? and ten_mau_sac = ? and ten_kich_thuoc=?;`,
+        `UPDATE chi_tiet_sp SET so_luong_kho=? WHERE id_sp = ? and id_mau_sac = ? and id_kich_thuoc=?;`,
         [
             so_luong_kho,
             id_sp,
-            ten_mau_sac,
-            ten_kich_thuoc,
+            id_mau_sac,
+            id_kich_thuoc,
 
         ],
         (error, results, fields) => {

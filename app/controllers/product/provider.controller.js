@@ -43,7 +43,7 @@ exports.addProvider = (req, res) => {
 
 
 exports.removeProvider = (req, res) => {
-    const id_nha_cc = req.body;
+    const id_nha_cc = req.params.id_nha_cc;
 
     if (id_nha_cc) {
 
@@ -99,4 +99,32 @@ exports.getAllProvider = (req, res) => {
         });
     });
 
+};
+
+
+exports.UpdateProvider = (req, res) => {
+    const data = {
+        id_nha_cc: req.body.id_nha_cc,
+        ten_nha_cc: req.body.ten_nha_cc,
+        dia_chi_cc: req.body.dia_chi_cc,
+    };
+
+    provider.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

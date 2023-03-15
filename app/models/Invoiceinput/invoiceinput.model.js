@@ -18,8 +18,8 @@ invoiceinput.create = (data, callBack) => {
     });
 };
 
-invoiceinput.remove = (data, callBack) => {
-    sql.query("DELETE FROM hd_nhap_hang WHERE id_hd_nhap_hang  = ?", [data.id_hd_nhap_hang], (err, res) => {
+invoiceinput.remove = (id_hd_nhap_hang, callBack) => {
+    sql.query("DELETE FROM hd_nhap_hang WHERE id_hd_nhap_hang  = ?", id_hd_nhap_hang, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -53,6 +53,24 @@ invoiceinput.getByName = (ten_hoa_don_nhap, callBack) => {
         }
         callBack(null, res);
     });
+};
+
+
+invoiceinput.update = (data, callBack) => {
+    sql.query(
+        `UPDATE hd_nhap_hang SET ten_hoa_don_nhap = ? WHERE id_hd_nhap_hang = ?;`,
+        [
+            data.ten_hoa_don_nhap,
+            data.id_hd_nhap_hang,
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
 };
 
 

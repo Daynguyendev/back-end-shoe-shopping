@@ -9,6 +9,7 @@ module.exports = app => {
     router.get('/detailinvoiceoutput', getAllDetailInvoiceOutput.getAllDetailInvoiceOutput)
         .post('/detailinvoiceoutput', addDetailInvoiceOutput.addDetailInvoiceOutput)
         .delete('/detailinvoiceoutput', removeDetailInvoiceOutput.removeDetailInvoiceOutput)
+
         .post('/invoiceoutput/detail', getDetailInvoiceByID.getDetailInvoiceByID)
     app.use(router);
 }

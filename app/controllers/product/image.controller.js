@@ -44,11 +44,11 @@ exports.addImage = (req, res) => {
 
 
 exports.removeImage = (req, res) => {
-    const id_hinh_anh = req.body;
+    const id_anh = req.params.id_anh;
 
-    if (id_hinh_anh) {
+    if (id_anh) {
 
-        image.remove(id_hinh_anh, (err, id_hinh_anh) => {
+        image.remove(id_anh, (err, id_anh) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
@@ -60,7 +60,7 @@ exports.removeImage = (req, res) => {
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                image: id_hinh_anh,
+                image: id_anh,
             });
         });
 
@@ -157,4 +157,35 @@ exports.getAllImage = (req, res) => {
         });
     });
 
+};
+
+
+
+exports.UpdateImage = (req, res) => {
+    const data = {
+        id_anh: req.body.id_anh,
+        id_sp: req.body.id_sp,
+        id_mau_sac: req.body.id_mau_sac,
+        link_hinh_anh_ct: req.body.link_hinh_anh_ct
+
+    };
+
+    image.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

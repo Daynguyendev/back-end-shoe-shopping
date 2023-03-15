@@ -2,7 +2,7 @@ const promotion = require('../../models/product/promotion.model')
 
 exports.addPromotion = (req, res) => {
     const { ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam } = req.body;
-
+    console.log({ ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam })
     if (ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam) {
         const newPromotion = new promotion({
             ten_khuyen_mai: ten_khuyen_mai,
@@ -45,8 +45,7 @@ exports.addPromotion = (req, res) => {
 
 
 exports.removePromotion = (req, res) => {
-    const id_khuyen_mai = req.body;
-
+    const id_khuyen_mai = req.params.id_khuyen_mai;
     if (id_khuyen_mai) {
 
         promotion.remove(id_khuyen_mai, (err, id_khuyen_mai) => {

@@ -16,8 +16,8 @@ color.create = (data, callBack) => {
     });
 };
 
-color.remove = (data, callBack) => {
-    sql.query(`DELETE FROM mau_sac WHERE id_mau_sac = ?`, [data.id_mau_sac], (err, res) => {
+color.remove = (id_mau_sac, callBack) => {
+    sql.query(`DELETE FROM mau_sac WHERE id_mau_sac = ?`, id_mau_sac, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -68,7 +68,7 @@ color.getNameByID = (id_mau_sac, callBack) => {
 
 
 color.getColorByIdSpDetailProduct = (id_sp, callBack) => {
-    sql.query(" SELECT DISTINCT ten_mau_sac FROM chi_tiet_sp WHERE id_sp = ?", [id_sp], (err, res) => {
+    sql.query(" SELECT DISTINCT mau_sac.ten_mau_sac, mau_sac.id_mau_sac FROM chi_tiet_sp INNER JOIN mau_sac ON chi_tiet_sp.id_mau_sac = mau_sac.id_mau_sac WHERE id_sp = ?", [id_sp], (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

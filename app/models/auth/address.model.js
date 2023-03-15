@@ -21,9 +21,8 @@ dia_chi.create = (data, callBack) => {
     });
 };
 
-dia_chi.remove = (data, callBack) => {
-    console.log("remove user: ", data)
-    sql.query(`DELETE FROM dia_chi WHERE id_dia_chi = ?`, [data.id_dia_chi], (err, res) => {
+dia_chi.remove = (id_dia_chi, callBack) => {
+    sql.query(`DELETE FROM dia_chi WHERE id_dia_chi = ?`, id_dia_chi, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -34,7 +33,6 @@ dia_chi.remove = (data, callBack) => {
 };
 
 dia_chi.getById = (data, callBack) => {
-    console.log(data)
     sql.query("SELECT * FROM dia_chi WHERE id_khach_hang = ?", [data.id_khach_hang], (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -44,6 +42,24 @@ dia_chi.getById = (data, callBack) => {
         callBack(null, res);
         console.log(res)
     });
+};
+
+dia_chi.update = (data, callBack) => {
+    sql.query(
+        `UPDATE dia_chi SET ten_dia_chi = ?, ten_khach_hang=? , sdt_khach_hang=? WHERE id_dia_chi = ?;`,
+        [
+            data.ten_dia_chi,
+            data.ten_khach_hang,
+            data.sdt_khach_hang,
+            data.id_dia_chi,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
 };
 
 

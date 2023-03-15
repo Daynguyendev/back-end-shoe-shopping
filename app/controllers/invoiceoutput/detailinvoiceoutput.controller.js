@@ -2,15 +2,15 @@ const detailinvoiceoutput = require('../../models/invoiceoutput/detailinvoiceout
 
 
 exports.addDetailInvoiceOutput = (req, res) => {
-    const { id_sp, id_hd_dat, so_luong, ten_mau_sac, ten_kich_thuoc } = req.body;
+    const { id_sp, id_hd_dat, so_luong, id_mau_sac, id_kich_thuoc } = req.body;
 
-    if (id_sp, id_hd_dat, so_luong, ten_mau_sac, ten_kich_thuoc) {
+    if (id_sp, id_hd_dat, so_luong, id_mau_sac, id_kich_thuoc) {
         const newInvoice = new detailinvoiceoutput({
             id_sp: id_sp,
             id_hd_dat: id_hd_dat,
             so_luong: so_luong,
-            ten_mau_sac: ten_mau_sac,
-            ten_kich_thuoc: ten_kich_thuoc,
+            id_mau_sac: id_mau_sac,
+            id_kich_thuoc: id_kich_thuoc,
 
         });
         detailinvoiceoutput.create(newInvoice, (err, result) => {

@@ -63,7 +63,7 @@ size.update = (data, callBack) => {
 
 
 size.getNameByID = (id_sp, callBack) => {
-    sql.query(" SELECT DISTINCT kich_thuoc.ten_kich_thuoc FROM chi_tiet_sp INNER JOIN kich_thuoc  ON kich_thuoc.ten_kich_thuoc=chi_tiet_sp.ten_kich_thuoc WHERE id_sp = ?", id_sp, (err, res) => {
+    sql.query(" SELECT DISTINCT kich_thuoc.ten_kich_thuoc , kich_thuoc.id_kich_thuoc FROM chi_tiet_sp INNER JOIN kich_thuoc  ON kich_thuoc.id_kich_thuoc=chi_tiet_sp.id_kich_thuoc WHERE id_sp = ?", id_sp, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

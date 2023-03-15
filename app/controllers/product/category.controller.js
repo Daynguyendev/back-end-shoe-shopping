@@ -42,8 +42,8 @@ exports.addCategory = (req, res) => {
 
 
 exports.removeCategory = (req, res) => {
-    const id_loai_sp = req.body;
-
+    const id_loai_sp = req.params.id_loai_sp;
+    console.log('test id', id_loai_sp);
     if (id_loai_sp) {
 
         category.remove(id_loai_sp, (err, id_loai_sp) => {
@@ -96,4 +96,30 @@ exports.getAllCategory = (req, res) => {
         });
     });
 
+};
+
+exports.UpdateCategory = (req, res) => {
+    const data = {
+        id_loai_sp: req.body.id_loai_sp,
+        ten_loai_sp: req.body.ten_loai_sp,
+    };
+
+    category.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

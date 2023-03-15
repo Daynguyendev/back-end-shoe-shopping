@@ -17,8 +17,8 @@ provider.create = (data, callBack) => {
     });
 };
 
-provider.remove = (data, callBack) => {
-    sql.query("DELETE FROM nha_cung_cap WHERE id_nha_cc = ?", [data.id_nha_cc], (err, res) => {
+provider.remove = (id_nha_cc, callBack) => {
+    sql.query("DELETE FROM nha_cung_cap WHERE id_nha_cc = ?", id_nha_cc, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

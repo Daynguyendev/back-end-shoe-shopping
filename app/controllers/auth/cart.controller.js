@@ -1,16 +1,16 @@
 const cart = require('../../models/auth/cart.model')
 
 exports.addCart = (req, res) => {
-    const { id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang } = req.body;
-    console.log('testdatacontroladd', id_sp, ten_mau_sac, ten_kich_thuoc, so_luong, id_khach_hang)
+    const { id_sp, id_mau_sac, id_kich_thuoc, so_luong, id_khach_hang } = req.body;
+    console.log('testdatacontroladd', id_sp, id_mau_sac, id_kich_thuoc, so_luong, id_khach_hang)
 
-    cart.findcartInDB(id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, (err, results) => {
-        console.log('testdatafincontrol', id_sp, ten_mau_sac, ten_kich_thuoc)
+    cart.findcartInDB(id_sp, id_khach_hang, id_mau_sac, id_kich_thuoc, (err, results) => {
+        console.log('testdatafincontrol', id_sp, id_mau_sac, id_kich_thuoc)
 
         if (results) {
             console.log('test rè su', results)
-            cart.updateQuantityIncart(parseInt(so_luong) + parseInt(results.so_luong), id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, (err, results) => {
-                console.log('testdataupdatecontrol', id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong)
+            cart.updateQuantityIncart(parseInt(so_luong) + parseInt(results.so_luong), id_sp, id_khach_hang, id_mau_sac, id_kich_thuoc, (err, results) => {
+                console.log('testdataupdatecontrol', id_sp, id_khach_hang, id_mau_sac, id_kich_thuoc, so_luong)
 
                 if (err) {
                     massage: 'loi'
@@ -26,8 +26,8 @@ exports.addCart = (req, res) => {
             const newCart = new cart({
                 id_sp: id_sp,
                 id_khach_hang: id_khach_hang,
-                ten_mau_sac: ten_mau_sac,
-                ten_kich_thuoc: ten_kich_thuoc,
+                id_mau_sac: id_mau_sac,
+                id_kich_thuoc: id_kich_thuoc,
                 so_luong: so_luong,
             });
             cart.create(newCart, (err, newCart) => {
@@ -115,8 +115,8 @@ exports.removeCart = (req, res) => {
     const data = {
         id_sp: req.params.id_sp,
         id_khach_hang: req.params.id_khach_hang,
-        ten_mau_sac: req.params.ten_mau_sac,
-        ten_kich_thuoc: req.params.ten_kich_thuoc,
+        id_mau_sac: req.params.id_mau_sac,
+        id_kich_thuoc: req.params.id_kich_thuoc,
     };
 
     if (data) {
@@ -199,8 +199,8 @@ exports.UpdateCart = (req, res) => {
         id_gio_hang: req.body.id_gio_hang,
         id_sp: req.body.id_sp,
         id_khach_hang: req.body.id_khach_hang,
-        ten_mau_sac: req.body.ten_mau_sac,
-        ten_kich_thuoc: req.body.ten_kich_thuoc,
+        id_mau_sac: req.body.id_mau_sac,
+        id_kich_thuoc: req.body.id_kich_thuoc,
         so_luong: req.body.so_luong,
 
     };
@@ -229,8 +229,8 @@ exports.UpdateQuantityCart = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,
         id_khach_hang: req.body.id_khach_hang,
-        ten_mau_sac: req.body.ten_mau_sac,
-        ten_kich_thuoc: req.body.ten_kich_thuoc,
+        id_mau_sac: req.body.id_mau_sac,
+        id_kich_thuoc: req.body.id_kich_thuoc,
         so_luong: req.body.so_luong,
 
     };
@@ -256,8 +256,8 @@ exports.UpdateQuantityCart = (req, res) => {
             const newCart = new cart({
                 id_sp: data.id_sp,
                 id_khach_hang: data.id_khach_hang,
-                ten_mau_sac: data.ten_mau_sac,
-                ten_kich_thuoc: data.ten_kich_thuoc,
+                id_mau_sac: data.id_mau_sac,
+                id_kich_thuoc: data.id_kich_thuoc,
                 so_luong: data.so_luong,
             });
             cart.create(newCart, (err, results) => {
@@ -289,8 +289,8 @@ exports.UpdateQuantityButton = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,
         id_khach_hang: req.body.id_khach_hang,
-        ten_mau_sac: req.body.ten_mau_sac,
-        ten_kich_thuoc: req.body.ten_kich_thuoc,
+        id_mau_sac: req.body.id_mau_sac,
+        id_kich_thuoc: req.body.id_kich_thuoc,
         so_luong: req.body.so_luong,
 
     };

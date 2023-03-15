@@ -44,7 +44,7 @@ exports.addInvoiceInput = (req, res) => {
 
 
 exports.removeInvoiceInput = (req, res) => {
-    const id_hd_nhap_hang = req.body;
+    const id_hd_nhap_hang = req.params.id_hd_nhap_hang;
 
     if (id_hd_nhap_hang) {
 
@@ -120,4 +120,30 @@ exports.getInvoiceByID = (req, res) => {
     });
 
 };
+exports.UpdateInvoiceInput = (req, res) => {
+    const data = {
+        id_hd_nhap_hang: req.body.id_hd_nhap_hang,
+        ten_hoa_don_nhap: req.body.ten_hoa_don_nhap,
+    };
+
+    invoiceinput.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
+};
+
 

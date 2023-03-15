@@ -17,8 +17,9 @@ category.create = (data, callBack) => {
     });
 };
 
-category.remove = (data, callBack) => {
-    sql.query("DELETE FROM loai_sp WHERE id_loai_sp = ?", [data.id_loai_sp], (err, res) => {
+category.remove = (id_loai_sp, callBack) => {
+
+    sql.query("DELETE FROM loai_sp WHERE id_loai_sp = ?", id_loai_sp, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

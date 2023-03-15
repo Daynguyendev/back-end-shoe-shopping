@@ -31,7 +31,7 @@ exports.addDiachi = (req, res) => {
 };
 
 exports.removeDiachi = (req, res) => {
-    const id_dia_chi = req.params.id;
+    const id_dia_chi = req.params.id_dia_chi;
     console.log('diachicontrol', id_dia_chi)
     if (id_dia_chi) {
         dia_chi.remove(id_dia_chi, (err, id_dia_chi) => {
@@ -81,4 +81,33 @@ exports.GetAddressById = (req, res) => {
             data: 'Vui long nhap thong tin',
         });
     }
+};
+
+exports.UpdateAddress = (req, res) => {
+    const data = {
+        ten_dia_chi: req.body.ten_dia_chi,
+        ten_khach_hang: req.body.ten_khach_hang,
+        sdt_khach_hang: req.body.sdt_khach_hang,
+        id_dia_chi: req.body.id_dia_chi
+
+    };
+
+    dia_chi.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };

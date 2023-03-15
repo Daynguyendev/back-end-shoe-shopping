@@ -1,11 +1,11 @@
 const { json } = require('body-parser');
 const productdetail = require('../../models/product/productdetail.model')
 exports.addDetailProduct = (req, res) => {
-    const { id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_khuyen_mai, thong_tin_sp, gia_sp } = req.body;
-    console.log('data', id_sp, so_luong_kho, ten_mau_sac, ten_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_khuyen_mai, id_thuong_hieu, thong_tin_sp, gia_sp)
-    productdetail.findproductdetail(id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+    const { id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_khuyen_mai, thong_tin_sp, gia_sp } = req.body;
+    console.log('data', id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_khuyen_mai, id_thuong_hieu, thong_tin_sp, gia_sp)
+    productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
         if (results) {
-            productdetail.update(parseInt(so_luong_kho) + parseInt(results.so_luong_kho), id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+            productdetail.update(parseInt(so_luong_kho) + parseInt(results.so_luong_kho), id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
                 if (err) {
                     return res.status(400).json({
                         success: 0,
@@ -33,8 +33,8 @@ exports.addDetailProduct = (req, res) => {
                 id_loai_sp: id_loai_sp,
                 hinh_anh_chinh: hinh_anh_chinh,
                 id_khuyen_mai: id_khuyen_mai,
-                ten_mau_sac: ten_mau_sac,
-                ten_kich_thuoc: ten_kich_thuoc,
+                id_mau_sac: id_mau_sac,
+                id_kich_thuoc: id_kich_thuoc,
                 so_luong_kho: so_luong_kho,
 
             });
@@ -61,13 +61,13 @@ exports.addDetailProduct = (req, res) => {
 };
 
 exports.UpdateQuantityProduct = (req, res) => {
-    const { id_sp, ten_mau_sac, ten_kich_thuoc, so_luong } = req.body;
-    productdetail.findproductdetail(id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+    const { id_sp, id_mau_sac, id_kich_thuoc, so_luong } = req.body;
+    productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
 
 
         if (results) {
             if (parseInt(results.so_luong_kho) - parseInt(so_luong) >= 0) {
-                productdetail.update(parseInt(results.so_luong_kho) - parseInt(so_luong), id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+                productdetail.update(parseInt(results.so_luong_kho) - parseInt(so_luong), id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
                     if (err) {
                         return res.status(400).json({
                             success: 0,
@@ -99,8 +99,8 @@ exports.UpdateQuantityProduct = (req, res) => {
 
 
 exports.getQuantityInCart = (req, res) => {
-    const { id_sp, ten_mau_sac, ten_kich_thuoc } = req.body;
-    productdetail.findproductdetail(id_sp, ten_mau_sac, ten_kich_thuoc, (err, results) => {
+    const { id_sp, id_mau_sac, id_kich_thuoc } = req.body;
+    productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
 
 
         if (results) {
@@ -205,13 +205,13 @@ exports.getAllProduct = (req, res) => {
 exports.UpdateDetailProduct = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,
-        ten_mau_sac: req.body.ten_mau_sac,
-        ten_kich_thuoc: req.body.ten_kich_thuoc,
+        id_mau_sac: req.body.id_mau_sac,
+        id_kich_thuoc: req.body.id_kich_thuoc,
         so_luong_kho: req.body.so_luong_kho,
     };
     console.log('dataupdate', data);
 
-    productdetail.update(data.so_luong_kho, data.id_sp, data.ten_mau_sac, data.ten_kich_thuoc, (err, results) => {
+    productdetail.update(data.so_luong_kho, data.id_sp, data.id_mau_sac, data.id_kich_thuoc, (err, results) => {
         if (err) {
             console.log(err);
             return;

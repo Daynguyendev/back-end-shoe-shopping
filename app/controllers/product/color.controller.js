@@ -137,3 +137,30 @@ exports.getNameColorbyIDProduct = (req, res) => {
     });
 
 };
+
+
+exports.UpdateColor = (req, res) => {
+    const data = {
+        id_mau_sac: req.body.id_mau_sac,
+        ten_mau_sac: req.body.ten_mau_sac,
+    };
+
+    color.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
+};

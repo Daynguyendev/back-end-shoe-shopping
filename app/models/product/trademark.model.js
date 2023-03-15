@@ -17,8 +17,8 @@ trademark.create = (data, callBack) => {
     });
 };
 
-trademark.remove = (data, callBack) => {
-    sql.query("DELETE FROM thuong_hieu WHERE id_thuong_hieu = ?", [data.id_thuong_hieu], (err, res) => {
+trademark.remove = (id_thuong_hieu, callBack) => {
+    sql.query("DELETE FROM thuong_hieu WHERE id_thuong_hieu = ?", id_thuong_hieu, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

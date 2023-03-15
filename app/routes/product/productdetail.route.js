@@ -5,16 +5,17 @@ const addDetailProduct = require('../../controllers/product/productdetail.contro
 const removeDetailProduct = require('../../controllers/product/productdetail.controller')
 const UpdateDetailProduct = require('../../controllers/product/productdetail.controller')
 const getAllDetailProduct = require('../../controllers/product/productdetail.controller')
+const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
     var router = require('express').Router();
     router.get('/all', getAllProduct.getAllProduct)
         .post('/quantitycart/all', getQuantityInCart.getQuantityInCart)
-        .patch('/all', UpdateDetailProduct.UpdateDetailProduct)
-        .delete('/all', removeDetailProduct.removeDetailProduct)
+        .patch('/all', isAdmin.isAdmin, UpdateDetailProduct.UpdateDetailProduct)
+        .delete('/all', isAdmin.isAdmin, removeDetailProduct.removeDetailProduct)
 
         .get('/all/:id_sp', getAllDetailProduct.getAllDetailProduct)
-        .post('/all', addDetailProduct.addDetailProduct)
+        .post('/all', isAdmin.isAdmin, addDetailProduct.addDetailProduct)
 
         // .post('/getid/id', getItemByIDItem.getItemByIDItem)
 

@@ -42,23 +42,21 @@ exports.addTrademark = (req, res) => {
 
 
 exports.removeTrademark = (req, res) => {
-    const ten_thuong_hieu = req.body;
+    const id_thuong_hieu = req.params.id_thuong_hieu;
 
-    if (ten_thuong_hieu) {
+    if (id_thuong_hieu) {
 
-        trademark.remove(ten_thuong_hieu, (err, ten_thuong_hieu) => {
+        trademark.remove(id_thuong_hieu, (err, id_thuong_hieu) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
 
                 });
-
-
             }
             return res.json({
                 success: 1,
                 message: 'Xoa thanh cong',
-                trademark: ten_thuong_hieu,
+                trademark: id_thuong_hieu,
             });
         });
 
@@ -70,9 +68,6 @@ exports.removeTrademark = (req, res) => {
             success: 0,
             data: 'Xoa that bai',
         });
-
-
-
 
     }
 
