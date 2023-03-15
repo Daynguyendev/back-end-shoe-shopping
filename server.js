@@ -12,12 +12,12 @@ const promotionRoute = require('./app/routes/product/promotion.route');
 const providerRoute = require('./app/routes/product/provider.route');
 const trademarkRoute = require('./app/routes/product/trademark.route');
 const productdetailRoute = require('./app/routes/product/productdetail.route');
-const statusRoute = require('./app/routes/product/status.route');
-const rateRoute = require('./app/routes/product/rate.route');
+const statusRoute = require('./app/routes/bill/status.route');
+const rateRoute = require('./app/routes/bill/rate.route');
 const productRoute = require('./app/routes/product/product.route');
 const addressRoute = require('./app/routes/auth/address.route');
 const cartRoute = require('./app/routes/auth/cart.route');
-const checkoutRoute = require('./app/routes/auth/checkout.route');
+const checkoutRoute = require('./app/routes/bill/checkout.route');
 const invoiceRoute = require('./app/routes/invoiceinput/detailinvoice.route');
 const detailinvoiceoutputRoute = require('./app/routes/invoiceoutput/detailinvoiceoutput.route');
 const invoiceoutputRoute = require('./app/routes/invoiceoutput/invoiceoutput.route');
@@ -28,10 +28,12 @@ app.use(function (req, res, next) {
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    // Set to true if you need the website to include cookies in the requests sent
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization,X-Requested-With,Content-type');
+    // Set to true if you need the webysite to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
+
+
     // Pass to next layer of middleware
     next();
 });
@@ -71,12 +73,12 @@ require('./app/routes/product/promotion.route')(app);
 require('./app/routes/product/provider.route')(app);
 require('./app/routes/product/trademark.route')(app);
 require('./app/routes/product/productdetail.route')(app);
-require('./app/routes/product/status.route')(app);
-require('./app/routes/product/rate.route')(app);
+require('./app/routes/bill/status.route')(app);
+require('./app/routes/bill/rate.route')(app);
 require('./app/routes/product/product.route')(app);
 require('./app/routes/auth/address.route')(app);
 require('./app/routes/auth/cart.route')(app);
-require('./app/routes/auth/checkout.route')(app);
+require('./app/routes/bill/checkout.route')(app);
 require('./app/routes/invoiceinput/invoiceinput.route')(app);
 require('./app/routes/invoiceoutput/detailinvoiceoutput.route')(app);
 require('./app/routes/invoiceoutput/invoiceoutput.route')(app);
