@@ -58,6 +58,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
+console.log('test di')
 
 
 app.get('/', (req, res, next) => {
