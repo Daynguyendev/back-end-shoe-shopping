@@ -18,7 +18,7 @@ module.exports = app => {
         .post('/cart', addCart.addCart)
         .post('/quantitycart/all', getQuantityInCart.getQuantityInCart)
         .delete('/cart/all/:id_khach_hang', removeAllCart.removeAllCart)
-        .delete('/cart/:id_sp/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc', removeCart.removeCart)
+        .delete('/cart/:id_sp/:id_khach_hang/:id_mau_sac/:id_kich_thuoc', removeCart.removeCart)
         .patch('/cart', UpdateCart.UpdateCart)
         .get('/cart/join/:id', getAllItemCartSPById.getAllItemCartSPById)
         .patch('/cart/quantity', updateQuantityCart.UpdateQuantityCart)
