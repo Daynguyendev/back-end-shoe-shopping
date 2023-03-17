@@ -16,6 +16,6 @@ module.exports = app => {
         .post('/status', isAdmin.isAdmin, addStatus.addStatus)
         .post('/status/fillter', isAdmin.isAdmin, getBillByStatus.getBillByStatus)
         .delete('/status', isAdmin.isAdmin, removeStatus.removeStatus)
-        .patch('/status', isAdmin.isAdmin, UpdateStatusByIdKhIdHd.UpdateStatusByIdKhIdHd)
+        .patch('/status', UpdateStatusByIdKhIdHd.UpdateStatusByIdKhIdHd)
     app.use(router);
 }

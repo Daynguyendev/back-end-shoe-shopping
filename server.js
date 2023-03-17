@@ -33,8 +33,6 @@ app.use(function (req, res, next) {
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
 
-
-    // Pass to next layer of middleware
     next();
 });
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,7 +56,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
-console.log('test di')
 
 
 app.get('/', (req, res, next) => {
@@ -85,9 +82,6 @@ require('./app/routes/invoiceoutput/detailinvoiceoutput.route')(app);
 require('./app/routes/invoiceoutput/invoiceoutput.route')(app);
 require('./app/routes/invoiceinput/detailinvoice.route')(app);
 
-
-
-
 app.use('/size', sizeRoute);
 app.use('/color', colorRoute);
 app.use('/category', categoryRoute);
@@ -106,25 +100,6 @@ app.use('/detailinvoice', invoiceRoute);
 app.use('/detailinvoiceoutput', detailinvoiceoutputRoute);
 app.use('/invoiceoutput', invoiceoutputRoute);
 app.use('/invoice', invoiceinputRoute);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(5000, function () {
     console.log('server running: http://localhost:5000');
