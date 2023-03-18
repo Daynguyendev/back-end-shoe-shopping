@@ -97,6 +97,43 @@ exports.UpdateQuantityProduct = (req, res) => {
 
 };
 
+exports.UpdateQuantityProductRemove = (req, res) => {
+    const { id_sp, id_mau_sac, id_kich_thuoc, so_luong } = req.body;
+    productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
+
+
+        if (results) {
+            if (parseInt(results.so_luong_kho) - parseInt(so_luong) >= 0) {
+                productdetail.update(parseInt(results.so_luong_kho) + parseInt(so_luong), id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            err: err.message,
+
+                        })
+                    }
+                    else return res.json({
+                        success: 1,
+                        message: 'Cap nhat thanh cong',
+                    });
+
+
+                })
+            }
+            else {
+                return res.status(400).json({
+                    success: 1,
+                    message: 'Cap nhat so luong that bai, vui long kiem tra du lieu',
+                });
+
+            }
+        }
+
+
+    })
+
+};
+
 
 exports.getQuantityInCart = (req, res) => {
     const { id_sp, id_mau_sac, id_kich_thuoc } = req.body;

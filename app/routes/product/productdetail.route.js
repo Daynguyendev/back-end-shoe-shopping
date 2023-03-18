@@ -1,5 +1,6 @@
 const getQuantityInCart = require('../../controllers/product/productdetail.controller')
 const UpdateQuantityProduct = require('../../controllers/product/productdetail.controller')
+const UpdateQuantityProductRemove = require('../../controllers/product/productdetail.controller')
 const getAllProduct = require('../../controllers/product/productdetail.controller')
 const addDetailProduct = require('../../controllers/product/productdetail.controller')
 const removeDetailProduct = require('../../controllers/product/productdetail.controller')
@@ -18,7 +19,8 @@ module.exports = app => {
         .post('/all', isAdmin.isAdmin, addDetailProduct.addDetailProduct)
 
         // .post('/getid/id', getItemByIDItem.getItemByIDItem)
-
         .post('/all/quantity', UpdateQuantityProduct.UpdateQuantityProduct)
+        .post('/all/quantityremove', UpdateQuantityProductRemove.UpdateQuantityProductRemove)
+
     app.use(router);
 }
