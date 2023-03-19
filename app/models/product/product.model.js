@@ -104,6 +104,18 @@ product.getByNameTradeMark = (ten_thuong_hieu, callBack) => {
     });
 };
 
+product.getByNameItem = (ten_sp, callBack) => {
+    console.log(ten_sp)
+    sql.query(" SELECT * FROM san_pham INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE san_pham.ten_sp = ?", [ten_sp], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
 product.getByIdCategory = (id_loai_sp, callBack) => {
     console.log('model', id_loai_sp)
     sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai INNER JOIN loai_sp On san_pham.id_loai_sp = loai_sp.id_loai_sp WHERE loai_sp.id_loai_sp = ?", [id_loai_sp], (err, res) => {

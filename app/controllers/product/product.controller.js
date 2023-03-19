@@ -198,6 +198,27 @@ exports.getItemByName = (req, res) => {
 
 };
 
+exports.getItemByNameItem = (req, res) => {
+
+    const ten_sp = req.params.ten_sp;
+    console.log(ten_sp)
+    product.getByNameItem(ten_sp, (err, result) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data: result,
+        });
+    });
+
+};
+
+
 exports.getItemByCategory = (req, res) => {
 
     const id_loai_sp = req.params.id_loai_sp;

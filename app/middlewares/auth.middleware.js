@@ -39,7 +39,9 @@ exports.isAdmin = (req, res, next) => {
             console.log('11', decoded.chuc_vu)
             const chuc_vu = decoded.chuc_vu;
             console.log('tesst chhuc vu', chuc_vu)
-            if (chuc_vu === 2) next();
+            if (chuc_vu === 2) {
+                next();
+            }
             else {
                 return res.status(405).json({
                     success: 0,

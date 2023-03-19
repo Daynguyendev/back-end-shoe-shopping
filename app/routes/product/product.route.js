@@ -8,6 +8,8 @@ const getAllItemProduct = require('../../controllers/product/product.controller'
 const getItemByIDProduct = require('../../controllers/product/product.controller')
 const removeProduct = require('../../controllers/product/product.controller')
 const getAllItemProductHasPromotion = require('../../controllers/product/product.controller')
+const getItemByNameItem = require('../../controllers/product/product.controller')
+
 const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
@@ -15,6 +17,7 @@ module.exports = app => {
 
     router.get('/productsale', getAllItemProductHasPromotion.getAllItemProductHasPromotion)
         .get('/product/:ten_thuong_hieu', getItemByName.getItemByName)
+        .get('/product/name/:ten_sp', getItemByNameItem.getItemByNameItem)
         .get('/product/category/:id_loai_sp', getItemByCategory.getItemByCategory)
         .get('/product', getAllItemProduct.getAllItemProduct)
         .post('/product', addProduct.addProduct)

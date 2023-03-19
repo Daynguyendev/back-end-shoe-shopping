@@ -4,7 +4,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const forgotPassword = require('../controllers/auth/forgotPassword.controller');
 const loggedin = require('../middlewares/auth.middleware')
 const getIDByNameUser = require('../controllers/auth/user.controller')
-
+const isAdmin = require('../middlewares/auth.middleware')
 // const addDiachi = require('../controllers/auth/address.controller')
 // const getNameColorbyIDProduct = require('../controllers/product/color.controller')
 // const getNameColorbyID = require('../controllers/product/color.controller')
@@ -127,9 +127,11 @@ module.exports = app => {
     router.get('/login', authMiddleware.isAuth)
         .post('/login', login.login, loggedin.loggedin)
         .get('/register', authMiddleware.isAuth, register.create)
+        .post('/user', isAdmin.isAdmin)
         .post('/register', register.register)
-
         .post('/account/id', getIDByNameUser.getIDByNameUser)
+        .post('/admin/id', isAdmin.isAdmin, getIDByNameUser.getIDByNameUser)
+
     // .post('/account/address', GetAddressById.GetAddressById)
     // .post('/account', addDiachi.addDiachi)
     // .post('/account/delete/:id', removeDiachi.removeDiachi)
