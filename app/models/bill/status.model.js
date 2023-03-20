@@ -16,8 +16,8 @@ status.create = (data, callBack) => {
     });
 };
 
-status.remove = (data, callBack) => {
-    sql.query("DELETE FROM trang_thai WHERE id_trang_thai = ?", [data.id_trang_thai], (err, res) => {
+status.remove = (id_trang_thai, callBack) => {
+    sql.query("DELETE FROM trang_thai WHERE id_trang_thai = ?", id_trang_thai, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -28,6 +28,7 @@ status.remove = (data, callBack) => {
 };
 
 status.update = (data, callBack) => {
+    console.log('test data model update', data);
     sql.query(
         `UPDATE trang_thai SET ten_trang_thai = ? WHERE id_trang_thai = ?;`,
         [

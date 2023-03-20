@@ -42,7 +42,7 @@ exports.addStatus = (req, res) => {
 
 
 exports.removeStatus = (req, res) => {
-    const id_trang_thai = req.body;
+    const id_trang_thai = req.params.id_trang_thai;
 
     if (id_trang_thai) {
 
@@ -96,6 +96,32 @@ exports.getStatus = (req, res) => {
         });
     });
 
+};
+
+exports.UpdateStatus = (req, res) => {
+    const data = {
+        id_trang_thai: req.body.id_trang_thai,
+        ten_trang_thai: req.body.ten_trang_thai,
+    };
+
+    status.update(data, (err, results) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        if (!results) {
+            return res.status(404).json({
+                success: 0,
+                message: 'Cap nhat that bai',
+            });
+        } else {
+            return res.json({
+                success: 1,
+                message: 'Cap nhat thanh cong',
+            });
+        }
+    });
 };
 
 exports.getBillByStatus = (req, res) => {

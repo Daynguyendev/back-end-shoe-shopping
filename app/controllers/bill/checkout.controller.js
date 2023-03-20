@@ -41,7 +41,7 @@ exports.addCheckout = (req, res) => {
 
 
 exports.removeCheckout = (req, res) => {
-    const id_phuong_thuc_tt = req.body;
+    const id_phuong_thuc_tt = req.params.id_phuong_thuc_tt;
 
     if (id_phuong_thuc_tt) {
 

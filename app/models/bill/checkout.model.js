@@ -18,8 +18,8 @@ checkout.create = (data, callBack) => {
     });
 };
 
-checkout.remove = (data, callBack) => {
-    sql.query("DELETE FROM thanh_toan WHERE id_phuong_thuc_tt = ?", [data.id_phuong_thuc_tt], (err, res) => {
+checkout.remove = (id_phuong_thuc_tt, callBack) => {
+    sql.query("DELETE FROM thanh_toan WHERE id_phuong_thuc_tt = ?", id_phuong_thuc_tt, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -47,10 +47,7 @@ checkout.update = (data, callBack) => {
         `UPDATE thanh_toan SET ten_phuong_thuc_tt = ? WHERE id_phuong_thuc_tt = ?;`,
         [
             data.ten_phuong_thuc_tt,
-
             data.id_phuong_thuc_tt,
-
-
         ],
         (error, results, fields) => {
             if (error) {

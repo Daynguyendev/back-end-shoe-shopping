@@ -10,6 +10,6 @@ module.exports = app => {
     router.get('/checkout', getAllCheckout.getAllCheckout)
         .patch('/checkout', isAdmin.isAdmin, UpdateCheckout.UpdateCheckout)
         .post('/checkout', addCheckout.addCheckout)
-        .delete('/checkout', isAdmin.isAdmin, removeCheckout.removeCheckout)
+        .delete('/checkout/:id_phuong_thuc_tt', isAdmin.isAdmin, removeCheckout.removeCheckout)
     app.use(router);
 }
