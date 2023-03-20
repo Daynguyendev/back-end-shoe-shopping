@@ -24,8 +24,9 @@ product.create = (data, callBack) => {
     });
 };
 
-product.remove = (data, callBack) => {
-    sql.query("DELETE FROM san_pham WHERE id_sp = ?", [data.id_sp], (err, res) => {
+product.remove = (id_sp, callBack) => {
+    console.log("remove: ", id_sp)
+    sql.query("DELETE FROM san_pham WHERE id_sp = ?", id_sp, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -34,6 +35,21 @@ product.remove = (data, callBack) => {
         callBack(null, res);
     });
 };
+
+product.removeRate = (id_sp, callBack) => {
+    console.log("removedetail: ", id_sp)
+
+    sql.query("DELETE FROM danh_gia_sp WHERE id_sp = ?", id_sp, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
 product.get = (data, callBack) => {
     sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai on san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE 1", (err, res) => {
         if (err) {
@@ -178,6 +194,33 @@ product.update = (data, callBack) => {
         }
     );
 };
+
+product.updateDetail = (data, callBack) => {
+    sql.query(
+        `UPDATE chi_tiet_sp SET ten_sp = ?, gia_sp = ?, thong_tin_sp=? , id_thuong_hieu = ?, id_loai_sp = ?, hinh_anh_chinh=? ,id_khuyen_mai =? WHERE id_sp = ?;`,
+        [
+            data.ten_sp,
+            data.gia_sp,
+            data.thong_tin_sp,
+            data.id_thuong_hieu,
+            data.id_loai_sp,
+            data.hinh_anh_chinh,
+            data.id_khuyen_mai,
+            data.id_sp,
+
+
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
+
 
 
 

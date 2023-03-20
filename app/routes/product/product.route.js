@@ -9,7 +9,7 @@ const getItemByIDProduct = require('../../controllers/product/product.controller
 const removeProduct = require('../../controllers/product/product.controller')
 const getAllItemProductHasPromotion = require('../../controllers/product/product.controller')
 const getItemByNameItem = require('../../controllers/product/product.controller')
-
+const UpdateProduct = require('../../controllers/product/product.controller')
 const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
@@ -21,8 +21,10 @@ module.exports = app => {
         .get('/product/category/:id_loai_sp', getItemByCategory.getItemByCategory)
         .get('/product', getAllItemProduct.getAllItemProduct)
         .post('/product', addProduct.addProduct)
-        .delete('/product', isAdmin.isAdmin, removeProduct.removeProduct)
+        .delete('/product/:id_sp', removeProduct.removeProduct)
         .post('/product/getid/id', getItemByIDItem.getItemByIDItem)
         .get('/product/detail/:id_sp', getItemByIDProduct.getItemByIDProduct)
+        .patch('/product', isAdmin.isAdmin, UpdateProduct.UpdateProduct)
+
     app.use(router);
 }

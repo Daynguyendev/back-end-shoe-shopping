@@ -19,7 +19,7 @@ exports.login = (req, res) => {
                 bcrypt.compare(mat_khau_khach_hang, user.mat_khau_khach_hang, (err, result) => {
                     if (result) {
 
-                        const token = jwt.sign({ chuc_vu: user.chuc_vu }, 'mysecretkey', { expiresIn: '1h' });
+                        const token = jwt.sign({ chuc_vu: user.chuc_vu }, 'mysecretkey', { expiresIn: '7days' });
                         // const jsontoken = jwt.sign({ result: results.customer_id }, process.env.JWT_KEY, {
                         //     expiresIn: '30m',
                         // });

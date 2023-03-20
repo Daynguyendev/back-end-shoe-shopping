@@ -56,31 +56,31 @@ exports.addProduct = (req, res) => {
 
 };
 
-
-
-
 exports.removeProduct = (req, res) => {
-    const id_sp = req.body;
-
+    const id_sp = req.params.id_sp;
     if (id_sp) {
-
-        product.remove(id_sp, (err, id_sp) => {
+        console.log('Removing product', id_sp);
+        product.remove(id_sp, (err, result) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-
                 });
-
-
             }
-            return res.json({
-                success: 1,
-                message: 'Xoa thanh cong',
-                product: id_sp,
-            });
+            product.removeRate(id_sp, (err, results) => {
+                if (err) {
+                    return res.status(400).json({
+                        success: 0,
+                    });
+                }
+                else {
+                    return res.status(200).json({
+                        success: '1',
+                        massage: 'xoa thanh cong',
+                        data: results,
+                    });
+                }
+            })
         });
-
-
     }
     else {
 
@@ -88,10 +88,6 @@ exports.removeProduct = (req, res) => {
             success: 0,
             data: 'Xoa that bai',
         });
-
-
-
-
     }
 
 };
@@ -239,7 +235,7 @@ exports.getItemByCategory = (req, res) => {
 
 };
 
-exports.UpdatePromotion = (req, res) => {
+exports.UpdateProduct = (req, res) => {
     const data = {
         id_sp: req.body.id_sp,
         ten_sp: req.body.ten_sp,
@@ -249,12 +245,9 @@ exports.UpdatePromotion = (req, res) => {
         id_loai_sp: req.body.id_loai_sp,
         hinh_anh_chinh: req.body.hinh_anh_chinh,
         id_khuyen_mai: req.body.id_khuyen_mai,
-
-
-
     };
 
-    promotion.update(data, (err, results) => {
+    product.update(data, (err, results) => {
         if (err) {
             console.log(err);
             return;
@@ -266,10 +259,26 @@ exports.UpdatePromotion = (req, res) => {
                 message: 'Cap nhat that bai',
             });
         } else {
-            return res.json({
-                success: 1,
-                message: 'Cap nhat thanh cong',
-            });
+            product.updateDetail(data, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                if (!result) {
+                    return res.status(404).json({
+                        success: 0,
+                        message: 'Cap nhat chi tiet that bai',
+                    });
+                }
+                else {
+                    return res.status(200).json({
+                        success: 1,
+                        massage: 'Cap nhat thanh cong',
+                        data: result.data
+                    })
+                }
+
+            })
         }
     });
 };

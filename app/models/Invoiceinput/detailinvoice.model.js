@@ -59,6 +59,46 @@ invoicedetail.getbyName = (ten_hoa_don_nhap, callBack) => {
 
     });
 };
+invoicedetail.getbyId = (id_chi_tiet_hd, callBack) => {
+    console.log('test ten hd', id_chi_tiet_hd)
+    sql.query("SELECT id_hd_nhap_hang FROM  chi_tiet_hd_nhap   WHERE  id_chi_tiet_hd = ?", id_chi_tiet_hd, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+
+    });
+};
+invoicedetail.getTotalInvoice = (id_hd_nhap_hang, callBack) => {
+    console.log('test ten hd', id_hd_nhap_hang)
+    sql.query("SELECT SUM(so_luong * gia_nhap) AS tong_tien FROM chi_tiet_hd_nhap  WHERE  id_hd_nhap_hang = ?", id_hd_nhap_hang, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+
+    });
+};
+
+invoicedetail.UpdateTotalInvoice = (tong_tien, id_hd_nhap_hang, callBack) => {
+    sql.query(
+        `UPDATE hd_nhap_hang SET tong_tien = ? WHERE id_hd_nhap_hang = ?;`,
+        [
+            tong_tien,
+            id_hd_nhap_hang,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
 
 invoicedetail.update = (data, callBack) => {
     sql.query(

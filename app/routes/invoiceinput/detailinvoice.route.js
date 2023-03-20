@@ -3,6 +3,7 @@ const getAllDetailInvoice = require('../../controllers/invoiceinput/detailinvoic
 const removeDetailInvoice = require('../../controllers/invoiceinput/detailinvoice.controller')
 const getDetailInvoiceByName = require('../../controllers/invoiceinput/detailinvoice.controller')
 const UpdateDetailInvoice = require('../../controllers/invoiceinput/detailinvoice.controller')
+const getTotal = require('../../controllers/invoiceinput/detailinvoice.controller')
 const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
@@ -10,6 +11,7 @@ module.exports = app => {
 
     router.get('/detailinvoice', isAdmin.isAdmin, getAllDetailInvoice.getAllDetailInvoice)
         .get('/detailinvoice/:ten_hoa_don_nhap', isAdmin.isAdmin, getDetailInvoiceByName.getDetailInvoiceByName)
+        .get('/detailinvoice/total/:id_hd_nhap_hang', getTotal.getTotal)
         .post('/detailinvoice', isAdmin.isAdmin, addDetailInvoice.addDetailInvoice)
         .delete('/detailinvoice/:id_chi_tiet_hd', isAdmin.isAdmin, removeDetailInvoice.removeDetailInvoice)
         .patch('/detailinvoice', isAdmin.isAdmin, UpdateDetailInvoice.UpdateDetailInvoice)
