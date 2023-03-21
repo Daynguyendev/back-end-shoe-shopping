@@ -24,19 +24,30 @@ khach_hang.create = (newUser, result) => {
     });
 };
 
-khach_hang.findByEmail = (email_khach_hang, result) => {
-    sql.query(`SELECT * from khach_hang WHERE email_khach_hang = '${email_khach_hang}'`, (err, res) => {
+// khach_hang.findByEmail = (email_khach_hang, result) => {
+//     sql.query(`SELECT * from khach_hang WHERE email_khach_hang = ?`, email_khach_hang, (err, res) => {
+//         if (err) {
+//             result(err, null);
+//             return;
+//         }
+//         if (res.length) {
+//             result(null, res[0])
+//             return;
+//         }
+//         result(null, null);
+//     });
+// }
+
+khach_hang.findByEmail = (email_khach_hang, callBack) => {
+    sql.query("SELECT * from khach_hang WHERE email_khach_hang = ?", email_khach_hang, (err, res) => {
         if (err) {
-            result(err, null);
+            console.log("error: ", err);
+            callBack(err, null);
             return;
         }
-        if (res.length) {
-            result(null, res[0])
-            return;
-        }
-        result(null, null);
+        callBack(null, res[0]);
     });
-}
+};
 
 khach_hang.verify = (email_khach_hang, result) => {
     sql.query(

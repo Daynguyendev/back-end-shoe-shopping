@@ -20,11 +20,6 @@ exports.login = (req, res) => {
                     if (result) {
 
                         const token = jwt.sign({ chuc_vu: user.chuc_vu }, 'mysecretkey', { expiresIn: '7days' });
-                        // const jsontoken = jwt.sign({ result: results.customer_id }, process.env.JWT_KEY, {
-                        //     expiresIn: '30m',
-                        // });
-                        // Tạo JWT token
-                        console.log('test token create', token)
                         khach_hang.updateToken(token, email_khach_hang, (err, result) => {
                             if (err) {
                                 return res.status(400).json({
