@@ -2,9 +2,13 @@ const login = require('../controllers/auth/login.controller');
 const register = require('../controllers/auth/register.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const forgotPassword = require('../controllers/auth/forgotPassword.controller');
-const loggedin = require('../middlewares/auth.middleware')
 const getIDByNameUser = require('../controllers/auth/user.controller')
+const UpdateCustomer = require('../controllers/auth/user.controller')
+const removeCustomer = require('../controllers/auth/user.controller')
+const getAllCustomer = require('../controllers/auth/user.controller')
+const loggedin = require('../middlewares/auth.middleware')
 const isAdmin = require('../middlewares/auth.middleware')
+const getAllStatistical = require('../controllers/auth/user.controller')
 // const addDiachi = require('../controllers/auth/address.controller')
 // const getNameColorbyIDProduct = require('../controllers/product/color.controller')
 // const getNameColorbyID = require('../controllers/product/color.controller')
@@ -131,6 +135,10 @@ module.exports = app => {
         .post('/register', register.register)
         .post('/account/id', getIDByNameUser.getIDByNameUser)
         .post('/admin/id', isAdmin.isAdmin, getIDByNameUser.getIDByNameUser)
+        .delete('/user/:id_khach_hang', isAdmin.isAdmin, removeCustomer.removeCustomer)
+        .patch('/user', isAdmin.isAdmin, UpdateCustomer.UpdateCustomer)
+        .get('/user', isAdmin.isAdmin, getAllCustomer.getAllCustomer)
+        .get('/statistical', isAdmin.isAdmin, getAllStatistical.getAllStatistical)
 
     // .post('/account/address', GetAddressById.GetAddressById)
     // .post('/account', addDiachi.addDiachi)

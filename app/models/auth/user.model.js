@@ -116,4 +116,64 @@ khach_hang.getIdbyEmail = (data, callBack) => {
     });
 };
 
+khach_hang.remove = (id_khach_hang, callBack) => {
+    sql.query("DELETE FROM khach_hang WHERE id_khach_hang = ?", id_khach_hang, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+khach_hang.update = (data, callBack) => {
+    console.log(data)
+    sql.query(
+        `UPDATE khach_hang SET chuc_vu=? WHERE id_khach_hang = ?;`,
+        [
+            data.chuc_vu,
+            data.id_khach_hang,
+        ],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+khach_hang.getAll = (data, callBack) => {
+    sql.query("SELECT * FROM khach_hang Where 1;", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+khach_hang.getStatis = (data, callBack) => {
+    sql.query("SELECT * FROM chi_tiet_sp INNER JOIN chi_tiet_hd_nhap ON chi_tiet_sp.id_sp = chi_tiet_hd_nhap.id_sp and chi_tiet_sp.id_mau_sac = chi_tiet_hd_nhap.id_mau_sac and chi_tiet_sp.id_kich_thuoc = chi_tiet_hd_nhap.id_kich_thuoc INNER JOIN mau_sac ON chi_tiet_hd_nhap.id_mau_sac = mau_sac.id_mau_sac INNER JOIN kich_thuoc ON chi_tiet_hd_nhap.id_kich_thuoc = kich_thuoc.id_kich_thuoc WHERE 1; ", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res);
+    });
+};
+
+
+
+
+
+
+
+
 module.exports = khach_hang;
+
+
