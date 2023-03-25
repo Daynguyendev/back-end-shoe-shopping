@@ -9,6 +9,7 @@ const getAllCustomer = require('../controllers/auth/user.controller')
 const loggedin = require('../middlewares/auth.middleware')
 const isAdmin = require('../middlewares/auth.middleware')
 const getAllStatistical = require('../controllers/auth/user.controller')
+const getBestsaler = require('../controllers/auth/user.controller')
 // const addDiachi = require('../controllers/auth/address.controller')
 // const getNameColorbyIDProduct = require('../controllers/product/color.controller')
 // const getNameColorbyID = require('../controllers/product/color.controller')
@@ -139,6 +140,8 @@ module.exports = app => {
         .patch('/user', isAdmin.isAdmin, UpdateCustomer.UpdateCustomer)
         .get('/user', isAdmin.isAdmin, getAllCustomer.getAllCustomer)
         .get('/statistical', isAdmin.isAdmin, getAllStatistical.getAllStatistical)
+        .get('/bestsale', getBestsaler.getBestsaler)
+
 
     // .post('/account/address', GetAddressById.GetAddressById)
     // .post('/account', addDiachi.addDiachi)

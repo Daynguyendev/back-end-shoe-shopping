@@ -122,3 +122,24 @@ exports.getAllStatistical = (req, res) => {
 
 };
 
+exports.getBestsaler = (req, res) => {
+    const data = {};
+
+    khach_hang.getBestsaler(data, (err, data) => {
+        if (err) {
+            return res.status(400).json({
+                success: 0,
+
+            });
+
+
+        }
+        return res.status(200).json({
+            data,
+        });
+    });
+
+};
+
+
+
