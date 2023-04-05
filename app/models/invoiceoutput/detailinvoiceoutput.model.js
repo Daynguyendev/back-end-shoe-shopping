@@ -9,6 +9,35 @@ class detailinvoiceoutput {
     }
 }
 
+
+
+
+
+detailinvoiceoutput.getAll = (option, callBack) => {
+    let dbQuery = `SELECT hd_dat_hang.ngay_lap_hd_dat, SUM(hd_dat_hang.tong_tien - ((chi_tiet_hd_nhap.gia_nhap * chi_tiet_hd_dat.so_luong) + (CEIL(chi_tiet_hd_dat.so_luong / 3) * 30000)) ) AS tong_tien_lai FROM chi_tiet_hd_dat INNER JOIN hd_dat_hang ON chi_tiet_hd_dat.id_hd_dat = hd_dat_hang.id_hd_dat INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp INNER JOIN chi_tiet_hd_nhap ON chi_tiet_hd_nhap.id_sp = chi_tiet_hd_dat.id_sp  AND chi_tiet_hd_nhap.id_kich_thuoc = chi_tiet_hd_dat.id_kich_thuoc    AND chi_tiet_hd_nhap.id_mau_sac = chi_tiet_hd_dat.id_mau_sac   WHERE hd_dat_hang.id_trang_thai < 4 `;
+
+    if (option.bill_month && option.bill_year) {
+        dbQuery += ` and MONTH(hd_dat_hang.ngay_lap_hd_dat) IN (${option.bill_month}) and YEAR(hd_dat_hang.ngay_lap_hd_dat) IN (${option.bill_year}) GROUP BY hd_dat_hang.ngay_lap_hd_dat `;
+    }
+    else if (option.bill_year) {
+        dbQuery = ` SELECT MONTH(hd_dat_hang.ngay_lap_hd_dat) AS thang, SUM(hd_dat_hang.tong_tien - ((chi_tiet_hd_nhap.gia_nhap * chi_tiet_hd_dat.so_luong) + (CEIL(chi_tiet_hd_dat.so_luong / 3) * 30000)) ) AS tong_tien_lai FROM chi_tiet_hd_dat INNER JOIN hd_dat_hang ON chi_tiet_hd_dat.id_hd_dat = hd_dat_hang.id_hd_dat  INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp INNER JOIN chi_tiet_hd_nhap ON chi_tiet_hd_nhap.id_sp = chi_tiet_hd_dat.id_sp AND chi_tiet_hd_nhap.id_kich_thuoc = chi_tiet_hd_dat.id_kich_thuoc
+         AND chi_tiet_hd_nhap.id_mau_sac = chi_tiet_hd_dat.id_mau_sac WHERE hd_dat_hang.id_trang_thai < 4 AND YEAR(hd_dat_hang.ngay_lap_hd_dat) IN (${option.bill_year}) GROUP BY thang
+        `;
+    }
+    else if (option.bill_everyYear) {
+        dbQuery = ` SELECT YEAR(hd_dat_hang.ngay_lap_hd_dat) AS nam, SUM(hd_dat_hang.tong_tien - ((chi_tiet_hd_nhap.gia_nhap * chi_tiet_hd_dat.so_luong) + (CEIL(chi_tiet_hd_dat.so_luong / 3) * 30000)) ) AS tong_tien_lai FROM chi_tiet_hd_dat INNER JOIN hd_dat_hang ON chi_tiet_hd_dat.id_hd_dat = hd_dat_hang.id_hd_dat  INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp INNER JOIN chi_tiet_hd_nhap ON chi_tiet_hd_nhap.id_sp = chi_tiet_hd_dat.id_sp AND chi_tiet_hd_nhap.id_kich_thuoc = chi_tiet_hd_dat.id_kich_thuoc  AND chi_tiet_hd_nhap.id_mau_sac = chi_tiet_hd_dat.id_mau_sac WHERE hd_dat_hang.id_trang_thai < 4 AND YEAR(hd_dat_hang.ngay_lap_hd_dat) GROUP BY nam;`
+    }
+    sql.query(dbQuery, (error, results, fields) => {
+        console.log('test db', dbQuery)
+        if (error) {
+            callBack(error);
+        }
+        return callBack(null, results);
+    });
+};
+
+
+
 detailinvoiceoutput.create = (data, callBack) => {
     sql.query(`INSERT INTO chi_tiet_hd_dat SET ? `, data, (err, res) => {
         if (err) {
@@ -81,7 +110,12 @@ detailinvoiceoutput.getbyId = (data, callBack) => {
 // };
 
 
-
+// SELECT hd_dat_hang.ngay_lap_hd_dat, SUM(hd_dat_hang.tong_tien) AS tong_tien
+// FROM chi_tiet_hd_dat
+// INNER JOIN hd_dat_hang ON chi_tiet_hd_dat.id_hd_dat = hd_dat_hang.id_hd_dat
+// INNER JOIN san_pham ON chi_tiet_hd_dat.id_sp = san_pham.id_sp
+// WHERE 1
+// GROUP BY hd_dat_hang.ngay_lap_hd_dat
 
 
 

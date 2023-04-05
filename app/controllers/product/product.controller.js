@@ -92,6 +92,76 @@ exports.removeProduct = (req, res) => {
 
 };
 
+
+exports.getAll = (req, res) => {
+    const _limit = req.query._limit || 3;
+    const _page = parseInt(req.query._page) || 1;
+    const _offset = (_page - 1) * _limit;
+
+    const product_color = req.query.product_color;
+    const product_size = req.query.product_size;
+    const product_loai = req.query.product_loai;
+    const product_ten = req.query.product_ten;
+    const product_priceStart = req.query.product_priceStart;
+    const product_priceEnd = req.query.product_priceEnd;
+    const product_thuonghieu = req.query.product_thuonghieu;
+    const product_khuyenmai = req.query.product_khuyenmai;
+    const isLimit = req.query.isLimit || true;
+
+    const option = {
+        _limit,
+        _page,
+        _offset,
+        isLimit,
+        product_khuyenmai,
+        product_thuonghieu,
+        product_priceStart,
+        product_priceEnd,
+        product_ten,
+        product_loai,
+        product_size,
+        product_color
+    };
+
+    product.getAll(option, (err, products) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (!products) {
+            return res.status(400).json({
+                success: 0,
+                data: 'Get product error',
+            });
+        }
+        product.getPagination(option, (err, result) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            if (!result) {
+                return res.status(400).json({
+                    success: 0,
+                    data: 'Get product error',
+                });
+            }
+
+
+            return res.json({
+                success: 1,
+                message: 'Get product successfully',
+                products,
+                pagination: {
+                    page: _page,
+                    limit: _limit,
+                    total: result.length,
+                },
+            });
+        });
+    });
+};
+
+
 exports.getAllItemProduct = (req, res) => {
 
     const data = {};

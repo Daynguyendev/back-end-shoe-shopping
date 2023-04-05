@@ -10,12 +10,15 @@ const removeProduct = require('../../controllers/product/product.controller')
 const getAllItemProductHasPromotion = require('../../controllers/product/product.controller')
 const getItemByNameItem = require('../../controllers/product/product.controller')
 const UpdateProduct = require('../../controllers/product/product.controller')
+const getAll = require('../../controllers/product/product.controller')
 const isAdmin = require('../../middlewares/auth.middleware')
 
 module.exports = app => {
     var router = require('express').Router();
 
     router.get('/productsale', getAllItemProductHasPromotion.getAllItemProductHasPromotion)
+        .get('/products', getAll.getAll)
+
         .get('/product/:ten_thuong_hieu', getItemByName.getItemByName)
         .get('/product/name/:ten_sp', getItemByNameItem.getItemByNameItem)
         .get('/product/category/:id_loai_sp', getItemByCategory.getItemByCategory)

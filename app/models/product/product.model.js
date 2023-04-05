@@ -121,7 +121,7 @@ product.getByNameTradeMark = (ten_thuong_hieu, callBack) => {
 };
 
 product.getByNameItem = (ten_sp, callBack) => {
-    console.log(ten_sp)
+    console.log('hehe', ten_sp)
     sql.query(" SELECT * FROM san_pham INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE san_pham.ten_sp = ?", [ten_sp], (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -167,6 +167,85 @@ product.getSpByID = (id_sp, callBack) => {
         callBack(null, res);
     });
 };
+
+product.getAll = (option, callBack) => {
+
+    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE 1=1 `;
+
+    if (option.product_color && option.product_color != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_mau_sac = ${option.product_color} `;
+    }
+    if (option.product_size && option.product_size != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_kich_thuoc = ${option.product_size} `;
+    }
+    if (option.product_loai && option.product_loai != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_loai_sp = ${option.product_loai} `;
+    }
+    if (option.product_ten) {
+        dbQuery += ` and chi_tiet_sp.ten_sp like N'%${option.product_ten}%'`;
+    }
+    if (option.product_thuonghieu && option.product_thuonghieu != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_thuong_hieu = ${option.product_thuonghieu} `;
+    }
+    if (option.product_khuyenmai && option.product_khuyenmai == 'true') {
+        dbQuery += ` and khuyen_mai.ngay_bat_dau <= NOW() and khuyen_mai.ngay_ket_thuc >= NOW() `;
+    }
+    if (option.product_priceStart > 0 && option.product_priceEnd > 0 || option.product_priceEnd > 0 && option.product_priceStart > 0) {
+        dbQuery += ` and chi_tiet_sp.gia_sp >= ${option.product_priceStart} and chi_tiet_sp.gia_sp <= ${option.product_priceEnd} `;
+    }
+    if (option.isLimit === true) {
+        dbQuery += `  GROUP BY chi_tiet_sp.id_sp limit ${option._limit} offset ${option._offset}`;
+    }
+
+
+    sql.query(dbQuery, (error, results, fields) => {
+        console.log('getall', dbQuery)
+        if (error) {
+            callBack(error);
+        }
+        return callBack(null, results);
+    });
+};
+
+
+product.getPagination = (option, callBack) => {
+    console.log('getPagi', option);
+    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE 1=1  `;
+
+    if (option.product_color && option.product_color != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_mau_sac = ${option.product_color} `;
+    }
+    if (option.product_size && option.product_size != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_kich_thuoc = ${option.product_size} `;
+    }
+    if (option.product_loai && option.product_loai != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_loai_sp = ${option.product_loai} `;
+    }
+    if (option.product_ten) {
+        dbQuery += ` and chi_tiet_sp.ten_sp like N'%${option.product_ten}%'`;
+    }
+    if (option.product_thuonghieu && option.product_thuonghieu != 'null') {
+        dbQuery += ` and chi_tiet_sp.id_thuong_hieu = ${option.product_thuonghieu} `;
+    }
+    if (option.product_khuyenmai && option.product_khuyenmai == 'true') {
+        dbQuery += ` and khuyen_mai.ngay_bat_dau <= NOW() and khuyen_mai.ngay_ket_thuc >= NOW() `;
+    }
+    if (option.product_priceStart && option.product_priceEnd || option.product_priceEnd && option.product_priceStart) {
+        dbQuery += ` and chi_tiet_sp.gia_sp >= ${option.product_priceStart} and chi_tiet_sp.gia_sp <= ${option.product_priceEnd} `;
+    }
+    if (option.isLimit === true) {
+        dbQuery += ` GROUP BY chi_tiet_sp.id_sp `;
+    }
+
+    sql.query(dbQuery, (error, results, fields) => {
+        if (error) {
+            callBack(error);
+        }
+        return callBack(null, results);
+    });
+};
+
+
 
 
 

@@ -1,5 +1,41 @@
 const detailinvoiceoutput = require('../../models/invoiceoutput/detailinvoiceoutput.model')
 
+exports.getBill = (req, res) => {
+    const bill_day = req.query.bill_day;
+    const bill_month = req.query.bill_month;
+    const bill_year = req.query.bill_year;
+    const bill_everyYear = req.query.bill_everyYear;
+
+
+    const option = {
+        bill_day,
+        bill_month,
+        bill_year,
+        bill_everyYear
+    };
+    console.log('test option', option);
+
+    detailinvoiceoutput.getAll(option, (err, products) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (!products) {
+            return res.status(400).json({
+                success: 0,
+                data: 'Get product error',
+            });
+        }
+
+        return res.json({
+            success: 1,
+            message: 'Get product successfully',
+            products,
+        });
+    });
+};
+
+
 
 exports.addDetailInvoiceOutput = (req, res) => {
     const { id_sp, id_hd_dat, so_luong, id_mau_sac, id_kich_thuoc } = req.body;
