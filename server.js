@@ -22,6 +22,8 @@ const invoiceRoute = require('./app/routes/invoiceinput/detailinvoice.route');
 const detailinvoiceoutputRoute = require('./app/routes/invoiceoutput/detailinvoiceoutput.route');
 const invoiceoutputRoute = require('./app/routes/invoiceoutput/invoiceoutput.route');
 const invoiceinputRoute = require('./app/routes/invoiceinput/invoiceinput.route')
+// const checkoutVNPAY = require('./app/routes/bill/checkoutVNPAY.route');
+const order = require('./app/routes/bill/order');
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -77,6 +79,7 @@ require('./app/routes/product/product.route')(app);
 require('./app/routes/auth/address.route')(app);
 require('./app/routes/auth/cart.route')(app);
 require('./app/routes/bill/checkout.route')(app);
+// require('./app/routes/bill/checkoutVNPAY.route')(app);
 require('./app/routes/invoiceinput/invoiceinput.route')(app);
 require('./app/routes/invoiceoutput/detailinvoiceoutput.route')(app);
 require('./app/routes/invoiceoutput/invoiceoutput.route')(app);
@@ -96,10 +99,13 @@ app.use('/product', productRoute);
 app.use('/address', addressRoute);
 app.use('/cart', cartRoute);
 app.use('/checkout', checkoutRoute);
+// app.use('/checkoutvnpay', checkoutVNPAY);
 app.use('/detailinvoice', invoiceRoute);
 app.use('/detailinvoiceoutput', detailinvoiceoutputRoute);
 app.use('/invoiceoutput', invoiceoutputRoute);
 app.use('/invoice', invoiceinputRoute);
+app.use('/order', order);
+
 
 app.listen(5000, function () {
     console.log('server running: http://localhost:5000');
