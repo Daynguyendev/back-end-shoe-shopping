@@ -50,7 +50,7 @@ router.post('/create_payment_url', function (req, res, next) {
     let date = new Date();
     let createDate = moment(date).format('YYYYMMDDHHmmss');
 
-    let ipAddr = '192.168.56.1';
+    let ipAddr = '188.1.6.1';
     // req.headers['x-forwarded-for'] ||
     //     req.connection.remoteAddress ||
     //     req.socket.remoteAddress ||
@@ -170,10 +170,11 @@ router.get('/vnpay_ipn', function (req, res, next) {
                     if (rspCode == "00") {
                         //thanh cong
                         //paymentStatus = '1'
-                        sql.query(`UPDATE hd_dat_hang SET ten_trang_thai_thanh_toan = ?, ten_thanh_toan = ? WHERE id_hd_dat = ?;`,
+                        sql.query(`UPDATE hd_dat_hang SET ten_trang_thai_thanh_toan = ?, ten_thanh_toan = ?, id_trang_thai=? WHERE id_hd_dat = ?;`,
                             [
                                 'Đã thanh toán',
                                 vnp_Params.vnp_BankCode,
+                                '1',
                                 orderId,
                             ], (err, res) => {
                                 if (err) {
@@ -184,7 +185,6 @@ router.get('/vnpay_ipn', function (req, res, next) {
                                 else
                                     return res;
                             });
-
                         // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                         res.render('checkout')
                     }
