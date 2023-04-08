@@ -191,7 +191,7 @@ product.getAll = (option, callBack) => {
         dbQuery += ` and khuyen_mai.ngay_bat_dau <= NOW() and khuyen_mai.ngay_ket_thuc >= NOW() `;
     }
     if (option.product_priceStart > 0 && option.product_priceEnd > 0 || option.product_priceEnd > 0 && option.product_priceStart > 0) {
-        dbQuery += ` and chi_tiet_sp.gia_sp >= ${option.product_priceStart} and chi_tiet_sp.gia_sp <= ${option.product_priceEnd} `;
+        dbQuery += ` and (chi_tiet_sp.gia_sp - chi_tiet_sp.gia_sp *  (khuyen_mai.phan_tram_giam / 100)) >= ${option.product_priceStart} and (chi_tiet_sp.gia_sp - chi_tiet_sp.gia_sp *  (khuyen_mai.phan_tram_giam / 100)) <= ${option.product_priceEnd} `;
     }
     if (option.isLimit === true) {
         dbQuery += `  GROUP BY chi_tiet_sp.id_sp limit ${option._limit} offset ${option._offset}`;
