@@ -53,13 +53,6 @@ app.use(methodOverride(function (req, res) {
     }
 }));
 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-}))
-
-
 app.get('/', (req, res, next) => {
     res.render('indexview');
 })
@@ -79,7 +72,6 @@ require('./app/routes/product/product.route')(app);
 require('./app/routes/auth/address.route')(app);
 require('./app/routes/auth/cart.route')(app);
 require('./app/routes/bill/checkout.route')(app);
-// require('./app/routes/bill/checkoutVNPAY.route')(app);
 require('./app/routes/invoiceinput/invoiceinput.route')(app);
 require('./app/routes/invoiceoutput/detailinvoiceoutput.route')(app);
 require('./app/routes/invoiceoutput/invoiceoutput.route')(app);
@@ -99,7 +91,6 @@ app.use('/product', productRoute);
 app.use('/address', addressRoute);
 app.use('/cart', cartRoute);
 app.use('/checkout', checkoutRoute);
-// app.use('/checkoutvnpay', checkoutVNPAY);
 app.use('/detailinvoice', invoiceRoute);
 app.use('/detailinvoiceoutput', detailinvoiceoutputRoute);
 app.use('/invoiceoutput', invoiceoutputRoute);
