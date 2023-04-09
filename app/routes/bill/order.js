@@ -140,6 +140,7 @@ router.get('/vnpay_ipn', function (req, res, next) {
 
     let orderId = vnp_Params['vnp_TxnRef'];
     let rspCode = vnp_Params['vnp_ResponseCode'];
+    let Amount = vnp_Params['vnp_Amount'] / 100;
 
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
@@ -161,8 +162,8 @@ router.get('/vnpay_ipn', function (req, res, next) {
     //let paymentStatus = '1'; // Giả sử '1' là trạng thái thành công bạn cập nhật sau IPN được gọi và trả kết quả về nó
     //let paymentStatus = '2'; // Giả sử '2' là trạng thái thất bại bạn cập nhật sau IPN được gọi và trả kết quả về nó
 
-    let checkOrderId = true; // Mã đơn hàng "giá trị của vnp_TxnRef" VNPAY phản hồi tồn tại trong CSDL của bạn
-    let checkAmount = true; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
+    let checkOrderId = orderId; // Mã đơn hàng "giá trị của vnp_TxnRef" VNPAY phản hồi tồn tại trong CSDL của bạn
+    let checkAmount = Amount; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
     if (secureHash === signed) { //kiểm tra checksum
         if (checkOrderId) {
             if (checkAmount) {
@@ -187,6 +188,7 @@ router.get('/vnpay_ipn', function (req, res, next) {
                             });
                         // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                         res.render('checkout')
+                        // res.status(200).json({ data: vnp_Params, checkOrderId, checkAmount })
                     }
                     else {
                         //that bai
