@@ -61,7 +61,7 @@ app.use(session({
 
 
 app.get('/', (req, res, next) => {
-    res.render('index');
+    res.render('indexview');
 })
 
 require('./app/routes/route')(app);
