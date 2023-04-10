@@ -24,6 +24,7 @@ const invoiceoutputRoute = require('./app/routes/invoiceoutput/invoiceoutput.rou
 const invoiceinputRoute = require('./app/routes/invoiceinput/invoiceinput.route')
 // const checkoutVNPAY = require('./app/routes/bill/checkoutVNPAY.route');
 const order = require('./app/routes/bill/order');
+
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,7 +35,6 @@ app.use(function (req, res, next) {
     // Set to true if you need the webysite to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-
     next();
 });
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,6 +72,7 @@ require('./app/routes/product/product.route')(app);
 require('./app/routes/auth/address.route')(app);
 require('./app/routes/auth/cart.route')(app);
 require('./app/routes/bill/checkout.route')(app);
+// require('./app/routes/bill/checkoutVNPAY.route')(app);
 require('./app/routes/invoiceinput/invoiceinput.route')(app);
 require('./app/routes/invoiceoutput/detailinvoiceoutput.route')(app);
 require('./app/routes/invoiceoutput/invoiceoutput.route')(app);
