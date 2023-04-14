@@ -99,11 +99,12 @@ exports.UpdateQuantityProduct = (req, res) => {
 
 exports.UpdateQuantityProductRemove = (req, res) => {
     const { id_sp, id_mau_sac, id_kich_thuoc, so_luong } = req.body;
+    console.log('test sai la vai cc', { id_sp, id_mau_sac, id_kich_thuoc, so_luong })
     productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
 
 
         if (results) {
-            if (parseInt(results.so_luong_kho) - parseInt(so_luong) >= 0) {
+            if (parseInt(results.so_luong_kho) + parseInt(so_luong) >= 0) {
                 productdetail.update(parseInt(results.so_luong_kho) + parseInt(so_luong), id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
                     if (err) {
                         return res.status(400).json({

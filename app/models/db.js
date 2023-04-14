@@ -13,14 +13,6 @@ connection.getConnection((err, connection) => {
         console.error('Error connecting to database:', err);
         return;
     }
-
-    connection.query('SELECT * FROM mau_sac', (error, results, fields) => {
-        connection.release(); // Release the connection back to the pool
-        if (error) {
-            console.error('Error executing query:', error);
-            return;
-        }
-        console.log('Ket noi thanh cong');
-    });
+    console.log('Ket noi thanh cong');
 });
 module.exports = connection;
