@@ -33,7 +33,7 @@ invoiceoutput.remove = (data, callBack) => {
 };
 
 invoiceoutput.get = (data, callBack) => {
-    sql.query("SELECT * FROM hd_dat_hang INNER JOIN dia_chi ON hd_dat_hang.id_dia_chi = dia_chi.id_dia_chi WHERE 1", (err, res) => {
+    sql.query("SELECT * FROM hd_dat_hang INNER JOIN dia_chi ON hd_dat_hang.id_dia_chi = dia_chi.id_dia_chi INNER JOIN trang_thai ON hd_dat_hang.id_trang_thai = trang_thai.id_trang_thai WHERE 1", (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);

@@ -2,6 +2,7 @@ const provider = require('../../models/product/provider.model')
 
 exports.addProvider = (req, res) => {
     const { ten_nha_cc, dia_chi_cc } = req.body;
+    console.log(ten_nha_cc, dia_chi_cc)
 
     if (ten_nha_cc, dia_chi_cc) {
         const newProvider = new provider({

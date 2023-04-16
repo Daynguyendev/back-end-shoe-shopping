@@ -59,7 +59,6 @@ exports.addProduct = (req, res) => {
 exports.removeProduct = (req, res) => {
     const id_sp = req.params.id_sp;
     if (id_sp) {
-        console.log('Removing product', id_sp);
         product.remove(id_sp, (err, result) => {
             if (err) {
                 return res.status(400).json({
