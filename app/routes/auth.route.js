@@ -10,6 +10,9 @@ const loggedin = require('../middlewares/auth.middleware')
 const isAdmin = require('../middlewares/auth.middleware')
 const getAllStatistical = require('../controllers/auth/user.controller')
 const getBestsaler = require('../controllers/auth/user.controller')
+const ForgotPassword = require('../controllers/auth/forgotPassword.controller')
+const ChangePassword = require('../controllers/auth/user.controller')
+const ForgotPasswords = require('../controllers/auth/user.controller')
 // const addDiachi = require('../controllers/auth/address.controller')
 // const getNameColorbyIDProduct = require('../controllers/product/color.controller')
 // const getNameColorbyID = require('../controllers/product/color.controller')
@@ -131,6 +134,11 @@ module.exports = app => {
 
     router.get('/login', authMiddleware.isAuth)
         .post('/login', login.login, loggedin.loggedin)
+        .post('/forgot', ForgotPassword.sendResetLinkEmail)
+        .post('/forgotemailtoken', ForgotPasswords.ForgotPasswords)
+
+        .post('/password', ChangePassword.ChangePassword)
+
         .get('/register', authMiddleware.isAuth, register.create)
         .post('/user', isAdmin.isAdmin)
         .post('/register', register.register)

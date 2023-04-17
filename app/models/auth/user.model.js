@@ -139,6 +139,21 @@ khach_hang.remove = (id_khach_hang, callBack) => {
 };
 
 
+khach_hang.updatePassword = (mat_khau_khach_hang, email_khach_hang, callBack) => {
+    sql.query(
+        `UPDATE khach_hang SET mat_khau_khach_hang=? WHERE email_khach_hang = ?;`, [mat_khau_khach_hang, email_khach_hang]
+        ,
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+
+
+
 khach_hang.update = (data, callBack) => {
     console.log(data)
     sql.query(

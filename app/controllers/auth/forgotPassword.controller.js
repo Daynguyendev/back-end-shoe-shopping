@@ -2,47 +2,44 @@ const User = require('../../models/auth/user.model');
 const bcrypt = require('bcrypt');
 const mailer = require('../../utils/mailer');
 
-exports.showForgotForm = (req, res) => {
-    res.render('auth/passwords/email');
-}
-
 exports.sendResetLinkEmail = (req, res) => {
-    if (!req.body.email) {
-        res.redirect('/password/reset')
+    if (!req.body.email_khach_hang) {
+        res.render('reset')
     } else {
-        User.findByEmail(req.body.email, (err, user) => {
+        User.findByEmail(req.body.email_khach_hang, (err, user) => {
             if (!user) {
-                res.redirect('/password/reset')
+                res.render('reset')
             } else {
-                bcrypt.hash(user.email, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashedEmail) => {
-                    mailer.sendMail(user.email, "Reset password", `<a href="${process.env.APP_URL}/password/reset/${user.email}?token=${hashedEmail}"> Reset Password </a>`)
-                    console.log(`${process.env.APP_URL}/password/reset/${user.email}?token=${hashedEmail}`);
+
+                mailer.sendMail(user.email_khach_hang, "Reset password", `<a href="${process.env.APP_URL}/reset/${user.email_khach_hang}/${user.token}"> Bấm vào đây để đặt lại mật khẩu </a>`)
+                console.log(`${process.env.APP_URL}/reset/${user.email_khach_hang}/${user.token}`);
+                return res.json({
+                    success: 'thanh cong'
                 })
-                res.redirect('/password/reset?status=success')
             }
         })
     }
 }
 
 exports.showResetForm = (req, res) => {
-    if (!req.params.email || !req.query.token) {
-        res.redirect('/password/reset')
+    if (!req.params.email_khach_hang || !req.query.token) {
+        res.render('reset')
     } else {
-        res.render('auth/passwords/reset', { email: req.params.email, token: req.query.token })
+        res.render('auth/passwords/reset', { email_khach_hang: req.params.email_khach_hang, token: req.query.token })
     }
 }
 
 exports.reset = (req, res) => {
-    const { email, token, password } = req.body;
-    console.log(email, token, password);
-    if (!email || !token || !password) {
-        res.redirect('/password/reset');
+    const { email_khach_hang, token, password } = req.body;
+    console.log(email_khach_hang, token, password);
+    if (!email_khach_hang || !token || !password) {
+        res.render('reset');
     } else {
-        bcrypt.compare(email, token, (err, result) => {
+        bcrypt.compare(email_khach_hang, token, (err, result) => {
             console.log('compare', result);
             if (result == true) {
                 bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashedPassword) => {
-                    User.resetPassword(email, hashedPassword, (err, result) => {
+                    User.resetPassword(email_khach_hang, hashedPassword, (err, result) => {
                         if (!err) {
                             res.redirect('/login');
                         } else {
