@@ -12,14 +12,13 @@ class productdetail {
         this.id_mau_sac = bill.id_mau_sac;
         this.id_kich_thuoc = bill.id_kich_thuoc;
         this.so_luong_kho = bill.so_luong_kho;
+        this.id_nha_cc = bill.id_nha_cc;
     }
 }
 
 productdetail.create = (data, callBack) => {
-    console.log('testdata add', data);
     sql.query(`INSERT INTO chi_tiet_sp  SET ? `, data, (err, res) => {
         if (err) {
-            console.log("error: ", err);
             callBack(err, null);
             return;
         }
@@ -30,7 +29,6 @@ productdetail.create = (data, callBack) => {
 productdetail.remove = (data, callBack) => {
     sql.query("DELETE FROM chi_tiet_sp WHERE id_sp  = ?", [data.id_sp], (err, res) => {
         if (err) {
-            console.log("error: ", err);
             callBack(err, null);
             return;
         }
@@ -43,7 +41,6 @@ productdetail.remove = (data, callBack) => {
 productdetail.getById = (id_sp, callBack) => {
     sql.query("SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai  WHERE id_sp = ? ", [id_sp], (err, res) => {
         if (err) {
-            console.log("error: ", err);
             callBack(err, null);
             return;
         }
@@ -54,7 +51,6 @@ productdetail.getById = (id_sp, callBack) => {
 productdetail.get = (data, callBack) => {
     sql.query("SELECT * FROM chi_tiet_sp WHERE 1 ", (err, res) => {
         if (err) {
-            console.log("error: ", err);
             callBack(err, null);
             return;
         }
@@ -65,7 +61,6 @@ productdetail.get = (data, callBack) => {
 
 
 productdetail.findproductdetail = (id_sp, id_mau_sac, id_kich_thuoc, callBack) => {
-    console.log('data cua findproduct', id_sp, id_mau_sac, id_kich_thuoc)
     sql.query(
         `SELECT * FROM  chi_tiet_sp WHERE id_sp = ? and id_mau_sac = ? and id_kich_thuoc=?;`,
         [
@@ -78,7 +73,6 @@ productdetail.findproductdetail = (id_sp, id_mau_sac, id_kich_thuoc, callBack) =
             if (error) {
                 callBack(error);
             }
-            console.log('resuafin', results);
             return callBack(null, results[0]);
         }
     );
@@ -99,7 +93,6 @@ productdetail.update = (so_luong_kho, id_sp, id_mau_sac, id_kich_thuoc, callBack
             if (error) {
                 callBack(error);
             }
-            console.log('data results update ', results)
             return callBack(null, results);
         }
     );

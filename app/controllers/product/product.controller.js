@@ -29,8 +29,6 @@ exports.addProduct = (req, res) => {
                 id_loai_sp: id_loai_sp,
                 hinh_anh_chinh: hinh_anh_chinh,
                 id_khuyen_mai: id_khuyen_mai,
-
-
             });
             product.create(newProduct, (err, results) => {
                 if (err) {

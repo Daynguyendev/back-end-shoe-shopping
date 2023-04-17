@@ -1,8 +1,8 @@
 const { json } = require('body-parser');
 const productdetail = require('../../models/product/productdetail.model')
 exports.addDetailProduct = (req, res) => {
-    const { id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_khuyen_mai, thong_tin_sp, gia_sp } = req.body;
-    console.log('data', id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_khuyen_mai, id_thuong_hieu, thong_tin_sp, gia_sp)
+    const { id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_thuong_hieu, id_khuyen_mai, thong_tin_sp, gia_sp, id_nha_cc } = req.body;
+    console.log('data', id_sp, so_luong_kho, id_mau_sac, id_kich_thuoc, ten_sp, hinh_anh_chinh, id_loai_sp, id_khuyen_mai, id_thuong_hieu, thong_tin_sp, gia_sp, id_nha_cc)
     productdetail.findproductdetail(id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
         if (results) {
             productdetail.update(parseInt(so_luong_kho) + parseInt(results.so_luong_kho), id_sp, id_mau_sac, id_kich_thuoc, (err, results) => {
@@ -35,6 +35,7 @@ exports.addDetailProduct = (req, res) => {
                 id_khuyen_mai: id_khuyen_mai,
                 id_mau_sac: id_mau_sac,
                 id_kich_thuoc: id_kich_thuoc,
+                id_nha_cc: id_nha_cc,
                 so_luong_kho: so_luong_kho,
 
             });

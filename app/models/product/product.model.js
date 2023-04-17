@@ -8,8 +8,6 @@ class product {
         this.id_loai_sp = item.id_loai_sp;
         this.hinh_anh_chinh = item.hinh_anh_chinh;
         this.id_khuyen_mai = item.id_khuyen_mai;
-
-
     }
 }
 
@@ -36,8 +34,6 @@ product.remove = (id_sp, callBack) => {
 };
 
 product.removeRate = (id_sp, callBack) => {
-    console.log("removedetail: ", id_sp)
-
     sql.query("DELETE FROM danh_gia_sp WHERE id_sp = ?", id_sp, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -255,6 +251,7 @@ product.update = (data, callBack) => {
             data.id_sp,
 
 
+
         ],
         (error, results, fields) => {
             if (error) {
@@ -279,6 +276,7 @@ product.updateDetail = (data, callBack) => {
             data.id_sp,
 
 
+
         ],
         (error, results, fields) => {
             if (error) {
@@ -288,13 +286,5 @@ product.updateDetail = (data, callBack) => {
         }
     );
 };
-
-
-
-
-
-
-
-
 
 module.exports = product;
