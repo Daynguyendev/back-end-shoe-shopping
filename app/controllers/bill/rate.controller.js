@@ -1,13 +1,12 @@
 const rate = require('../../models/bill/rate.model')
 
 exports.addRate = (req, res) => {
-    const { id_khach_hang, id_hd_dat, noi_dung, ten_nguoi_danh_gia, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
+    const { id_khach_hang, id_hd_dat, noi_dung, id_sp, hinh_anh_danh_gia, so_sao_danh_gia } = req.body;
 
-    if (id_khach_hang, noi_dung, id_hd_dat, ten_nguoi_danh_gia, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
+    if (id_khach_hang, noi_dung, id_hd_dat, id_sp, hinh_anh_danh_gia, so_sao_danh_gia) {
         const newRate = new rate({
             id_khach_hang: id_khach_hang,
             id_hd_dat: id_hd_dat,
-            ten_nguoi_danh_gia: ten_nguoi_danh_gia,
             noi_dung: noi_dung,
             id_sp: id_sp,
             so_sao_danh_gia: so_sao_danh_gia,
@@ -88,7 +87,6 @@ exports.UpdateRate = (req, res) => {
         id_khach_hang: req.body.id_khach_hang,
         id_danh_gia: req.body.id_danh_gia,
         id_hd_dat: req.body.id_hd_dat,
-        ten_nguoi_danh_gia: req.body.ten_nguoi_danh_gia,
         noi_dung: req.body.noi_dung,
         id_sp: req.body.id_sp,
         so_sao_danh_gia: req.body.so_sao_danh_gia,

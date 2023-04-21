@@ -3,7 +3,6 @@ class rate {
     constructor(bill) {
         this.id_khach_hang = bill.id_khach_hang;
         this.id_hd_dat = bill.id_hd_dat;
-        this.ten_nguoi_danh_gia = bill.ten_nguoi_danh_gia;
         this.noi_dung = bill.noi_dung;
         this.id_sp = bill.id_sp;
         this.hinh_anh_danh_gia = bill.hinh_anh_danh_gia;
@@ -37,19 +36,15 @@ rate.remove = (data, callBack) => {
 rate.update = (data, callBack) => {
     console.log(data)
     sql.query(
-        `UPDATE danh_gia_sp SET ten_nguoi_danh_gia=? , noi_dung = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
+        `UPDATE danh_gia_sp SET noi_dung = ?, id_sp = ? ,hinh_anh_danh_gia = ? ,
          so_sao_danh_gia= ? WHERE id_danh_gia = ?;`,
         [
             data.id_khach_hang,
-            data.ten_nguoi_danh_gia,
             data.noi_dung,
             data.id_sp,
             data.hinh_anh_danh_gia,
             data.so_sao_danh_gia,
             data.id_danh_gia,
-
-
-
         ],
         (error, results, fields) => {
             if (error) {
@@ -62,7 +57,7 @@ rate.update = (data, callBack) => {
 
 rate.getAll = (data, callBack) => {
 
-    sql.query("SELECT * FROM danh_gia_sp Where id_sp =?;", data, (err, res) => {
+    sql.query("SELECT * FROM danh_gia_sp INNER JOIN khach_hang ON danh_gia_sp.id_khach_hang = khach_hang.id_khach_hang Where id_sp =?;", data, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
