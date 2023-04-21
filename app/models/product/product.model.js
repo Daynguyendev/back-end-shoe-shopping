@@ -46,7 +46,7 @@ product.removeRate = (id_sp, callBack) => {
 
 
 product.get = (data, callBack) => {
-    sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai on san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE 1", (err, res) => {
+    sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai on san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE 1 and san_pham.thong_tin_sp != 'Đã ngừng bán'", (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -58,7 +58,7 @@ product.get = (data, callBack) => {
 
 
 product.getHasPromotion = (data, callBack) => {
-    sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE khuyen_mai.ngay_bat_dau  <= CURDATE() AND khuyen_mai.ngay_ket_thuc >= CURDATE()", (err, res) => {
+    sql.query("SELECT * FROM san_pham INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai WHERE khuyen_mai.ngay_bat_dau  <= CURDATE() AND khuyen_mai.ngay_ket_thuc >= CURDATE() and san_pham.thong_tin_sp != 'Đã ngừng bán' ", (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
@@ -71,7 +71,7 @@ product.getHasPromotion = (data, callBack) => {
 
 product.findproduct = (ten_sp, gia_sp, id_thuong_hieu, id_loai_sp, thong_tin_sp, callBack) => {
     sql.query(
-        `SELECT * FROM san_pham WHERE ten_sp = ? and gia_sp = ? and id_thuong_hieu=? and id_loai_sp = ? and thong_tin_sp = ? ;`,
+        `SELECT * FROM san_pham WHERE ten_sp = ? and gia_sp = ? and id_thuong_hieu=? and id_loai_sp = ? and thong_tin_sp = ?  ;`,
         [
             ten_sp,
             gia_sp,
@@ -159,7 +159,7 @@ product.getSpByID = (id_sp, callBack) => {
 
 product.getAll = (option, callBack) => {
 
-    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai RIGHT JOIN san_pham ON san_pham.id_sp = chi_tiet_sp.id_sp WHERE 1=1 `;
+    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai RIGHT JOIN san_pham ON san_pham.id_sp = chi_tiet_sp.id_sp WHERE 1=1 and san_pham.thong_tin_sp != 'Đã ngừng bán' `;
 
     if (option.product_color && option.product_color != 'null') {
         dbQuery += ` and chi_tiet_sp.id_mau_sac = ${option.product_color} `;
@@ -197,7 +197,7 @@ product.getAll = (option, callBack) => {
 
 
 product.getPagination = (option, callBack) => {
-    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai RIGHT JOIN san_pham ON san_pham.id_sp = chi_tiet_sp.id_sp WHERE 1=1  `;
+    let dbQuery = `SELECT * FROM chi_tiet_sp INNER JOIN khuyen_mai ON chi_tiet_sp.id_khuyen_mai = khuyen_mai.id_khuyen_mai RIGHT JOIN san_pham ON san_pham.id_sp = chi_tiet_sp.id_sp WHERE 1=1 and san_pham.thong_tin_sp != 'Đã ngừng bán' `;
 
     if (option.product_color && option.product_color != 'null') {
         dbQuery += ` and chi_tiet_sp.id_mau_sac = ${option.product_color} `;

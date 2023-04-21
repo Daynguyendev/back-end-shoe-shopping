@@ -189,7 +189,7 @@ cart.updateQuantity = (data, callBack) => {
 
 
 cart.getById = (data, callBack) => {
-    sql.query("SELECT * FROM gio_hang INNER JOIN san_pham ON san_pham.id_sp = gio_hang.id_sp INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai INNER JOIN mau_sac ON gio_hang.id_mau_sac = mau_sac.id_mau_sac INNER JOIN kich_thuoc ON gio_hang.id_kich_thuoc = kich_thuoc.id_kich_thuoc WHERE id_khach_hang = ?", data, (err, res) => {
+    sql.query("SELECT * FROM gio_hang INNER JOIN san_pham ON san_pham.id_sp = gio_hang.id_sp INNER JOIN khuyen_mai ON san_pham.id_khuyen_mai = khuyen_mai.id_khuyen_mai INNER JOIN mau_sac ON gio_hang.id_mau_sac = mau_sac.id_mau_sac INNER JOIN kich_thuoc ON gio_hang.id_kich_thuoc = kich_thuoc.id_kich_thuoc WHERE  id_khach_hang = ? and san_pham.thong_tin_sp != 'Đã ngừng bán'", data, (err, res) => {
         if (err) {
             console.log("error: ", err);
             callBack(err, null);
