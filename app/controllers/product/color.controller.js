@@ -4,28 +4,45 @@ const color = require('../../models/product/color.model')
 exports.addColor = (req, res) => {
     const { ten_mau_sac } = req.body;
 
-    if (ten_mau_sac) {
-        const newColor = new color({
-            ten_mau_sac: ten_mau_sac,
 
-        });
-        color.create(newColor, (err, newColor) => {
+
+    if (ten_mau_sac) {
+        color.findColor(ten_mau_sac, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
                     data: 'Mau khong hop le',
+                })
+            }
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'Mau da ton tai',
+                });
+            }
+            else {
+                const newColor = new color({
+                    ten_mau_sac: ten_mau_sac,
+
+                });
+                color.create(newColor, (err, newColor) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Mau khong hop le',
+                        });
+
+
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them mau thanh cong',
+                        color: newColor,
+                    });
                 });
 
-
             }
-            return res.json({
-                success: 1,
-                message: 'Them mau thanh cong',
-                color: newColor,
-            });
         });
-
-
     }
     else {
 
@@ -33,10 +50,6 @@ exports.addColor = (req, res) => {
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
 
 };

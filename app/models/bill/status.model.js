@@ -5,6 +5,17 @@ class status {
     }
 }
 
+status.findStatus = (ten_trang_thai, callBack) => {
+    sql.query("SELECT * from trang_thai WHERE ten_trang_thai = ?", ten_trang_thai, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 status.create = (data, callBack) => {
     sql.query(`INSERT INTO trang_thai SET ? `, data, (err, res) => {
         if (err) {

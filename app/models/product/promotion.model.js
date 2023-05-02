@@ -9,6 +9,17 @@ class promotion {
     }
 }
 
+promotion.findPromotion = (ten_khuyen_mai, callBack) => {
+    sql.query("SELECT * from khuyen_mai WHERE ten_khuyen_mai = ?", ten_khuyen_mai, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 promotion.create = (data, callBack) => {
     sql.query(`INSERT INTO khuyen_mai SET ? `, data, (err, res) => {
         if (err) {

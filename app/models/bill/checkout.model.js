@@ -2,10 +2,19 @@ const sql = require("../db");
 class checkout {
     constructor(item) {
         this.ten_phuong_thuc_tt = item.ten_phuong_thuc_tt;
-
-
     }
 }
+
+checkout.findCheckout = (ten_phuong_thuc_tt, callBack) => {
+    sql.query("SELECT * from thanh_toan WHERE ten_phuong_thuc_tt = ?", ten_phuong_thuc_tt, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
 
 checkout.create = (data, callBack) => {
     sql.query(`INSERT INTO thanh_toan SET ? `, data, (err, res) => {

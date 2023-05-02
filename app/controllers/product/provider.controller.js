@@ -2,31 +2,43 @@ const provider = require('../../models/product/provider.model')
 
 exports.addProvider = (req, res) => {
     const { ten_nha_cc, dia_chi_cc } = req.body;
-    console.log(ten_nha_cc, dia_chi_cc)
 
     if (ten_nha_cc, dia_chi_cc) {
-        const newProvider = new provider({
-            ten_nha_cc: ten_nha_cc,
-            dia_chi_cc: dia_chi_cc,
 
-        });
-        provider.create(newProvider, (err, newProvider) => {
+        provider.findProvider(ten_nha_cc, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
                     data: 'Nha cung cap khong hop le',
-                });
-
-
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them Nha cung cap thanh cong',
-                provider: newProvider,
-            });
-        });
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'Nha cung cap da ton tai',
+                });
+            }
+            else {
+                const newProvider = new provider({
+                    ten_nha_cc: ten_nha_cc,
+                    dia_chi_cc: dia_chi_cc,
 
-
+                });
+                provider.create(newProvider, (err, newProvider) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Nha cung cap khong hop le',
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them Nha cung cap thanh cong',
+                        provider: newProvider,
+                    });
+                });
+            }
+        })
     }
     else {
 
@@ -34,10 +46,6 @@ exports.addProvider = (req, res) => {
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
 
 };

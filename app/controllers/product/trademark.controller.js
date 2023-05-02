@@ -4,27 +4,41 @@ exports.addTrademark = (req, res) => {
     const { ten_thuong_hieu } = req.body;
 
     if (ten_thuong_hieu) {
-        const newTrademark = new trademark({
-            ten_thuong_hieu: ten_thuong_hieu,
-
-        });
-        trademark.create(newTrademark, (err, newTrademark) => {
+        trademark.findTrademark(ten_thuong_hieu, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Thuong hieu khong hop le',
-                });
-
-
+                    data: 'Kich thuoc khong hop le',
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them thuong hieu thanh cong',
-                trademark: newTrademark,
-            });
-        });
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'Kich thuoc da ton tai',
+                });
+            }
+            else {
+                const newTrademark = new trademark({
+                    ten_thuong_hieu: ten_thuong_hieu,
+
+                });
+                trademark.create(newTrademark, (err, newTrademark) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Thuong hieu khong hop le',
+                        });
 
 
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them thuong hieu thanh cong',
+                        trademark: newTrademark,
+                    });
+                });
+            }
+        })
     }
     else {
 
@@ -32,12 +46,7 @@ exports.addTrademark = (req, res) => {
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
 
 

@@ -7,6 +7,17 @@ class invoiceinput {
     }
 }
 
+
+invoiceinput.findInvoice = (ten_hoa_don_nhap, callBack) => {
+    sql.query("SELECT * from hd_nhap_hang WHERE ten_hoa_don_nhap = ?", ten_hoa_don_nhap, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
 invoiceinput.create = (data, callBack) => {
     sql.query(`INSERT INTO hd_nhap_hang SET ? `, data, (err, res) => {
         if (err) {

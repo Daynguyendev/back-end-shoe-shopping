@@ -2,41 +2,47 @@ const checkout = require('../../models/bill/checkout.model')
 
 exports.addCheckout = (req, res) => {
     const { ten_phuong_thuc_tt } = req.body;
-    console.log(ten_phuong_thuc_tt)
+
     if (ten_phuong_thuc_tt) {
-        const newCheckout = new checkout({
-            ten_phuong_thuc_tt: ten_phuong_thuc_tt,
-        });
-        checkout.create(newCheckout, (err, newCheckout) => {
+        checkout.findCheckout(ten_phuong_thuc_tt, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Phuong thuc thanh toan khong hop le',
-                });
-
-
+                    data: 'thanh toan khong hop le',
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them Phuong thuc thanh toan thanh cong',
-                checkout: newCheckout,
-            });
-        });
-
-
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'thanh toan da ton tai',
+                });
+            }
+            else {
+                const newCheckout = new checkout({
+                    ten_phuong_thuc_tt: ten_phuong_thuc_tt,
+                });
+                checkout.create(newCheckout, (err, newCheckout) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Phuong thuc thanh toan khong hop le',
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them Phuong thuc thanh toan thanh cong',
+                        checkout: newCheckout,
+                    });
+                });
+            }
+        })
     }
     else {
-
         return res.status(400).json({
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
 
 

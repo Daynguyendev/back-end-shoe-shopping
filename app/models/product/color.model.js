@@ -5,6 +5,17 @@ class color {
     }
 }
 
+color.findColor = (ten_mau_sac, callBack) => {
+    sql.query("SELECT * from mau_sac WHERE ten_mau_sac = ?", ten_mau_sac, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 color.create = (data, callBack) => {
     sql.query(`INSERT INTO mau_sac SET ? `, data, (err, res) => {
         if (err) {

@@ -5,27 +5,39 @@ exports.addSize = (req, res) => {
     const { ten_kich_thuoc } = req.body;
 
     if (ten_kich_thuoc) {
-        const newSize = new size({
-            ten_kich_thuoc: ten_kich_thuoc,
-
-        });
-        size.create(newSize, (err, newSize) => {
+        size.findSize(ten_kich_thuoc, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
                     data: 'Kich thuoc khong hop le',
-                });
-
-
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them kich thuoc thanh cong',
-                size: newSize,
-            });
-        });
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'Kich thuoc da ton tai',
+                });
+            }
+            else {
+                const newSize = new size({
+                    ten_kich_thuoc: ten_kich_thuoc,
 
-
+                });
+                size.create(newSize, (err, newSize) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Kich thuoc khong hop le',
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them kich thuoc thanh cong',
+                        size: newSize,
+                    });
+                });
+            }
+        })
     }
     else {
 
@@ -33,12 +45,7 @@ exports.addSize = (req, res) => {
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
 
 

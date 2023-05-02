@@ -5,6 +5,17 @@ class size {
     }
 }
 
+size.findSize = (ten_kich_thuoc, callBack) => {
+    sql.query("SELECT * from kich_thuoc WHERE ten_kich_thuoc = ?", ten_kich_thuoc, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 
 size.create = (newSize, result) => {
     console.log('ceate')

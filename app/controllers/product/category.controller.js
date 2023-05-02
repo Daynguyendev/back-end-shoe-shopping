@@ -4,41 +4,48 @@ exports.addCategory = (req, res) => {
     const { ten_loai_sp } = req.body;
 
     if (ten_loai_sp) {
-        const newCategory = new category({
-            ten_loai_sp: ten_loai_sp,
-
-        });
-        category.create(newCategory, (err, newCategory) => {
+        category.findcategory(ten_loai_sp, (err, result) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Thuong hieu khong hop le',
-                });
-
-
+                    data: 'Mau khong hop le',
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them thuong hieu thanh cong',
-                category: newCategory,
-            });
-        });
+            if (result) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'Mau da ton tai',
+                });
+            }
+            else {
+                const newCategory = new category({
+                    ten_loai_sp: ten_loai_sp,
 
-
+                });
+                category.create(newCategory, (err, newCategory) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Thuong hieu khong hop le',
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them thuong hieu thanh cong',
+                        category: newCategory,
+                    });
+                });
+            }
+        })
     }
     else {
-
         return res.status(400).json({
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
+
 
 
 exports.removeCategory = (req, res) => {

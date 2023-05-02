@@ -5,41 +5,46 @@ exports.addInvoiceInput = (req, res) => {
     const { ten_hoa_don_nhap, tong_tien } = req.body;
 
     if (ten_hoa_don_nhap, tong_tien) {
-        const newInvoice = new invoiceinput({
-            ten_hoa_don_nhap: ten_hoa_don_nhap,
-            tong_tien: tong_tien,
-
-        });
-        invoiceinput.create(newInvoice, (err, newInvoice) => {
+        invoiceinput.findInvoice(ten_hoa_don_nhap, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Hoa don nhap khong hop le',
-                });
-
-
+                    data: 'hoa don nhap khong hop le',
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them hoa don nhap thanh cong',
-                invoice: newInvoice,
-            });
-        });
-
-
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'hoa don nhap da ton tai',
+                });
+            }
+            else {
+                const newInvoice = new invoiceinput({
+                    ten_hoa_don_nhap: ten_hoa_don_nhap,
+                    tong_tien: tong_tien,
+                });
+                invoiceinput.create(newInvoice, (err, newInvoice) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Hoa don nhap khong hop le',
+                        });
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them hoa don nhap thanh cong',
+                        invoice: newInvoice,
+                    });
+                });
+            }
+        })
     }
     else {
-
         return res.status(400).json({
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
 
 

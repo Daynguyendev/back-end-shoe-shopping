@@ -6,6 +6,17 @@ class provider {
     }
 }
 
+provider.findProvider = (ten_nha_cc, callBack) => {
+    sql.query("SELECT * from nha_cung_cap WHERE ten_nha_cc = ?", ten_nha_cc, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 provider.create = (data, callBack) => {
     sql.query(`INSERT INTO nha_cung_cap SET ? `, data, (err, res) => {
         if (err) {

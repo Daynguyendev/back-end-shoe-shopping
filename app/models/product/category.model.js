@@ -6,6 +6,17 @@ class category {
     }
 }
 
+category.findcategory = (ten_loai_sp, callBack) => {
+    sql.query("SELECT * from loai_sp WHERE ten_loai_sp = ?", ten_loai_sp, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 category.create = (data, callBack) => {
     sql.query(`INSERT INTO loai_sp SET ? `, data, (err, res) => {
         if (err) {

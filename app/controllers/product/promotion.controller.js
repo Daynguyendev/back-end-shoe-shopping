@@ -2,32 +2,45 @@ const promotion = require('../../models/product/promotion.model')
 
 exports.addPromotion = (req, res) => {
     const { ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam } = req.body;
-    console.log({ ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam })
     if (ten_khuyen_mai, ngay_bat_dau, ngay_ket_thuc, phan_tram_giam) {
-        const newPromotion = new promotion({
-            ten_khuyen_mai: ten_khuyen_mai,
-            ngay_bat_dau: ngay_bat_dau,
-            ngay_ket_thuc: ngay_ket_thuc,
-            phan_tram_giam: phan_tram_giam,
-
-        });
-        promotion.create(newPromotion, (err, newPromotion) => {
+        promotion.findPromotion(ten_khuyen_mai, (err, newColor) => {
             if (err) {
                 return res.status(400).json({
                     success: 0,
-                    data: 'Ma khuyen mai khong hop le',
-                });
-
-
+                    data: 'Khuyen mai khong hop le',
+                })
             }
-            return res.json({
-                success: 1,
-                message: 'Them khuyen mai thanh cong',
-                promotion: newPromotion,
-            });
-        });
+            if (newColor) {
+                return res.status(400).json({
+                    success: 0,
+                    message: 'khuyen mai da ton tai',
+                });
+            }
+            else {
+                const newPromotion = new promotion({
+                    ten_khuyen_mai: ten_khuyen_mai,
+                    ngay_bat_dau: ngay_bat_dau,
+                    ngay_ket_thuc: ngay_ket_thuc,
+                    phan_tram_giam: phan_tram_giam,
+
+                });
+                promotion.create(newPromotion, (err, newPromotion) => {
+                    if (err) {
+                        return res.status(400).json({
+                            success: 0,
+                            data: 'Ma khuyen mai khong hop le',
+                        });
 
 
+                    }
+                    return res.json({
+                        success: 1,
+                        message: 'Them khuyen mai thanh cong',
+                        promotion: newPromotion,
+                    });
+                });
+            }
+        })
     }
     else {
 
@@ -35,12 +48,7 @@ exports.addPromotion = (req, res) => {
             success: 0,
             data: 'Vui long nhap day du thong tin',
         });
-
-
-
-
     }
-
 };
 
 

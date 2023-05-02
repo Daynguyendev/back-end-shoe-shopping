@@ -6,6 +6,17 @@ class trademark {
     }
 }
 
+trademark.findTrademark = (ten_thuong_hieu, callBack) => {
+    sql.query("SELECT * from thuong_hieu WHERE ten_thuong_hieu = ?", ten_thuong_hieu, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            callBack(err, null);
+            return;
+        }
+        callBack(null, res[0]);
+    });
+};
+
 trademark.create = (data, callBack) => {
     sql.query(`INSERT INTO thuong_hieu SET ? `, data, (err, res) => {
         if (err) {
